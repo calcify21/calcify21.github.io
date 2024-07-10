@@ -1,0 +1,25 @@
+#result1,
+#result2,
+#result3,
+#result4 {
+    text-align: center;
+    display: none;
+}
+
+.upper-part {
+    text-align: center;
+}
+
+.big {
+    font-size: 20px;
+}
+
+#rect_form {
+    display: block;
+}
+
+#sq_form,
+#quad_form,
+#para_form {
+    display: none;
+}

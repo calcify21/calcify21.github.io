@@ -1,0 +1,32 @@
+.myhr {
+    margin: 1rem auto;
+    width: 15%;
+}
+
+#topbtn {
+    display: none;
+    position: fixed;
+    bottom: 55px;
+    right: 30px;
+    border-radius: 50%;
+}
+
+#bottombtn {
+    display: none;
+    position: fixed;
+    bottom: 15px;
+    right: 30px;
+    border-radius: 50%;
+}
+
+.logo {
+    width: 150px;
+}
+
+#adapttheme {
+    --bs-link-hover-color: #802610;
+}
+
+.bold {
+    font-weight: bold;
+}
