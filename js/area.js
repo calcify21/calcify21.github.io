@@ -1,43 +1,25 @@
-// * Find area
-function check() {
-  let select = document.getElementById("select-shape");
-  let selected = select.options[select.selectedIndex].value;
-  if (selected == "rect") {
-    let rect_form = document.getElementById("rect_form");
-    rect_form.style.display = "block";
-    let sq_form = document.getElementById("sq_form");
-    sq_form.style.display = "none";
-    let quad_form = document.getElementById("quad_form");
-    quad_form.style.display = "none";
-    let para_form = document.getElementById("para_form");
-    para_form.style.display = "none";
-  } else if (selected == "sq") {
-    let rect_form = document.getElementById("rect_form");
-    rect_form.style.display = "none";
-    let sq_form = document.getElementById("sq_form");
-    sq_form.style.display = "block";
-    let quad_form = document.getElementById("quad_form");
-    quad_form.style.display = "none";
-    let para_form = document.getElementById("para_form");
-    para_form.style.display = "none";
-  } else if (selected == "quad") {
-    let quad_form = document.getElementById("quad_form");
-    quad_form.style.display = "block";
-    let rect_form = document.getElementById("rect_form");
-    rect_form.style.display = "none";
-    let sq_form = document.getElementById("sq_form");
-    sq_form.style.display = "none";
-    let para_form = document.getElementById("para_form");
-    para_form.style.display = "none";
-  } else if (selected == "para") {
-    let para_form = document.getElementById("para_form");
-    para_form.style.display = "block";
-    let rect_form = document.getElementById("rect_form");
-    rect_form.style.display = "none";
-    let sq_form = document.getElementById("sq_form");
-    sq_form.style.display = "none";
-    let quad_form = document.getElementById("quad_form");
-    quad_form.style.display = "none";
+function toggleCalc(calc) {
+  document.querySelectorAll(".calcs").forEach(calc => {
+    calc.style.display = "none";
+  });
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.classList.remove("active");
+  });
+  if (calc == "rect") {
+    document.getElementById("rect_form").style.display = "block";
+    document.getElementById("rectTab").classList.add("active");
+  }
+  if (calc == "sq") {
+    document.getElementById("sq_form").style.display = "block";
+    document.getElementById("sqTab").classList.add("active");
+  }
+  if (calc == "para") {
+    document.getElementById("para_form").style.display = "block";
+    document.getElementById("paraTab").classList.add("active");
+  }
+  if (calc == "quad") {
+    document.getElementById("quad_form").style.display = "block";
+    document.getElementById("quadTab").classList.add("active");
   }
 }
 

@@ -63,7 +63,7 @@
                 <h2>Area Calculator</h2>
                 <h5>Calculate the area of different shapes and polygons.</h5>
                 <hr class="myhr"><br>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-0 col-md-3"></div>
                     <div class="col col-md-3">
                         <p class="big">
@@ -78,9 +78,37 @@
                             <option value="para">Parallelogram</option>
                         </select>
                     </div>
-                </div><br>
+                </div><br> -->
+                <!-- <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active tab" aria-current="page" onclick="toggleCalc('areaTab')"
+                            id="areaTab">Area</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tab" aria-current="page" onclick="toggleCalc('lengthTab')"
+                            id="lengthTab">Length</a>
+                    </li>
+                </ul><br> -->
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active tab" aria-current="page" href="#" onclick="toggleCalc('rect')"
+                            id="rectTab">Rectangle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('sq')"
+                            id="sqTab">Square</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('quad')"
+                            id="quadTab">Quadrilateral</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('para')"
+                            id="paraTab">Parallelogram</a>
+                    </li>
+                </ul><br>
             </center>
-            <div id="rect_form">
+            <div id="rect_form" class="calcs">
                 <form>
                     <center>
                         <p class="bold">Formula: Area = length x width</p>
@@ -109,7 +137,7 @@
                 </form><br>
                 <div id="result1" class="alert alert-success" role="alert"></div>
             </div>
-            <div id="sq_form">
+            <div id="sq_form" class="calcs">
                 <center>
                     <p class="bold">Formula: Area = side x side</p>
                     <div class="row">
@@ -128,7 +156,7 @@
                 <br>
                 <div id="result2" class="alert alert-success" role="alert"></div>
             </div>
-            <div id="quad_form">
+            <div id="quad_form" class="calcs">
                 <form>
                     <center>
                         <p class="bold">Formula: Area = 1/2 x diagonal x (sum of heights corresponding on the diagonal
@@ -165,7 +193,7 @@
                 </form><br>
                 <div id="result3" class="alert alert-success" role="alert"></div>
             </div>
-            <div id="para_form">
+            <div id="para_form" class="calcs">
                 <form>
                     <center>
                         <p class="bold">Formula: Area = base x corresponding height</p>
