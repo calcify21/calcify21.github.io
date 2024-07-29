@@ -79,4 +79,6 @@ function toggleTheme() {
       html.setAttribute("data-bs-theme", "light");
     }
   }
-}  
+}
+
+window.onload = test();

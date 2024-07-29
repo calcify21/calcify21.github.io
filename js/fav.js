@@ -1,14 +1,19 @@
 function loadFavorites() {
     let favorites = JSON.parse(localStorage.getItem('favorites'));
     let container = document.getElementById('favorites-container');
-    favorites.forEach(id => {
-        let calculatorHtml = generateCalculatorHtml(id);
-        container.innerHTML += calculatorHtml;
-    });
+    if (favorites == undefined || favorites.length == 0) {
+        container.innerHTML = '<div id="result" class="alert alert-danger" role="alert">You do not have any favorite calculators yet. Click on the star icon to add a calculator to your list.</div>';
+    } else {
+        favorites.forEach(id => {
+            let calculatorHtml = generateCalculatorHtml(id);
+            container.innerHTML += calculatorHtml;
+        });
+    }
 }
 
 function generateCalculatorHtml(id) {
     let text = "";
+    firstWord = id.split(" ")[0];
     if (id == 'Prime Number Checker') {
         text = "A calculator to check whether the given number is prime or not."
     } else if (id == 'Percentage Calculator') {
@@ -23,8 +28,7 @@ function generateCalculatorHtml(id) {
                         </div>
                         ${text}
                     </div>
-                    <a href="${id}.html" class="btn btn-outline-primary" target="_blank">Open</a>
+                    <a href="${firstWord.toLowerCase()}.html" class="btn btn-outline-primary">Open</a>
                 </li>`;
 }
-
 window.onload = loadFavorites();
