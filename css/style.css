@@ -1,11 +1,9 @@
-.calc1 {
+.calc-container {
     display: flex;
     justify-content: center;
-    padding: 20px;
-    /* color: #ffffff; */
 }
 
-.calc2 {
+.calc {
     border: 1px solid #717377;
     border-radius: 16px;
     width: auto;
@@ -30,13 +28,12 @@
 }
 
 @media screen and (max-width: 419px) {
-    .calc2 {
+    .calc {
         padding: 5px;
     }
 
     .mybtn {
         margin: 3px !important;
         box-shadow: 0px 0px 5px rgba(21, 53, 72, 0.9);
-        /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.699); */
     }
 }
