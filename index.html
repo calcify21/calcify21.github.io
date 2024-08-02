@@ -66,70 +66,72 @@
                 <div class="calc mb-3">
                     <input type="text" class="form-control form-control-lg txtInput mb-4" id="screen"
                         onkeyup="checksolve(event)" placeholder="0">
-                    <button type="button" class="mybtn btn bg-success-subtle" onclick="clr()">
-                        <i class="fa-solid fa-c fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn bg-success-subtle" onclick="show('^')">
-                        <i class="fa-solid fa-superscript fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn bg-success-subtle" onclick="back()">
-                        <i class="fa-solid fa-delete-left fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn bg-success-subtle" onclick="show('+')">
-                        <i class="fa-solid fa-plus fa-xl"></i>
-                    </button>
-                    <br>
-                    <button type="button" class="mybtn btn" onclick="show('7')">
-                        <i class="fa-solid fa-7 fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn" onclick="show('8')">
-                        <i class="fa-solid fa-8 fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn" onclick="show('9')">
-                        <i class="fa-solid fa-9 fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn bg-success-subtle" onclick="show('*')">
-                        <i class="fa-solid fa-xmark fa-xl"></i>
-                    </button>
-                    <br />
-                    <button type="button" class="mybtn btn" onclick="show('4')">
-                        <i class="fa-solid fa-4 fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn" onclick="show('5')">
-                        <i class="fa-solid fa-5 fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn" onclick="show('6')">
-                        <i class="fa-solid fa-6 fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn bg-success-subtle" onclick="show('-')">
-                        <i class="fa-solid fa-minus fa-xl"></i>
-                    </button>
-                    <br>
-                    <button type="button" class="mybtn btn" onclick="show('1')">
-                        <i class="fa-solid fa-1 fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn" onclick="show('2')">
-                        <i class="fa-solid fa-2 fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn" onclick="show('3')">
-                        <i class="fa-solid fa-3 fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn bg-success-subtle" onclick="show('/')">
-                        <i class="fa-solid fa-divide fa-xl"></i>
-                    </button>
-                    <br />
-                    <button type="button" class="mybtn btn bg-success-subtle" onclick="show('.')">
-                        <i class="fa-solid fa-circle fa-2xs"></i>
-                    </button>
-                    <button type="button" class="mybtn btn bg-success-subtle" onclick="show('0')">
-                        <i class="fa-solid fa-0 fa-xl"></i>
-                    </button>
-                    <button type="button" class="mybtn btn bg-success-subtle" onclick="show('00')">
-                        <i class="fa-solid fa-0 fa-lg"></i>&nbsp;<i class="fa-solid fa-0 fa-lg"></i>
-                    </button>
-                    <button type="button" class="mybtn btn bg-warning" onclick="solve()">
-                        <i class="fa-solid fa-equals fa-xl"></i>
-                    </button>
+                    <div class="grid">
+                        <button type=" button" class="mybtn btn bg-success-subtle" onclick="clr()">
+                            <i class="fa-solid fa-c fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn bg-success-subtle" onclick="show('^')">
+                            <i class="fa-solid fa-superscript fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn bg-success-subtle" onclick="back()">
+                            <i class="fa-solid fa-delete-left fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn bg-success-subtle" onclick="show('+')">
+                            <i class="fa-solid fa-plus fa-xl"></i>
+                        </button>
+                        <br>
+                        <button type="button" class="mybtn btn" onclick="show('7')">
+                            <i class="fa-solid fa-7 fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn" onclick="show('8')">
+                            <i class="fa-solid fa-8 fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn" onclick="show('9')">
+                            <i class="fa-solid fa-9 fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn bg-success-subtle" onclick="show('*')">
+                            <i class="fa-solid fa-xmark fa-xl"></i>
+                        </button>
+                        <br />
+                        <button type="button" class="mybtn btn" onclick="show('4')">
+                            <i class="fa-solid fa-4 fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn" onclick="show('5')">
+                            <i class="fa-solid fa-5 fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn" onclick="show('6')">
+                            <i class="fa-solid fa-6 fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn bg-success-subtle" onclick="show('-')">
+                            <i class="fa-solid fa-minus fa-xl"></i>
+                        </button>
+                        <br>
+                        <button type="button" class="mybtn btn" onclick="show('1')">
+                            <i class="fa-solid fa-1 fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn" onclick="show('2')">
+                            <i class="fa-solid fa-2 fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn" onclick="show('3')">
+                            <i class="fa-solid fa-3 fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn bg-success-subtle" onclick="show('/')">
+                            <i class="fa-solid fa-divide fa-xl"></i>
+                        </button>
+                        <br />
+                        <button type="button" class="mybtn btn bg-success-subtle" onclick="show('.')">
+                            <i class="fa-solid fa-circle fa-2xs"></i>
+                        </button>
+                        <button type="button" class="mybtn btn bg-success-subtle" onclick="show('0')">
+                            <i class="fa-solid fa-0 fa-xl"></i>
+                        </button>
+                        <button type="button" class="mybtn btn bg-success-subtle" onclick="show('00')">
+                            <i class="fa-solid fa-0 fa-lg"></i>&nbsp;<i class="fa-solid fa-0 fa-lg"></i>
+                        </button>
+                        <button type="button" class="mybtn btn bg-warning" onclick="solve()">
+                            <i class="fa-solid fa-equals fa-xl"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
