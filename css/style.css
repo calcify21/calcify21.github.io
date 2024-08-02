@@ -25,9 +25,10 @@
     text-align: right;
 }
 
+/* 
 #equal {
     background-color: orange;
-}
+} */
 
 @media screen and (max-width: 419px) {
     .calc {
