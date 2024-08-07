@@ -9,6 +9,9 @@ function toggleFav(calcName) {
     let starAreaBtn = document.getElementById("starArea")
     fav(starAreaBtn, calcName);
 
+  } else if (calcName == "Average Finder") {
+    let starAverageBtn = document.getElementById("starAverage")
+    fav(starAverageBtn, calcName);
   }
 }
 
@@ -55,6 +58,10 @@ function checkCalc(calcName) {
     star.style.color = "#FFD43B";
   } else if (calcName == "Area Calculator") {
     let star = document.getElementById("starArea")
+    star.classList.replace("fa-regular", "fa-solid");
+    star.style.color = "#FFD43B";
+  } else if (calcName == "Average Finder") {
+    let star = document.getElementById("starAverage")
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";
   }
