@@ -3,14 +3,6 @@
     display: none;
 }
 
-#topbtn {
-    display: none;
-    position: fixed;
-    bottom: 55px;
-    right: 30px;
-    border-radius: 50%;
-}
-
 .top55 {
     top: 55px;
 }

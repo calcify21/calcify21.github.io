@@ -16,7 +16,7 @@ function checkPrime() {
     result.classList.add("alert-success");
     result.classList.remove("alert-danger");
     result.textContent = `${num} is a prime number.`;
-  } else if (num > 1) {
+  } else if (num > 2) {
     result.classList.add("alert-success");
     result.classList.remove("alert-danger");
     for (let i = 2; i < num; i++) {
