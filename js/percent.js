@@ -79,13 +79,13 @@ function check() {
 }
 
 // * Reset the result div when the user clicks on the reset button
-function reset1() {
+function resetbtn1() {
   let result = document.getElementById("result1");
   result.style.display = "none";
 }
 
 // * Reset the result div when the user clicks on the reset button
-function reset2() {
+function resetbtn2() {
   let result = document.getElementById("result2");
   result.style.display = "none";
 }
