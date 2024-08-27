@@ -98,37 +98,3 @@ function checkTheme() {
 }
 
 window.onload = checkTheme();
-
-fetch("navbar.html")
-    .then(response => response.text())
-    .then(data => {
-        document.querySelector("header").innerHTML = data;
-    })
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Get the current page's URL path
-    let currentPage = window.location.pathname.split("/").pop();
-
-    // Treat the root URL as 'index.html'
-    if (currentPage === "") {
-        currentPage = "index.html";
-    }
-
-    // Define a mapping between pages and their corresponding nav links
-    const navLinks = {
-        'index.html': 'home',
-        'about.html': 'about',
-        'calcs..html': 'calculators',
-        'fav.html': 'favourites',
-        'contact.html': 'contact'
-    };
-
-    // Get the id of the link that should be active
-    const activeLinkId = navLinks[currentPage];
-    console.log(activeLinkId);
-
-    // If there's a matching link, add the active class
-    if (activeLinkId) {
-        document.getElementById(activeLinkId).classList.add('active');
-    }
-});
