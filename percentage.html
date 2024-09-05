@@ -69,6 +69,7 @@
                 ways to represent a dimensionless relationship between two numbers; other methods include ratios,
                 fractions, and decimals. Percentages are often denoted by the symbol "%" written after the number.
             </p><br>
+
             <!-- * Percentage of a number -->
             <form>
                 <p class="bold">Calculate the percentage of a number:</p>
@@ -92,6 +93,7 @@
                 </span>
             </form><br>
             <div id="result1" class="alert alert-success" role="alert"></div>
+
             <!-- * Increase or decrease percentage -->
             <form>
                 <p class="bold">Calculate the increased or decreased amount:</p>
@@ -124,6 +126,20 @@
                     class="fa-solid fa-arrow-up"></i></button>
             <button onclick="gotobottom()" id="bottombtn" class="btn btn-warning"><i
                     class="fa-solid fa-arrow-down"></i></button>
+
+            <!-- * Toast -->
+            <div class="toast-container position-fixed end-0 p-3 top55">
+                <div id="liveToast" class="toast text-bg-success border-0" role="alert" aria-live="assertive"
+                    aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            Reset successfully!
+                        </div>
+                        <button type="button" class="btn-close me-2 m-auto btn-close-white" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 

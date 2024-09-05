@@ -42,7 +42,7 @@ function addToFavorites(calculatorId) {
   localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
-function test() {
+function checkFav() {
   let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
   favorites.forEach(checkCalc);
 }
@@ -88,4 +88,27 @@ function toggleTheme() {
   }
 }
 
-window.onload = test();
+function removeAllFavorites() {
+  localStorage.removeItem('favorites')
+  let stars = document.querySelectorAll(".fa-star");
+  stars.forEach(star => {
+    star.classList.replace("fa-solid", "fa-regular");
+    if (document.querySelector("html").getAttribute("data-bs-theme") == "dark") {
+      star.style.color = "#dee2e6";
+    } else {
+      star.style.color = "#212529";
+    }
+  });
+}
+
+const toastTrigger = document.getElementById('rem')
+const toastLiveExample = document.getElementById('liveToast')
+
+if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
+
+window.onload = checkFav();

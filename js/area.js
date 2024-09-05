@@ -137,3 +137,37 @@ function reset_para() {
   let resultdiv = document.getElementById("result4");
   resultdiv.style.display = "none";
 }
+
+const toastTrigger = document.getElementById('reset1')
+const toastTrigger2 = document.getElementById('reset2')
+const toastTrigger3 = document.getElementById('reset3')
+const toastTrigger4 = document.getElementById('reset4')
+const toastLiveExample = document.getElementById('liveToast')
+
+if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
+
+if (toastTrigger2) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger2.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
+
+if (toastTrigger3) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger3.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
+
+if (toastTrigger4) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger4.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}

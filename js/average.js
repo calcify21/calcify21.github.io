@@ -64,3 +64,13 @@ function resetFields() {
     const result = document.getElementById("result");
     result.style.display = "none";
 }
+
+const toastTrigger = document.getElementById('reset1')
+const toastLiveExample = document.getElementById('liveToast')
+
+if (toastTrigger) {
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+    toastTrigger.addEventListener('click', () => {
+        toastBootstrap.show()
+    })
+}

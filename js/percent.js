@@ -89,3 +89,21 @@ function resetbtn2() {
   let result = document.getElementById("result2");
   result.style.display = "none";
 }
+
+const toastTrigger = document.getElementById('reset1')
+const toastTrigger2 = document.getElementById('reset2')
+const toastLiveExample = document.getElementById('liveToast')
+
+if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
+
+if (toastTrigger2) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger2.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
