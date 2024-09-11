@@ -59,9 +59,9 @@
     </header>
     <main>
         <div class="container">
-            <center>
+            <div class="center">
                 <h2>Area Calculator</h2>
-                <h5>Calculate the area of different shapes and polygons.</h5>
+                <!-- <h5>Calculate the area of different shapes and polygons.</h5> -->
                 <hr class="myhr"><br>
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
@@ -81,10 +81,10 @@
                             id="paraTab">Parallelogram</a>
                     </li>
                 </ul><br>
-            </center>
+            </div>
             <div id="rect_form" class="calcs">
                 <form>
-                    <center>
+                    <div class="center">
                         <p class="bold">Formula: Area = length x width</p>
                         <div class="row">
                             <div class="col">
@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                         </div>
-                    </center>
+                    </div>
                     <span>
                         <button type="button" class="btn btn-outline-success" onclick="arearect()"><a href="#result1"
                                 class="no-underline">Calculate</a></button>
@@ -110,10 +110,10 @@
                             id="reset1">Reset</button>
                     </span><br>
                 </form><br>
-                <div id="result1" class="alert alert-success" role="alert"></div>
+                <div id="result1" class="alert alert-success center" role="alert"></div>
             </div>
             <div id="sq_form" class="calcs">
-                <center>
+                <div class="center">
                     <p class="bold">Formula: Area = side x side</p>
                     <div class="row">
                         <div class="col">
@@ -123,103 +123,106 @@
                                 <label for="side">Side</label>
                             </div>
                         </div>
-                </center>
-                <span>
-                    <button type="button" class="btn btn-outline-success" onclick="areasq()"><a href="#result2"
-                            class="no-underline">Calculate</a></button>
-                    <button type="button" class="btn btn-outline-dark" onclick="reset_sq()" id="reset2">Reset</button>
-                </span><br>
-                <br>
-                <div id="result2" class="alert alert-success" role="alert"></div>
-            </div>
-            <div id="quad_form" class="calcs">
-                <form>
-                    <center>
-                        <p class="bold">Formula: Area = 1/2 x diagonal x (sum of heights corresponding on the diagonal
-                            from each side)</p>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="diagonal" placeholder="diagonal"
-                                        onkeyup="checksolve3(event)">
-                                    <label for="diagonal">Diagonal</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="height1" placeholder="height1"
-                                        onkeyup="checksolve3(event)">
-                                    <label for="height1">Height 1</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="height2" placeholder="height2"
-                                        onkeyup="checksolve3(event)">
-                                    <label for="height2">Height 2</label>
-                                </div>
-                            </div>
-                        </div>
-                    </center>
-                    <span>
-                        <button type="button" class="btn btn-outline-success" onclick="areaquad()"><a href="#result3"
-                                class="no-underline">Calculate</a></button>
-                        <button type="reset" class="btn btn-outline-dark" onclick="reset_quad()"
-                            id="reset3">Reset</button>
-                    </span><br>
-                </form><br>
-                <div id="result3" class="alert alert-success" role="alert"></div>
-            </div>
-            <div id="para_form" class="calcs">
-                <form>
-                    <center>
-                        <p class="bold">Formula: Area = base x corresponding height</p>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="base" placeholder="base"
-                                        onkeyup="checksolve4(event)">
-                                    <label for="base">Base</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="h" placeholder="height"
-                                        onkeyup="checksolve4(event)">
-                                    <label for="h">Height</label>
-                                </div>
-                            </div>
-                        </div>
-                    </center>
-                    <span>
-                        <button type="button" class="btn btn-outline-success" onclick="areapara()"><a href="#result4"
-                                class="no-underline">Calculate</a></button>
-                        <button type="reset" class="btn btn-outline-dark" onclick="reset_para()"
-                            id="reset4">Reset</button>
-                    </span><br>
-                </form><br>
-                <div id="result4" class="alert alert-success" role="alert"></div>
-            </div>
-        </div>
-
-        <!-- Go to top and bottom buttons -->
-        <button onclick="gototop()" id="topbtn" class="btn btn-warning"><i class="fa-solid fa-arrow-up"></i></button>
-        <button onclick="gotobottom()" id="bottombtn" class="btn btn-warning"><i
-                class="fa-solid fa-arrow-down"></i></button>
-
-        <!-- * Toast -->
-        <div class="toast-container position-fixed end-0 p-3 top55">
-            <div id="liveToast" class="toast text-bg-success border-0" role="alert" aria-live="assertive"
-                aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        Reset successfully!
                     </div>
-                    <button type="button" class="btn-close me-2 m-auto btn-close-white" data-bs-dismiss="toast"
-                        aria-label="Close"></button>
+                    <span>
+                        <button type="button" class="btn btn-outline-success" onclick="areasq()"><a href="#result2"
+                                class="no-underline">Calculate</a></button>
+                        <button type="button" class="btn btn-outline-dark" onclick="reset_sq()"
+                            id="reset2">Reset</button>
+                    </span><br>
+                    <br>
+                    <div id="result2" class="alert alert-success center" role="alert"></div>
+                </div>
+                <div id="quad_form" class="calcs">
+                    <form>
+                        <div class="center">
+                            <p class="bold">Formula: Area = 1/2 x diagonal x (sum of heights corresponding on the
+                                diagonal
+                                from each side)</p>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="diagonal" placeholder="diagonal"
+                                            onkeyup="checksolve3(event)">
+                                        <label for="diagonal">Diagonal</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="height1" placeholder="height1"
+                                            onkeyup="checksolve3(event)">
+                                        <label for="height1">Height 1</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="height2" placeholder="height2"
+                                            onkeyup="checksolve3(event)">
+                                        <label for="height2">Height 2</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span>
+                            <button type="button" class="btn btn-outline-success" onclick="areaquad()"><a
+                                    href="#result3" class="no-underline">Calculate</a></button>
+                            <button type="reset" class="btn btn-outline-dark" onclick="reset_quad()"
+                                id="reset3">Reset</button>
+                        </span><br>
+                    </form><br>
+                    <div id="result3" class="alert alert-success center" role="alert"></div>
+                </div>
+                <div id="para_form" class="calcs">
+                    <form>
+                        <div class="center">
+                            <p class="bold">Formula: Area = base x corresponding height</p>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="base" placeholder="base"
+                                            onkeyup="checksolve4(event)">
+                                        <label for="base">Base</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="h" placeholder="height"
+                                            onkeyup="checksolve4(event)">
+                                        <label for="h">Height</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span>
+                            <button type="button" class="btn btn-outline-success" onclick="areapara()"><a
+                                    href="#result4" class="no-underline">Calculate</a></button>
+                            <button type="reset" class="btn btn-outline-dark" onclick="reset_para()"
+                                id="reset4">Reset</button>
+                        </span><br>
+                    </form><br>
+                    <div id="result4" class="alert alert-success center" role="alert"></div>
                 </div>
             </div>
-        </div>
+
+            <!-- Go to top and bottom buttons -->
+            <button onclick="gototop()" id="topbtn" class="btn btn-warning"><i
+                    class="fa-solid fa-arrow-up"></i></button>
+            <button onclick="gotobottom()" id="bottombtn" class="btn btn-warning"><i
+                    class="fa-solid fa-arrow-down"></i></button>
+
+            <!-- * Toast -->
+            <div class="toast-container position-fixed end-0 p-3 top55">
+                <div id="liveToast" class="toast text-bg-success border-0" role="alert" aria-live="assertive"
+                    aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            Reset successfully!
+                        </div>
+                        <button type="button" class="btn-close me-2 m-auto btn-close-white" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
     </main>
 
     <!-- Scripts -->

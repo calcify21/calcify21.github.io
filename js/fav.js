@@ -2,7 +2,7 @@ function loadFavorites() {
     let favorites = JSON.parse(localStorage.getItem('favorites'));
     let container = document.getElementById('favorites-container');
     if (favorites == undefined || favorites.length == 0) {
-        container.innerHTML = '<div id="result" class="alert alert-warning" role="alert">You do not have any favorite calculators yet. Click on the star icon on the <a href="calcs.html" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">calculators page</a> to add a calculator to your list.</div>';
+        container.innerHTML = '<div class="center alert alert-warning" role="alert">You do not have any favorite calculators yet. Click on the star icon on the <a href="calcs.html" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">calculators page</a> to add a calculator to your list.</div>';
     } else {
         favorites.forEach(id => {
             let calculatorHtml = generateCalculatorHtml(id);

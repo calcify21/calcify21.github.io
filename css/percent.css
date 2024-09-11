@@ -1,6 +1,5 @@
 #result1,
 #result2 {
-    text-align: center;
     display: none;
 }
 
@@ -15,12 +14,6 @@
     background-repeat: no-repeat;
     padding-right: 20px !important;
 }
-
-.upper-part {
-    text-align: center;
-}
-
-
 
 .top55 {
     top: 55px;
