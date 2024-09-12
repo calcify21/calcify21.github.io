@@ -67,44 +67,19 @@ function checkCalc(calcName) {
   }
 }
 
-function toggleTheme() {
-  let select = document.getElementById("select-menu");
-  let selected = select.options[select.selectedIndex].value;
-  let html = document.querySelector("html");
-
-  if (selected == "light") {
-    html.setAttribute("data-bs-theme", "light");
-
-  } else if (selected == "dark") {
-    html.setAttribute("data-bs-theme", "dark");
-  } else {
-    date = new Date();
-    let time = date.getHours();
-    if (time >= 19) {
-      html.setAttribute("data-bs-theme", "dark");
-    } else {
-      html.setAttribute("data-bs-theme", "light");
-    }
-  }
-}
-
 function removeAllFavorites() {
   localStorage.removeItem('favorites')
   let stars = document.querySelectorAll(".fa-star");
   stars.forEach(star => {
     star.classList.replace("fa-solid", "fa-regular");
-    if (document.querySelector("html").getAttribute("data-bs-theme") == "dark") {
-      star.style.color = "#dee2e6";
-    } else {
-      star.style.color = "#212529";
-    }
+    star.style.color = "";
   });
 }
 
 const toastTrigger = document.getElementById('rem')
 const toastLiveExample = document.getElementById('liveToast')
 
-if (toastTrigger) {
+if (document.querySelector("#rem")) {
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
   toastTrigger.addEventListener('click', () => {
     toastBootstrap.show()
