@@ -2,6 +2,7 @@
     display: none;
 }
 
-.top55 {
+.toastContainer {
     top: 55px;
+    width: 200px;
 }

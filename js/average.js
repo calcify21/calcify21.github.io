@@ -1,5 +1,5 @@
 function addField() {
-    const newInputCount = document.getElementsByClassName("num-input").length + 1
+    const newInputCount = document.getElementsByClassName("num-input").length + 1;
     // * Row
     const newInput = document.createElement("div");
     newInput.className = "row";
@@ -35,9 +35,14 @@ function addField() {
     newInput.appendChild(newCol2);
     newCol2.appendChild(newRemoveBtn);
     // * Event Listener for Remove Button
-    newRemoveBtn.addEventListener("click", function () {
+    newRemoveBtn.addEventListener("click", function(event) {
+        event.preventDefault();
         newInput.remove();
-    })
+    });
+// }
+
+// function removeField(newInput) {
+//     newInput.remove();
 }
 
 function findAverage() {
@@ -51,26 +56,35 @@ function findAverage() {
         if (!isNaN(num)) {
             sum += num;
             count++;
-            result.classList.replace("alert-danger", "alert-success")
+            result.classList.replace("alert-danger", "alert-success");
             result.textContent = `The average is ${sum / count}`;
         } else {
             result.textContent = "Please enter valid numbers.";
-            result.classList.replace("alert-success", "alert-danger")
+            result.classList.replace("alert-success", "alert-danger");
         }
     }
 }
 
 function resetFields() {
     const result = document.getElementById("result");
+    const inputContainer = document.getElementById("input-container");
     result.style.display = "none";
+    inputContainer.innerHTML = `<div class="form-floating mb-3">
+                        <input type="number" class="form-control num-input" placeholder="Enter number 1" id="num1">
+                        <label for="num1">Number 1</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control num-input" placeholder="Enter number 2" id="num2">
+                        <label for="num2">Number 2</label>
+                    </div>`;
 }
 
-const toastTrigger = document.getElementById('reset1')
-const toastLiveExample = document.getElementById('liveToast')
+const toastTrigger = document.getElementById("reset1");
+const toastLiveExample = document.getElementById("liveToast");
 
 if (toastTrigger) {
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-    toastTrigger.addEventListener('click', () => {
-        toastBootstrap.show()
-    })
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+    toastTrigger.addEventListener("click", () => {
+        toastBootstrap.show();
+    });
 }

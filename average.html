@@ -76,9 +76,9 @@
                     </div>
                 </div>
                 <button class="btn btn-outline-success" onclick="findAverage()"><a href="#result"
-                        class="no-underline">Find
+                        class="no-underline" type="button">Find
                         Average</a></button>
-                <button class="btn btn-outline-primary" onclick="addField()">Add Another Field</button>
+                <button class="btn btn-outline-primary" onclick="addField()" type="button">Add Another Field</button>
                 <button class="btn btn-outline-dark" id="reset1" type="reset" onclick="resetFields()">Reset</button>
                 <br><br>
                 <div id="result" class="alert alert-success center" role="alert"></div>
@@ -91,7 +91,7 @@
                 class="fa-solid fa-arrow-down"></i></button>
 
         <!-- * Toast -->
-        <div class="toast-container position-fixed end-0 p-3 top55">
+        <div class="toast-container position-fixed end-0 p-3 toastContainer">
             <div id="liveToast" class="toast text-bg-success border-0" role="alert" aria-live="assertive"
                 aria-atomic="true">
                 <div class="d-flex">
