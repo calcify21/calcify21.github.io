@@ -1,7 +1,8 @@
 #result1,
 #result2,
 #result3,
-#result4 {
+#result4,
+#result5 {
     display: none;
 }
 
@@ -15,7 +16,8 @@
 
 #sq_form,
 #quad_form,
-#para_form {
+#para_form,
+#tri_form {
     display: none;
 }
 

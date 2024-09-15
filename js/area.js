@@ -21,7 +21,12 @@ function toggleCalc(calc) {
     document.getElementById("quad_form").style.display = "block";
     document.getElementById("quadTab").classList.add("active");
   }
+  if (calc == "tri") {
+    document.getElementById("tri_form").style.display = "block";
+    document.getElementById("triTab").classList.add("active");
+  }
 }
+
 
 function arearect() {
   let length = document.getElementById("length").value;
@@ -56,6 +61,24 @@ function areapara() {
     resultdiv.classList.remove("alert-danger");
     let area = base * height;
     resultdiv.textContent = `The area of the parallelogram is ${area} square units.`;
+  }
+}
+
+function areatri() {
+  let base = document.getElementById("base2").value;
+  let height = document.getElementById("h2").value;
+  let resultdiv = document.getElementById("result5");
+  resultdiv.style.display = "block";
+  if (base == "" || height == "") {
+    resultdiv.classList.remove("alert-success");
+    resultdiv.classList.add("alert-danger");
+    resultdiv.textContent =
+      "Please enter the base and height of the triangle correctly.";
+  } else {
+    resultdiv.classList.add("alert-success");
+    resultdiv.classList.remove("alert-danger");
+    let area = base * height * 0.5;
+    resultdiv.textContent = `The area of the triangle is ${area} square units.`;
   }
 }
 
@@ -116,6 +139,12 @@ function checksolve4(event) {
   }
 }
 
+function checksolve5(event) {
+  if (event.keyCode == 13) {
+    areatri();
+  }
+}
+
 function reset_sq() {
   let side = document.getElementById("side");
   let resultdiv = document.getElementById("result2");
@@ -138,10 +167,16 @@ function reset_para() {
   resultdiv.style.display = "none";
 }
 
+function reset_tri() {
+  let resultdiv = document.getElementById("result5");
+  resultdiv.style.display = "none";
+}
+
 const toastTrigger = document.getElementById('reset1')
 const toastTrigger2 = document.getElementById('reset2')
 const toastTrigger3 = document.getElementById('reset3')
 const toastTrigger4 = document.getElementById('reset4')
+const toastTrigger5 = document.getElementById('reset5')
 const toastLiveExample = document.getElementById('liveToast')
 
 if (toastTrigger) {
@@ -168,6 +203,13 @@ if (toastTrigger3) {
 if (toastTrigger4) {
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
   toastTrigger4.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
+
+if (toastTrigger5) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger5.addEventListener('click', () => {
     toastBootstrap.show()
   })
 }

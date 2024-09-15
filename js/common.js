@@ -30,19 +30,21 @@ function gotobottom() {
     document.documentElement.scrollTop = document.documentElement.scrollHeight; // For Chrome, Firefox, IE and Opera
 }
 
-function setLightTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4) {
+function setLightTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4, resetbtn5) {
     html.setAttribute("data-bs-theme", "light");
     resetbtn1.classList.replace("btn-outline-light", "btn-outline-dark");
     resetbtn2.classList.replace("btn-outline-light", "btn-outline-dark");
     resetbtn3.classList.replace("btn-outline-light", "btn-outline-dark");
     resetbtn4.classList.replace("btn-outline-light", "btn-outline-dark");
+    resetbtn5.classList.replace("btn-outline-light", "btn-outline-dark");
 }
-function setDarkTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4) {
+function setDarkTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4, resetbtn5) {
     html.setAttribute("data-bs-theme", "dark");
     resetbtn1.classList.replace("btn-outline-dark", "btn-outline-light");
     resetbtn2.classList.replace("btn-outline-dark", "btn-outline-light");
     resetbtn3.classList.replace("btn-outline-dark", "btn-outline-light");
     resetbtn4.classList.replace("btn-outline-dark", "btn-outline-light");
+    resetbtn5.classList.replace("btn-outline-dark", "btn-outline-light");
 }
 
 // Toggle theme
@@ -54,20 +56,21 @@ function toggleTheme() {
     let resetbtn2 = document.getElementById("reset2");
     let resetbtn3 = document.getElementById("reset3");
     let resetbtn4 = document.getElementById("reset4");
+    let resetbtn5 = document.getElementById("reset5");
     if (selected == "light") {
         sessionStorage.setItem("theme", "light");
-        setLightTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4);
+        setLightTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4, resetbtn5);
     } else if (selected == "dark") {
         sessionStorage.setItem("theme", "dark");
-        setDarkTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4);
+        setDarkTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4, resetbtn5);
     } else {
         sessionStorage.setItem("theme", "auto");
         let date = new Date();
         let time = date.getHours();
         if (time >= 19) {
-            setDarkTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4);
+            setDarkTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4, resetbtn5);
         } else {
-            setLightTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4);
+            setLightTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4, resetbtn5);
         }
     }
 }
@@ -79,20 +82,21 @@ function checkTheme() {
     let resetbtn2 = document.getElementById("reset2");
     let resetbtn3 = document.getElementById("reset3");
     let resetbtn4 = document.getElementById("reset4");
+    let resetbtn5 = document.getElementById("reset5");
     if (theme == "light") {
         document.querySelector("#select-menu").selectedIndex = 0;
-        setLightTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4);
+        setLightTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4, resetbtn5);
     } else if (theme == "dark") {
         document.querySelector("#select-menu").selectedIndex = 1;
-        setDarkTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4);
+        setDarkTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4, resetbtn5);
     } else if (theme == "auto") {
         let date = new Date();
         let time = date.getHours();
         document.querySelector("#select-menu").selectedIndex = 2;
         if (time >= 19) {
-            setDarkTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4);
+            setDarkTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4, resetbtn5);
         } else {
-            setLightTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4);
+            setLightTheme(html, resetbtn1, resetbtn2, resetbtn3, resetbtn4, resetbtn5);
         }
     }
 }
