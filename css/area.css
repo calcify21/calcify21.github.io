@@ -2,7 +2,8 @@
 #result2,
 #result3,
 #result4,
-#result5 {
+#result5,
+#result6 {
     display: none;
 }
 
@@ -17,7 +18,8 @@
 #sq_form,
 #quad_form,
 #para_form,
-#tri_form {
+#tri_form,
+#circle_form {
     display: none;
 }
 

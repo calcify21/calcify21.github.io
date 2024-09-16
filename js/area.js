@@ -21,9 +21,9 @@ function toggleCalc(calc) {
     document.getElementById("quad_form").style.display = "block";
     document.getElementById("quadTab").classList.add("active");
   }
-  if (calc == "tri") {
-    document.getElementById("tri_form").style.display = "block";
-    document.getElementById("triTab").classList.add("active");
+  if (calc == "circle") {
+    document.getElementById("circle_form").style.display = "block";
+    document.getElementById("circleTab").classList.add("active");
   }
 }
 
@@ -115,6 +115,22 @@ function areaquad() {
   }
 }
 
+function areacircle() {
+  let r = document.getElementById("radius").value;
+  let resultdiv = document.getElementById("result6");
+  resultdiv.style.display = "block";
+  if (r == "") {
+    resultdiv.classList.remove("alert-success");
+    resultdiv.classList.add("alert-danger");
+    resultdiv.textContent = "Please enter the radius of the circle correctly.";
+  } else {
+    resultdiv.classList.add("alert-success");
+    resultdiv.classList.remove("alert-danger");
+    let area = r * r * Math.PI;
+    resultdiv.textContent = `The area of the circle is ${area} square units.`;
+  }
+}
+
 function checksolve1(event) {
   if (event.keyCode == 13) {
     arearect();
@@ -145,6 +161,12 @@ function checksolve5(event) {
   }
 }
 
+function checksolve6(event) {
+  if (event.keyCode == 13) {
+    areacircle();
+  }
+}
+
 function reset_sq() {
   let side = document.getElementById("side");
   let resultdiv = document.getElementById("result2");
@@ -172,11 +194,17 @@ function reset_tri() {
   resultdiv.style.display = "none";
 }
 
+function reset_circle() {
+  let resultdiv = document.getElementById("result6");
+  resultdiv.style.display = "none";
+}
+
 const toastTrigger = document.getElementById('reset1')
 const toastTrigger2 = document.getElementById('reset2')
 const toastTrigger3 = document.getElementById('reset3')
 const toastTrigger4 = document.getElementById('reset4')
 const toastTrigger5 = document.getElementById('reset5')
+const toastTrigger6 = document.getElementById('reset6')
 const toastLiveExample = document.getElementById('liveToast')
 
 if (toastTrigger) {
@@ -210,6 +238,13 @@ if (toastTrigger4) {
 if (toastTrigger5) {
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
   toastTrigger5.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
+
+if (toastTrigger6) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger6.addEventListener('click', () => {
     toastBootstrap.show()
   })
 }

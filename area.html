@@ -84,6 +84,10 @@
                         <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('tri')"
                             id="triTab">Triangle</a>
                     </li>
+                    <li class="nav-item"></li>
+                    <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('circle')"
+                        id="circleTab">Circle</a>
+                    </li>
                 </ul><br>
             </div>
             <div id="rect_form" class="calcs">
@@ -237,26 +241,25 @@
                 </form><br>
                 <div id="result5" class="alert alert-success center" role="alert"></div>
             </div>
-        </div>
-
-        <!-- Go to top and bottom buttons -->
-        <button onclick="gototop()" id="topbtn" class="btn btn-warning"><i class="fa-solid fa-arrow-up"></i></button>
-        <button onclick="gotobottom()" id="bottombtn" class="btn btn-warning"><i
-                class="fa-solid fa-arrow-down"></i></button>
-
-        <!-- * Toast -->
-        <div class="toast-container position-fixed end-0 p-3 toastContainer">
-            <div id="liveToast" class="toast text-bg-success border-0" role="alert" aria-live="assertive"
-                aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        Reset successfully!
+            <div id="circle_form" class="calcs">
+                <form>
+                    <div class="center">
+                        <p class="bold">Formula: Area = &pi; x radius x radius</p>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="radius" placeholder="radius"
+                                onkeyup="checksolve6(event)">
+                            <label for="radius">Radius</label>
+                        </div>
                     </div>
-                    <button type="button" class="btn-close me-2 m-auto btn-close-white" data-bs-dismiss="toast"
-                        aria-label="Close"></button>
-                </div>
+                    <span>
+                        <button type="button" class="btn btn-outline-success" onclick="areacircle()"><a href="#result6"
+                                class="no-underline">Calculate</a></button>
+                        <button type="reset" class="btn btn-outline-dark" onclick="reset_circle()"
+                            id="reset6">Reset</button>
+                    </span><br>
+                </form><br>
+                <div id="result6" class="alert alert-success center" role="alert"></div>
             </div>
-        </div>
         </div>
     </main>
 
