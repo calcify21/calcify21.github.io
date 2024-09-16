@@ -25,6 +25,10 @@ function toggleCalc(calc) {
     document.getElementById("circle_form").style.display = "block";
     document.getElementById("circleTab").classList.add("active");
   }
+  if (calc == "tri") {
+    document.getElementById("tri_form").style.display = "block";
+    document.getElementById("triTab").classList.add("active");
+  }
 }
 
 

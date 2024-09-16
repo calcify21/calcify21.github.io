@@ -2,15 +2,15 @@
 <html lang="en" data-bs-theme="light">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calcify | Area Calculator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/area.css">
-    <link rel="stylesheet" href="css/common.css">
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/area.css" />
+    <link rel="stylesheet" href="css/common.css" />
     <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="assets/images/calculator-solid.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/images/calculator-solid.svg" type="image/x-icon" />
 </head>
 
 <body>
@@ -19,7 +19,7 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.html">
-                    <img src="assets/images/logo.png" class="logo">
+                    <img src="assets/images/logo.png" class="logo" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -55,14 +55,15 @@
                 </div>
             </div>
         </nav>
-        <br>
+        <br />
     </header>
     <main>
         <div class="container">
             <div class="center">
                 <h2>Area Calculator</h2>
                 <!-- <h5>Calculate the area of different shapes and polygons.</h5> -->
-                <hr class="myhr"><br>
+                <hr class="myhr" />
+                <br />
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a class="nav-link active tab" aria-current="page" href="#" onclick="toggleCalc('rect')"
@@ -84,11 +85,12 @@
                         <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('tri')"
                             id="triTab">Triangle</a>
                     </li>
-                    <li class="nav-item"></li>
-                    <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('circle')"
-                        id="circleTab">Circle</a>
+                    <li class="nav-item">
+                        <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('circle')"
+                            id="circleTab">Circle</a>
                     </li>
-                </ul><br>
+                </ul>
+                <br />
             </div>
             <div id="rect_form" class="calcs">
                 <form>
@@ -97,27 +99,29 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="length" placeholder="Length"
-                                        onkeyup="checksolve1(event)">
+                                    <input type="number" class="form-control" id="length" placeholder="l"
+                                        onkeyup="checksolve1(event)" />
                                     <label for="length">Length</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="width" placeholder="Length"
-                                        onkeyup="checksolve1(event)">
+                                    <input type="number" class="form-control" id="width" placeholder="w"
+                                        onkeyup="checksolve1(event)" />
                                     <label for="width">Width</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <span>
-                        <button type="button" class="btn btn-outline-success" onclick="arearect()"><a href="#result1"
-                                class="no-underline">Calculate</a></button>
-                        <button type="reset" class="btn btn-outline-dark" onclick="reset_rect()"
-                            id="reset1">Reset</button>
-                    </span><br>
-                </form><br>
+                        <button type="button" class="btn btn-outline-success" onclick="arearect()">
+                            <a href="#result1" class="no-underline">Calculate</a>
+                        </button>
+                        <button type="reset" class="btn btn-outline-dark" onclick="reset_rect()" id="reset1">
+                            Reset
+                        </button> </span><br />
+                </form>
+                <br />
                 <div id="result1" class="alert alert-success center" role="alert"></div>
             </div>
             <div id="sq_form" class="calcs">
@@ -127,58 +131,60 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="side" placeholder="side"
-                                onkeyup="checksolve2(event)">
+                            <input type="number" class="form-control" id="side" placeholder="s"
+                                onkeyup="checksolve2(event)" />
                             <label for="side">Side</label>
                         </div>
                     </div>
                 </div>
                 <span>
-                    <button type="button" class="btn btn-outline-success" onclick="areasq()"><a href="#result2"
-                            class="no-underline">Calculate</a></button>
-                    <button type="button" class="btn btn-outline-dark" onclick="reset_sq()" id="reset2">Reset</button>
-                </span><br>
-                <br>
+                    <button type="button" class="btn btn-outline-success" onclick="areasq()">
+                        <a href="#result2" class="no-underline">Calculate</a>
+                    </button>
+                    <button type="button" class="btn btn-outline-dark" onclick="reset_sq()"
+                        id="reset2">Reset</button></span><br />
+                <br />
                 <div id="result2" class="alert alert-success center" role="alert"></div>
-
             </div>
             <div id="quad_form" class="calcs">
                 <form>
                     <div class="center">
-                        <p class="bold">Formula: Area = 1/2 x diagonal x (sum of heights corresponding on the
-                            diagonal
-                            from each side)</p>
+                        <p class="bold">
+                            Formula: Area = 1/2 x diagonal x (sum of heights corresponding
+                            on the diagonal from each side)
+                        </p>
                         <div class="row">
                             <div class="col">
                                 <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="diagonal" placeholder="diagonal"
-                                        onkeyup="checksolve3(event)">
+                                    <input type="number" class="form-control" id="diagonal" placeholder="d"
+                                        onkeyup="checksolve3(event)" />
                                     <label for="diagonal">Diagonal</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="height1" placeholder="height1"
-                                        onkeyup="checksolve3(event)">
+                                    <input type="number" class="form-control" id="height1" placeholder="h1"
+                                        onkeyup="checksolve3(event)" />
                                     <label for="height1">Height 1</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="height2" placeholder="height2"
-                                        onkeyup="checksolve3(event)">
+                                    <input type="number" class="form-control" id="height2" placeholder="h2"
+                                        onkeyup="checksolve3(event)" />
                                     <label for="height2">Height 2</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <span>
-                        <button type="button" class="btn btn-outline-success" onclick="areaquad()"><a href="#result3"
-                                class="no-underline">Calculate</a></button>
+                        <button type="button" class="btn btn-outline-success" onclick="areaquad()">
+                            <a href="#result3" class="no-underline">Calculate</a>
+                        </button>
                         <button type="reset" class="btn btn-outline-dark" onclick="reset_quad()"
-                            id="reset3">Reset</button>
-                    </span><br>
-                </form><br>
+                            id="reset3">Reset</button></span><br />
+                </form>
+                <br />
                 <div id="result3" class="alert alert-success center" role="alert"></div>
             </div>
             <div id="para_form" class="calcs">
@@ -188,27 +194,29 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="base" placeholder="base"
-                                        onkeyup="checksolve4(event)">
+                                    <input type="number" class="form-control" id="base" placeholder="b"
+                                        onkeyup="checksolve4(event)" />
                                     <label for="base">Base</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating mb-3">
                                     <input type="number" class="form-control" id="h" placeholder="height"
-                                        onkeyup="checksolve4(event)">
+                                        onkeyup="checksolve4(event)" />
                                     <label for="h">Height</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <span>
-                        <button type="button" class="btn btn-outline-success" onclick="areapara()"><a href="#result4"
-                                class="no-underline">Calculate</a></button>
-                        <button type="reset" class="btn btn-outline-dark" onclick="reset_para()"
-                            id="reset4">Reset</button>
-                    </span><br>
-                </form><br>
+                        <button type="button" class="btn btn-outline-success" onclick="areapara()">
+                            <a href="#result4" class="no-underline">Calculate</a>
+                        </button>
+                        <button type="reset" class="btn btn-outline-dark" onclick="reset_para()" id="reset4">
+                            Reset
+                        </button></span><br />
+                </form>
+                <br />
                 <div id="result4" class="alert alert-success center" role="alert"></div>
             </div>
             <div id="tri_form" class="calcs">
@@ -219,26 +227,28 @@
                             <div class="col">
                                 <div class="form-floating mb-3">
                                     <input type="number" class="form-control" id="base2" placeholder="base"
-                                        onkeyup="checksolve5(event)">
+                                        onkeyup="checksolve5(event)" />
                                     <label for="base">Base</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating mb-3">
                                     <input type="number" class="form-control" id="h2" placeholder="height"
-                                        onkeyup="checksolve5(event)">
+                                        onkeyup="checksolve5(event)" />
                                     <label for="h">Height</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <span>
-                        <button type="button" class="btn btn-outline-success" onclick="areatri()"><a href="#result5"
-                                class="no-underline">Calculate</a></button>
-                        <button type="reset" class="btn btn-outline-dark" onclick="reset_tri()"
-                            id="reset5">Reset</button>
-                    </span><br>
-                </form><br>
+                        <button type="button" class="btn btn-outline-success" onclick="areatri()">
+                            <a href="#result5" class="no-underline">Calculate</a>
+                        </button>
+                        <button type="reset" class="btn btn-outline-dark" onclick="reset_tri()" id="reset5">
+                            Reset
+                        </button></span><br />
+                </form>
+                <br />
                 <div id="result5" class="alert alert-success center" role="alert"></div>
             </div>
             <div id="circle_form" class="calcs">
@@ -246,18 +256,20 @@
                     <div class="center">
                         <p class="bold">Formula: Area = &pi; x radius x radius</p>
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="radius" placeholder="radius"
-                                onkeyup="checksolve6(event)">
+                            <input type="number" class="form-control" id="r" placeholder="radius"
+                                onkeyup="checksolve6(event)" />
                             <label for="radius">Radius</label>
                         </div>
                     </div>
                     <span>
-                        <button type="button" class="btn btn-outline-success" onclick="areacircle()"><a href="#result6"
-                                class="no-underline">Calculate</a></button>
-                        <button type="reset" class="btn btn-outline-dark" onclick="reset_circle()"
-                            id="reset6">Reset</button>
-                    </span><br>
-                </form><br>
+                        <button type="button" class="btn btn-outline-success" onclick="areacircle()">
+                            <a href="#result6" class="no-underline">Calculate</a>
+                        </button>
+                        <button type="reset" class="btn btn-outline-dark" onclick="reset_circle()" id="reset6">
+                            Reset
+                        </button> </span><br />
+                </form>
+                <br />
                 <div id="result6" class="alert alert-success center" role="alert"></div>
             </div>
         </div>
