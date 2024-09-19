@@ -35,38 +35,123 @@ function addField() {
     newInput.appendChild(newCol2);
     newCol2.appendChild(newRemoveBtn);
     // * Event Listener for Remove Button
-    newRemoveBtn.addEventListener("click", function(event) {
+    newRemoveBtn.addEventListener("click", function (event) {
         event.preventDefault();
         newInput.remove();
     });
-// }
+    // }
 
-// function removeField(newInput) {
-//     newInput.remove();
+    // function removeField(newInput) {
+    //     newInput.remove();
 }
 
-function findAverage() {
+// function find() {
+//     const numInputs = document.getElementsByClassName("num-input");
+//     let sum = 0;
+//     let count = 0;
+//     let result = document.getElementById("result");
+//     result.style.display = "block";
+//     for (let i = 0; i < numInputs.length; i++) {
+//         const num = parseFloat(numInputs[i].value);
+//         if (!isNaN(num)) {
+//             sum += num;
+//             count++;
+//             result.classList.replace("alert-danger", "alert-success");
+//             result.textContent = `The average is ${sum / count}`;
+//         } else {
+//             result.textContent = "Please enter valid numbers.";
+//             result.classList.replace("alert-success", "alert-danger");
+//         }
+//     }
+// }
+
+function check() {
     const numInputs = document.getElementsByClassName("num-input");
-    let sum = 0;
-    let count = 0;
     let result = document.getElementById("result");
     result.style.display = "block";
+    let sum = 0;
+    let values = [];
     for (let i = 0; i < numInputs.length; i++) {
         const num = parseFloat(numInputs[i].value);
-        if (!isNaN(num)) {
-            sum += num;
-            count++;
-            result.classList.replace("alert-danger", "alert-success");
-            result.textContent = `The average is ${sum / count}`;
+        if (isNaN(num)) {
+            result.innerHTML = "Please enter valid numbers.";
+            result.classList.add("alert-danger");
+            break;
         } else {
-            result.textContent = "Please enter valid numbers.";
-            result.classList.replace("alert-success", "alert-danger");
+            sum += num;
+            values.push(num);
+            find(sum, values)
+        }
+    };
+}
+
+function find(sum, values) {
+    const numInputs = document.getElementsByClassName("num-input");
+    // * Mean (Average)
+    const mean = sum / numInputs.length;
+    // * Median
+    const sortedValues = values.sort((a, b) => a - b);
+    const middle = Math.floor(sortedValues.length / 2);
+    const median = sortedValues.length % 2 !== 0 ? sortedValues[middle] : (sortedValues[middle - 1] + sortedValues[middle]) / 2;
+    // * Range
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min;
+    // * Mode
+    const frequency = {};
+    let mode = [];
+    let maxFreq = 0;
+    values.forEach(num => {
+        frequency[num] = (frequency[num] || 0) + 1;
+        if (frequency[num] > maxFreq) {
+            maxFreq = frequency[num];
+        }
+    });
+    for (const num in frequency) {
+        if (frequency[num] === maxFreq) {
+            mode.push(Number(num));
         }
     }
+    if (mode.length === values.length) {
+        mode = "All values appeared just once.";
+    } else if (mode.length === 1) {
+        mode = `${mode} - appeared ${maxFreq} times.`;
+    } else {
+        // mode = mode.join(", ");
+        mode = `${mode.join(", ")} - each appeared ${maxFreq} times.`
+    }
+    displayResults(mean, median, mode, range);
+}
+
+function displayResults(mean, median, mode, range) {
+    let result = document.getElementById("result");
+    let resultsTableBody = document.getElementById("resultsTable").getElementsByTagName("tbody")[0];
+    document.getElementById("resultsTable").style.display = "table";
+    result.classList.remove("alert-danger");
+    result.style.display = "none";
+
+    // Clear previous results
+    resultsTableBody.innerHTML = "";
+
+    // Add results to the table
+    addRow(resultsTableBody, "Mode", mode);
+    addRow(resultsTableBody, "Mean", mean);
+    addRow(resultsTableBody, "Median", median);
+    addRow(resultsTableBody, "Range", range);
+}
+
+function addRow(table, label, value) {
+    const row = table.insertRow();
+    const labelCell = row.insertCell();
+    const valueCell = row.insertCell();
+    labelCell.textContent = label;
+    valueCell.textContent = value;
 }
 
 function resetFields() {
     const result = document.getElementById("result");
+    let resultsTable = document.getElementById("resultsTable");
+    resultsTable.style.display = "none";
     const inputContainer = document.getElementById("input-container");
     result.style.display = "none";
     inputContainer.innerHTML = `<div class="form-floating mb-3">

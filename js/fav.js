@@ -20,8 +20,8 @@ function generateCalculatorHtml(id) {
         text = "A calculator containing various operations on percentages."
     } else if (id == 'Area Calculator') {
         text = "A calculator to find the area of various 2D figures."
-    } else if (id == 'Average Finder') {
-        text = "A calculator to find the average of a list of numbers."
+    } else if (id == 'Mean, Median, Mode, Range Calculator') {
+        text = "A calculator to find the mean, median, mode, and range of a set of numbers."
     }
     return `<li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">

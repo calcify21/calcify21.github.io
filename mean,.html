@@ -60,7 +60,7 @@
     <main>
         <div class="container">
             <div class="center">
-                <h2>Average Finder</h2>
+                <h2>Mean, Median, Mode, Range Calculator</h2>
                 <!-- <h5>Find the average of two or more numbers.</h5> -->
                 <hr class="myhr"><br>
             </div>
@@ -75,13 +75,33 @@
                         <label for="num2">Number 2</label>
                     </div>
                 </div>
-                <button class="btn btn-outline-success" onclick="findAverage()"><a href="#result"
-                        class="no-underline" type="button">Find
-                        Average</a></button>
+                <button class="btn btn-outline-success" onclick="check()" type="button"><a href="#result"
+                        class="no-underline" type="button">Calculate</a></button>
                 <button class="btn btn-outline-primary" onclick="addField()" type="button">Add Another Field</button>
                 <button class="btn btn-outline-dark" id="reset1" type="reset" onclick="resetFields()">Reset</button>
                 <br><br>
-                <div id="result" class="alert alert-success center" role="alert"></div>
+                <div id="result" class="alert alert-danger center" role="alert"></div>
+                <!-- <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Measure</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table> -->
+                <table class="table table-hover" id="resultsTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Measure</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    </tbody>
+                </table>
             </form>
         </div>
 

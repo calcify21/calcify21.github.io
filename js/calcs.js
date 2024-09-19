@@ -9,9 +9,9 @@ function toggleFav(calcName) {
     let starAreaBtn = document.getElementById("starArea")
     fav(starAreaBtn, calcName);
 
-  } else if (calcName == "Average Finder") {
-    let starAverageBtn = document.getElementById("starAverage")
-    fav(starAverageBtn, calcName);
+  } else if (calcName == "Mean, Median, Mode, Range Calculator") {
+    let starCentralTendancyBtn = document.getElementById("starCentralTendancy")
+    fav(starCentralTendancyBtn, calcName);
   }
 }
 
@@ -60,8 +60,8 @@ function checkCalc(calcName) {
     let star = document.getElementById("starArea")
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";
-  } else if (calcName == "Average Finder") {
-    let star = document.getElementById("starAverage")
+  } else if (calcName == "Mean, Median, Mode, Range Calculator") {
+    let star = document.getElementById("starCentralTendancy")
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";
   }
