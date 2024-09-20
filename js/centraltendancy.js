@@ -93,7 +93,7 @@ function find(sum, values) {
     const sortedValues = values.sort((a, b) => a - b);
     const middle = Math.floor(sortedValues.length / 2);
     const median = sortedValues.length % 2 !== 0 ? sortedValues[middle] : (sortedValues[middle - 1] + sortedValues[middle]) / 2;
-    // * Range
+    // * Range, maximum and minimum values
     const min = Math.min(...values);
     const max = Math.max(...values);
     const range = max - min;
@@ -120,10 +120,12 @@ function find(sum, values) {
         // mode = mode.join(", ");
         mode = `${mode.join(", ")} - each appeared ${maxFreq} times.`
     }
-    displayResults(mean, median, mode, range);
+
+
+    displayResults(mean, median, mode, range, max, min);
 }
 
-function displayResults(mean, median, mode, range) {
+function displayResults(mean, median, mode, range, maximum, minimum) {
     let result = document.getElementById("result");
     let resultsTableBody = document.getElementById("resultsTable").getElementsByTagName("tbody")[0];
     document.getElementById("resultsTable").style.display = "table";
@@ -134,10 +136,12 @@ function displayResults(mean, median, mode, range) {
     resultsTableBody.innerHTML = "";
 
     // Add results to the table
-    addRow(resultsTableBody, "Mode", mode);
     addRow(resultsTableBody, "Mean", mean);
     addRow(resultsTableBody, "Median", median);
+    addRow(resultsTableBody, "Mode", mode);
     addRow(resultsTableBody, "Range", range);
+    addRow(resultsTableBody, "Max value", maximum);
+    addRow(resultsTableBody, "Min value", minimum);
 }
 
 function addRow(table, label, value) {

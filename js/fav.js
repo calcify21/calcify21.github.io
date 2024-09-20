@@ -13,15 +13,19 @@ function loadFavorites() {
 
 function generateCalculatorHtml(id) {
     let text = "";
-    firstWord = id.split(" ")[0];
+    let firstWord;
     if (id == 'Prime Number Checker') {
         text = "A calculator to check whether the given number is prime or not."
+        firstWord = "prime"
     } else if (id == 'Percentage Calculator') {
         text = "A calculator containing various operations on percentages."
+        firstWord = "percentage"
     } else if (id == 'Area Calculator') {
         text = "A calculator to find the area of various 2D figures."
+        firstWord = "area"
     } else if (id == 'Mean, Median, Mode, Range Calculator') {
         text = "A calculator to find the mean, median, mode, and range of a set of numbers."
+        firstWord = "centralTendancy"
     }
     return `<li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
