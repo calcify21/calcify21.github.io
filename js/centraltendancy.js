@@ -121,11 +121,14 @@ function find(sum, values) {
         mode = `${mode.join(", ")} - each appeared ${maxFreq} times.`
     }
 
+    // * Sort values in ascending order
+    const sortedValuesString = sortedValues.join(", ");
 
-    displayResults(mean, median, mode, range, max, min);
+    // * Display results
+    displayResults(mean, median, mode, range, max, min, values.length, sortedValuesString);
 }
 
-function displayResults(mean, median, mode, range, maximum, minimum) {
+function displayResults(mean, median, mode, range, maximum, minimum, count, sortedValues) {
     let result = document.getElementById("result");
     let resultsTableBody = document.getElementById("resultsTable").getElementsByTagName("tbody")[0];
     document.getElementById("resultsTable").style.display = "table";
@@ -136,12 +139,14 @@ function displayResults(mean, median, mode, range, maximum, minimum) {
     resultsTableBody.innerHTML = "";
 
     // Add results to the table
+    addRow(resultsTableBody, "Sorted Data Set", sortedValues);
     addRow(resultsTableBody, "Mean", mean);
     addRow(resultsTableBody, "Median", median);
     addRow(resultsTableBody, "Mode", mode);
     addRow(resultsTableBody, "Range", range);
     addRow(resultsTableBody, "Max value", maximum);
     addRow(resultsTableBody, "Min value", minimum);
+    addRow(resultsTableBody, "Count", count);
 }
 
 function addRow(table, label, value) {
