@@ -59,7 +59,7 @@
     </header>
     <main>
         <div class="container">
-            <div class="center">
+            <div class="text-center">
                 <h2>Area Calculator</h2>
                 <!-- <h5>Calculate the area of different shapes and polygons.</h5> -->
                 <hr class="myhr" />
@@ -94,8 +94,8 @@
             </div>
             <div id="rect_form" class="calcs">
                 <form>
-                    <div class="center">
-                        <p class="bold">Formula: Area = length x width</p>
+                    <div class="text-center">
+                        <p class="fw-bold">Formula: Area = length x width</p>
                         <div class="row">
                             <div class="col">
                                 <div class="form-floating mb-3">
@@ -115,18 +115,18 @@
                     </div>
                     <span>
                         <button type="button" class="btn btn-outline-success" onclick="arearect()">
-                            <a href="#result1" class="no-underline">Calculate</a>
+                            <a href="#result1" class="text-decoration-none inheritColor">Calculate</a>
                         </button>
                         <button type="reset" class="btn btn-outline-dark" onclick="reset_rect()" id="reset1">
                             Reset
                         </button> </span><br />
                 </form>
                 <br />
-                <div id="result1" class="alert alert-success center" role="alert"></div>
+                <div id="result1" class="alert alert-success text-center" role="alert"></div>
             </div>
             <div id="sq_form" class="calcs">
-                <div class="center">
-                    <p class="bold">Formula: Area = side x side</p>
+                <div class="text-center">
+                    <p class="fw-bold">Formula: Area = side x side</p>
                 </div>
                 <div class="row">
                     <div class="col">
@@ -139,17 +139,17 @@
                 </div>
                 <span>
                     <button type="button" class="btn btn-outline-success" onclick="areasq()">
-                        <a href="#result2" class="no-underline">Calculate</a>
+                        <a href="#result2" class="text-decoration-none inheritColor">Calculate</a>
                     </button>
                     <button type="button" class="btn btn-outline-dark" onclick="reset_sq()"
                         id="reset2">Reset</button></span><br />
                 <br />
-                <div id="result2" class="alert alert-success center" role="alert"></div>
+                <div id="result2" class="alert alert-success text-center" role="alert"></div>
             </div>
             <div id="quad_form" class="calcs">
                 <form>
-                    <div class="center">
-                        <p class="bold">
+                    <div class="text-center">
+                        <p class="fw-bold">
                             Formula: Area = 1/2 x diagonal x (sum of heights corresponding
                             on the diagonal from each side)
                         </p>
@@ -179,18 +179,18 @@
                     </div>
                     <span>
                         <button type="button" class="btn btn-outline-success" onclick="areaquad()">
-                            <a href="#result3" class="no-underline">Calculate</a>
+                            <a href="#result3" class="text-decoration-none inheritColor">Calculate</a>
                         </button>
                         <button type="reset" class="btn btn-outline-dark" onclick="reset_quad()"
                             id="reset3">Reset</button></span><br />
                 </form>
                 <br />
-                <div id="result3" class="alert alert-success center" role="alert"></div>
+                <div id="result3" class="alert alert-success text-center" role="alert"></div>
             </div>
             <div id="para_form" class="calcs">
                 <form>
-                    <div class="center">
-                        <p class="bold">Formula: Area = base x corresponding height</p>
+                    <div class="text-center">
+                        <p class="fw-bold">Formula: Area = base x corresponding height</p>
                         <div class="row">
                             <div class="col">
                                 <div class="form-floating mb-3">
@@ -210,19 +210,19 @@
                     </div>
                     <span>
                         <button type="button" class="btn btn-outline-success" onclick="areapara()">
-                            <a href="#result4" class="no-underline">Calculate</a>
+                            <a href="#result4" class="text-decoration-none inheritColor">Calculate</a>
                         </button>
                         <button type="reset" class="btn btn-outline-dark" onclick="reset_para()" id="reset4">
                             Reset
                         </button></span><br />
                 </form>
                 <br />
-                <div id="result4" class="alert alert-success center" role="alert"></div>
+                <div id="result4" class="alert alert-success text-center" role="alert"></div>
             </div>
             <div id="tri_form" class="calcs">
                 <form>
-                    <div class="center">
-                        <p class="bold">Formula: Area = 1/2 x base x height</p>
+                    <div class="text-center">
+                        <p class="fw-bold">Formula: Area = 1/2 x base x height</p>
                         <div class="row">
                             <div class="col">
                                 <div class="form-floating mb-3">
@@ -242,19 +242,19 @@
                     </div>
                     <span>
                         <button type="button" class="btn btn-outline-success" onclick="areatri()">
-                            <a href="#result5" class="no-underline">Calculate</a>
+                            <a href="#result5" class="text-decoration-none inheritColor">Calculate</a>
                         </button>
                         <button type="reset" class="btn btn-outline-dark" onclick="reset_tri()" id="reset5">
                             Reset
                         </button></span><br />
                 </form>
                 <br />
-                <div id="result5" class="alert alert-success center" role="alert"></div>
+                <div id="result5" class="alert alert-success text-center" role="alert"></div>
             </div>
             <div id="circle_form" class="calcs">
                 <form>
-                    <div class="center">
-                        <p class="bold">Formula: Area = &pi; x radius x radius</p>
+                    <div class="text-center">
+                        <p class="fw-bold">Formula: Area = &pi; x radius x radius</p>
                         <div class="form-floating mb-3">
                             <input type="number" class="form-control" id="radius" placeholder="radius"
                                 onkeyup="checksolve6(event)" />
@@ -263,14 +263,14 @@
                     </div>
                     <span>
                         <button type="button" class="btn btn-outline-success" onclick="areacircle()">
-                            <a href="#result6" class="no-underline">Calculate</a>
+                            <a href="#result6" class="text-decoration-none inheritColor">Calculate</a>
                         </button>
                         <button type="reset" class="btn btn-outline-dark" onclick="reset_circle()" id="reset6">
                             Reset
                         </button> </span><br />
                 </form>
                 <br />
-                <div id="result6" class="alert alert-success center" role="alert"></div>
+                <div id="result6" class="alert alert-success text-center" role="alert"></div>
             </div>
 
             <!-- Go to top and bottom buttons -->

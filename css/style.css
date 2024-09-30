@@ -1,8 +1,3 @@
-.calc-container {
-    display: flex;
-    justify-content: center;
-}
-
 .calc {
     border: 1px solid #717377;
     border-radius: 16px;

@@ -59,7 +59,7 @@
     </header>
     <main>
         <div class="container">
-            <div class="center">
+            <div class="text-center">
                 <h2>Percentage Calculator</h2>
                 <!-- <h5>Various calculations related to percentage.</h5> -->
                 <hr class="myhr"><br>
@@ -72,7 +72,7 @@
 
             <!-- * Percentage of a number -->
             <form>
-                <p class="bold">Calculate the percentage of a number:</p>
+                <p class="fw-bold">Calculate the percentage of a number:</p>
                 <div class="row">
                     <div class="mb-3 col">
                         <input type="number" class="form-control placeholder1" id="val1" onkeyup="checksolve1(event)">
@@ -86,17 +86,17 @@
                 </div>
                 <span>
                     <button type="button" class="btn btn-outline-success" onclick="percentof()"><a href="#result1"
-                            class="no-underline">Calculate</a></button>
+                            class="text-decoration-none inheritColor">Calculate</a></button>
                 </span>
                 <span>
                     <button class="btn btn-outline-dark" type="reset" onclick="resetbtn1()" id="reset1">Reset</button>
                 </span>
             </form><br>
-            <div id="result1" class="alert alert-success center" role="alert"></div>
+            <div id="result1" class="alert alert-success text-center" role="alert"></div>
 
             <!-- * Increase or decrease percentage -->
             <form>
-                <p class="bold">Calculate the increased or decreased amount:</p>
+                <p class="fw-bold">Calculate the increased or decreased amount:</p>
                 <div class="row">
                     <div class="mb-3 col">
                         <input type="number" class="form-control" id="val3" onkeyup="checksolve2(event)">
@@ -113,13 +113,13 @@
                 </div>
                 <span>
                     <button type="button" class="btn btn-outline-success" onclick="check()"><a href="#result2"
-                            class="no-underline">Calculate</a></button>
+                            class="text-decoration-none inheritColor">Calculate</a></button>
                 </span>
                 <span>
                     <button class="btn btn-outline-dark" type="reset" onclick="resetbtn2()" id="reset2">Reset</button>
                 </span>
             </form><br>
-            <div id="result2" class="alert alert-success center" role="alert"></div>
+            <div id="result2" class="alert alert-success text-center" role="alert"></div>
 
             <!-- Go to top and bottom buttons -->
             <button onclick="gototop()" id="topbtn" class="btn btn-warning"><i

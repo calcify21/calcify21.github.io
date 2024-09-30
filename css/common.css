@@ -27,15 +27,6 @@
     --bs-link-hover-color: #802610;
 }
 
-.bold {
-    font-weight: bold;
-}
-
-.no-underline {
-    text-decoration: none;
+.inheritColor {
     color: inherit;
-}
-
-.center {
-    text-align: center;
 }
