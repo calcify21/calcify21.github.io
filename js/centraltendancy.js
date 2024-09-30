@@ -36,15 +36,16 @@ function addField() {
     // newInput.appendChild(newCol2);
     // newCol2.appendChild(newRemoveBtn);
 
-    let newInputCtrlHtml = `<div class="form-floating mb-3 input${newInputCount}">
-    <div class="input-group">
-        <input type="number" class="form-control num-input" placeholder="Enter ${ordinalNum} number"
+    let newInputCtrlHtml = `<div class="input-group mb-3 input${newInputCount}">
+    <div class="form-floating">
+        <input type="number" class="form-control num-input" placeholder="Enter number ${newInputCount}"
             id="num${newInputCount}">
-        <span class="input-group-text" id="basic-addon2">
-        <button class="fa-solid fa-xmark-circle btn text-danger"
-                style="font-size: 30px;" id=removeBtn${newInputCount}></button>
-                </span>
+        <label for="num${newInputCount}">Enter ${ordinalNum} Number</label>
     </div>
+    <span class="input-group-text" id="basic-addon2">
+        <button class="fa-solid fa-xmark-circle btn text-danger" style="font-size: 30px;"
+            id=removeBtn${newInputCount}></button>
+    </span>
 </div>`;
     document.getElementById("input-container").insertAdjacentHTML("beforeend", newInputCtrlHtml);
 

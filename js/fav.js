@@ -37,4 +37,9 @@ function generateCalculatorHtml(id) {
                     <a href="${firstWord.toLowerCase()}.html" class="btn btn-outline-primary">Open</a>
                 </li>`;
 }
+
+function removeAllFavorites() {
+    localStorage.removeItem('favorites')
+}
+
 window.onload = loadFavorites();
