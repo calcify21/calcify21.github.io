@@ -1,14 +1,10 @@
-#rem {
-    float: right;
-}
-
 .toastContainer {
     top: 55px;
     width: 200px;
 }
 
 @media screen and (max-width: 412px) {
-    #rem {
+    #removeFavoritesBtn {
         width: 100px;
     }
 }
