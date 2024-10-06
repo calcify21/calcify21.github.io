@@ -65,13 +65,34 @@
     <main>
         <div class="container">
             <section class="mb-3">
-                <h2 class="text-center">Search your favourite
-                    recipes...</h2>
-                <div id="recipe-container" class="row row-cols-2 row-cols-md-3 g-4">
-
-                </div>
+                <h2 class="text-center heading">Search your favourite
+                    recipes...</h2><br>
+                <div id="recipe-container" class="row row-cols-2 row-cols-md-3 g-4"></div>
             </section>
-            <div id="modals"></div>
+            <div id="modal">
+                <div class="modal fade" id="recipeModal" tabindex="-1" aria-labelledby="label" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="label">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h4 class="fw-bold">Ingredients:</h4>
+                                <p class="ingredients"></p>
+                                <h4 class="fw-bold">Instructions:</h4>
+                                <p class="instructions"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a class="btn btn-primary recipe-link" href="" role="button" target="_blank">Open recipe
+                                    in Youtube</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Go to top and bottom buttons -->
             <button onclick="gototop()" id="topbtn" class="btn btn-warning"><i
