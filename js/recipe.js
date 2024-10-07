@@ -3,7 +3,7 @@ const searchBtn = document.getElementById("search-btn");
 let recipes = [];
 
 function fetchRecipes(query) {
-    const fetchData = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)
+    const fetchedData = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)
         .then(response => response.json())
         .then(data => {
             recipes = data.meals;
@@ -32,7 +32,7 @@ function showRecipes() {
     const recipeContainer = document.getElementById("recipe-container");
     recipeContainer.innerHTML = "";
     recipes.forEach((recipe, index) => {
-        const recipeTitle = recipe.strMeal;
+        const recipeTitle = capitalize(recipe.strMeal);
         const recipeImage = recipe.strMealThumb;
         const recipeArea = recipe.strArea;
         const recipeItemHtmlCtrl = `
@@ -42,7 +42,7 @@ function showRecipes() {
                 <div class="card-body">
                     <h5 class="card-title">${recipeTitle}</h5>
                     <p class="card-text"><span class="fw-bold">${recipeArea}</span> Dish</p>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recipeModal" onclick="showModal(${index})">View Recipe</button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#recipeModal" onclick="showModal(${index})">View Recipe</button>
                 </div>
             </div>
         </div>
@@ -78,5 +78,13 @@ function showModal(id) {
     recipeLink.href = recipe.strYoutube;
     instructions.innerHTML = recipeInstructions;
     ingredients.innerHTML = recipeIngredients;
-    modalTitle.innerHTML = recipe.strMeal;
+    modalTitle.innerHTML = `How to make ${capitalize(recipe.strMeal)}`;
+}
+
+
+function capitalize(str) {
+    return str.replace(
+        /\w\S*/g,
+        text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+    );
 }
