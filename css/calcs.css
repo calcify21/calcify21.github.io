@@ -8,3 +8,13 @@
         width: 100px;
     }
 }
+
+#custom-start-list>li::before {
+    content: counters(custom-item, ".") ". ";
+    counter-increment: custom-item;
+}
+
+#custom-start-list {
+    counter-reset: custom-item 0;
+    /* Set this to the start number minus 1 */
+}
