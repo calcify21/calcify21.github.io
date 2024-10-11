@@ -62,7 +62,7 @@
             <!-- <h2 class="text-center">Favourites</h2>
             <hr class="myhr"><br> -->
             <div class="d-flex justify-content-end margin-bottom-5">
-                <button class=" btn btn-warning" onclick="removeAllFavorites()" id="rem">
+                <button class="btn btn-warning" onclick="removeAllFavorites()" id="removeFavoritesBtn">
                     Remove favourites
                 </button>
             </div>
@@ -73,6 +73,18 @@
                     class="fa-solid fa-arrow-up"></i></button>
             <button onclick="gotobottom()" id="bottombtn" class="btn btn-warning"><i
                     class="fa-solid fa-arrow-down"></i></button>
+
+            <!-- * Toast -->
+            <div class="toast-container position-fixed end-0 p-3 toastContainer">
+                <div id="liveToast" class="toast text-bg-success border-0" role="alert" aria-live="assertive"
+                    aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">All favourites have been removed.</div>
+                        <button type="button" class="btn-close me-2 m-auto btn-close-white" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
     </main>
 
     <!-- Scripts -->

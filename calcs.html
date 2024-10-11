@@ -125,12 +125,12 @@
 
             </ol>
             <br>
-            <div class="accordion" id="addTools">
+            <div class="accordion id=" addTools">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Additional Tools
+                            <h5 class="fw-bold">Additional Tools</h5>
                         </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#addTools">
@@ -141,6 +141,10 @@
                                         <div class="fw-bold">
                                             Recipe APP
                                             <span class="badge text-bg-warning">New</span>
+                                            <button type="button" class="btn starIcon"
+                                                onclick="toggleFav('Recipe APP'); addToFavorites('Recipe APP');">
+                                                <i class="fa-regular fa-star" id="starRecipe"></i>
+                                            </button>
                                         </div>
                                         A recipe app that allows users to search for their favourite recipes.
                                     </div>
