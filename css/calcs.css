@@ -18,3 +18,7 @@
     counter-reset: custom-item 0;
     /* Set this to the start number minus 1 */
 }
+
+.card-body {
+    border: none;
+}

@@ -58,7 +58,9 @@
         <br />
     </header>
     <main>
+
         <div class="container">
+            <div id="output"></div>
             <!-- <h2 class="text-center">Explore our Other Calculators</h2>
             <hr class="myhr"><br> -->
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -125,38 +127,39 @@
 
             </ol>
             <br>
-            <div class="accordion id=" addTools">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <h5 class="fw-bold">Additional Tools</h5>
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#addTools">
-                        <div class="accordion-body">
-                            <ol class="list-group list-group-numbered" start="1" id="custom-start-list">
-                                <li class="list-group-item d-flex justify-content-between align-items-start">
-                                    <div class="ms-2 me-auto">
-                                        <div class="fw-bold">
-                                            Recipe APP
-                                            <span class="badge text-bg-warning">New</span>
-                                            <button type="button" class="btn starIcon"
-                                                onclick="toggleFav('Recipe APP'); addToFavorites('Recipe APP');">
-                                                <i class="fa-regular fa-star" id="starRecipe"></i>
-                                            </button>
-                                        </div>
-                                        A recipe app that allows users to search for their favourite recipes.
-                                    </div>
-                                    <a href="recipe.html" class="btn btn-outline-primary">Open</a>
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
+            <div class="d-flex justify-content-between mb-1">
+                <h5 class="fw-bold">Additional Tools:</h5>
+                <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#addTools"
+                    aria-expanded="false" aria-controls="addTools">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chevron-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                    </svg>
+                </button>
+            </div>
+            <!-- <br> -->
+            <div class="collapse" id="addTools">
+                <div class="card card-body">
+                    <ol class="list-group list-group-numbered" start="1" id="custom-start-list">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">
+                                    Recipe APP
+                                    <span class="badge text-bg-warning">New</span>
+                                    <button type="button" class="btn starIcon"
+                                        onclick="toggleFav('Recipe APP'); addToFavorites('Recipe APP');">
+                                        <i class="fa-regular fa-star" id="starRecipe"></i>
+                                    </button>
+                                </div>
+                                A recipe app that allows users to search for their favourite recipes.
+                            </div>
+                            <a href="recipe.html" class="btn btn-outline-primary">Open</a>
+                        </li>
+                    </ol>
                 </div>
             </div>
-
-            <br>
+            <!-- <br> -->
             <div class="text-center alert alert-info" role="alert">
                 You may suggest more calculators by filling out
                 <a href="contact.html"
