@@ -87,3 +87,18 @@ input[type="range"]:focus::-moz-range-thumb {
     outline: 3px solid #053a5f;
     outline-offset: 0.125rem;
 }
+
+/* .length-settings {
+    display: block;
+} */
+
+/* @media screen and (max-width: 450px) {
+    .length-settings {
+        display: block;
+    }
+
+    .label {
+        width: 100%;
+        text-align: center;
+    }
+} */
