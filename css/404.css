@@ -1,0 +1,17 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    height: 100%;
+}
+
+.error img {
+    width: 500px;
+}
+
+.error h1 {
+    font-size: 48px;
+}
+
+.error p {
+    font-size: 22px;
+}
