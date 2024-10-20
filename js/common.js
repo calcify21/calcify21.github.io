@@ -107,4 +107,22 @@ function checkTheme() {
     }
 }
 
+window.addEventListener('load', () => {
+    if (window.location.href.endsWith('404.html')) {
+        // The page is already 404, so do nothing
+    } else if (window.location.href.endsWith('.html')) {
+        // Check if the page exists
+        fetch(window.location.href)
+            .then(response => {
+                if (response.status === 404) {
+                    // Load the 404.html file
+                    window.location.href = '404.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching page:', error);
+            });
+    }
+});
+
 window.onload = checkTheme();
