@@ -29,6 +29,9 @@ function generateCalculatorHtml(id) {
     } else if (id == "Recipe APP") {
         text = "A recipe app that allows users to search for their favourite recipes."
         firstWord = "recipe"
+    } else if (id == "Password Generator") {
+        text = "A simple password generator that generates a secure random password of the desired length."
+        firstWord = "pwd"
     }
     return `<li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">

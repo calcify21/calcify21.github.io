@@ -14,6 +14,9 @@ function toggleFav(calcName) {
   } else if (calcName == "Recipe APP") {
     let starRecipeBtn = document.getElementById("starRecipe");
     fav(starRecipeBtn, calcName);
+  } else if (calcName == "Password Generator") {
+    let starPasswordBtn = document.getElementById("starPwd");
+    fav(starPasswordBtn, calcName);
   }
 }
 
@@ -67,6 +70,10 @@ function checkCalc(calcName) {
     star.style.color = "#FFD43B";
   } else if (calcName == "Recipe APP") {
     let star = document.getElementById("starRecipe");
+    star.classList.replace("fa-regular", "fa-solid");
+    star.style.color = "#FFD43B";
+  } else if (calcName == "Password Generator") {
+    let star = document.getElementById("starPwd");
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";
   }
