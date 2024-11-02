@@ -3,11 +3,18 @@ const screen = document.getElementById("screen");
 // * Display on screen
 function show(val) {
   screen.value += val;
+  updateScreen();
 }
 
 // * Clear
 function clr() {
   screen.value = "";
+}
+
+// *  Keep the input field scrolled to the right
+function updateScreen() {
+    // Scrolls the input field to the far right, ensuring the newest numbers are always visible
+    screen.scrollLeft = screen.scrollWidth;
 }
 
 // * Evaluate
