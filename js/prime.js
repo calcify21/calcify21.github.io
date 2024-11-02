@@ -19,7 +19,18 @@ function checkPrime() {
   } else if (num > 2) {
     result.classList.add("alert-success");
     result.classList.remove("alert-danger");
-    for (let i = 2; i < num; i++) {
+    // for (let i = 2; i < num; i++) {
+    //   if (num % i === 0) {
+    //     ans = `${num} is a composite number. It is divisible by ${i}.`;
+    //     result.textContent = ans;
+    //     break;
+    //   } else {
+    //     result.classList.add("alert-success");
+    //     result.classList.remove("alert-danger");
+    //     result.textContent = num + " is a prime number.";
+    //   }
+    // }
+        for (let i = 2; i < Math.ceil(Math.sqrt(num)); i++) {
       if (num % i === 0) {
         ans = `${num} is a composite number. It is divisible by ${i}.`;
         result.textContent = ans;
