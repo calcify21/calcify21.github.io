@@ -28,14 +28,27 @@
     <main>
         <div class="container">
             <h1>Feedback</h1>
-            <h2>Feel Free to Give Your Feedback through the Form below!</h2>
+            <h2>Feel Free to Give Your Feedback through the Form below!</h2><br>
             <form>
-                <label for="name">Your Name:</label>
-                <input type="text" id="name"><br>
-                <label for="email">Your Email:</label>
-                <input type="email" id="email"><br>
-                <label for="phn">Your Mobile Number:</label>
-                <input type="number" id="phn"><br>
+                <div class="name">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name">
+                </div><br>
+                <div class="contact">
+                    <div class="phn">
+                        <label for="phn">Your Mobile Number:</label>
+                        <input type="tel" id="phn" pattern="[6-9][0-9]{9}"
+                            title="Enter a valid 10-digit Indian mobile number" autocomplete="tel" inputmode="numeric">
+                    </div>
+                    <div class="email">
+                        <label for="email">Your Email:</label>
+                        <input type="email" id="email">
+                    </div>
+                </div><br>
+                <div class="msg">
+                    <label for="msg">Your Feedback:</label>
+                    <textarea id="msg" rows="5" cols="50"></textarea>
+                </div>
             </form>
         </div>
     </main>
