@@ -47,48 +47,67 @@ ul {
 }
 
 /* Style for the links */
+.nav-item {
+    margin-inline: 10px;
+
+}
+
 .nav-item a {
     position: relative;
     display: block;
-    /* text-align: center; */
-    padding: 5px 16px;
-    /* padding-bottom: 5px; */
+    padding-block: 5px;
     text-decoration: none;
     color: #fff;
+    /* Default color */
     transition: color 0.2s ease-in-out, font-weight 0.2s ease-in-out;
-    /* box-sizing: border-box; */
 }
 
 /* Create the underline effect using ::after */
 .nav-item a::after {
     content: "";
+    /* This is required for the pseudo-element to appear */
     position: absolute;
     bottom: 0;
     left: 0;
     width: 0%;
+    /* Initially, the underline is hidden */
     height: 2px;
-    background-color: black;
+    background-color: white;
     transition: width 0.3s ease, opacity 0.3s ease;
     opacity: 0;
+    /* Initially, the pseudo-element is hidden */
 }
 
-/* On hover, make the underline grow */
-.nav-item a:hover::after {
+/* Active link should also have the underline by default */
+.nav-item a.active {
+    font-weight: 700;
+    /* Bold font weight */
+    color: white;
+    /* White color */
+}
+
+/* Ensure the active link has the visible underline */
+.nav-item a.active::after {
     width: 100%;
+    /* Make the underline visible */
     opacity: 1;
+    /* Make the underline visible */
 }
 
 /* On hover, add a bold effect */
 .nav-item a:hover {
     font-weight: bold;
     color: #f39c12;
+    /* Hover color */
 }
 
-.nav-item a.active {
-    border-radius: 5px;
-    height: 34px;
-    background-color: darkgray;
+/* On hover, make the underline grow */
+.nav-item a:hover::after {
+    width: 100%;
+    opacity: 1;
+    background-color: #f39c12;
 }
+
 
 /* Ensure the underline effect works on active state */
 /* li a.active::after {
