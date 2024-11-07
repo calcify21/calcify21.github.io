@@ -63,17 +63,3 @@ textarea {
     background-color: #0b5ed7;
     border-color: #0b5ed7;
 }
-
-@media screen and (max-width: 576px) {
-    .navbar {
-        display: block !important;
-    }
-
-    .logo {
-        justify-content: center;
-    }
-
-    .navbar ul {
-        justify-content: center;
-    }
-}
