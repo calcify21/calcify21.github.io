@@ -1,0 +1,12 @@
+svg {
+    width: 50px
+}
+
+p {
+    text-align: center;
+    align-items: center;
+}
+
+.details {
+    display: flex
+}

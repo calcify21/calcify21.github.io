@@ -30,7 +30,7 @@ main {
     color: #fff;
 }
 
-ul {
+.nav-ul {
     display: flex;
     list-style-type: none;
     margin: 0;
@@ -62,7 +62,7 @@ ul {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 0%;
+    width: 0;
     /* Initially, the underline is hidden */
     height: 2px;
     background-color: white;
