@@ -1,12 +1,12 @@
 svg {
-    width: 50px
+    width: 50px;
+    margin-right: 20px;
 }
 
-p {
-    text-align: center;
+.location,
+.phone,
+.mail {
+    margin-bottom: 30px;
+    display: flex;
     align-items: center;
-}
-
-.details {
-    display: flex
 }

@@ -133,8 +133,7 @@ img {
 .container {
     max-width: 1320px;
     width: 100%;
-    padding-right: 0;
-    padding-left: calc(1.5rem * .5);
+    padding-inline: 12px;
     margin-right: auto;
     margin-left: auto;
 }

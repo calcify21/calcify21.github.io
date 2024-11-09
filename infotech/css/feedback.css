@@ -13,6 +13,7 @@ textarea {
     border: 1px solid #495057;
     border-radius: .375rem;
     transition: border-color.15s ease-in-out, box-shadow.15s ease-in-out;
+    margin-bottom: 5px;
 }
 
 input:focus,
