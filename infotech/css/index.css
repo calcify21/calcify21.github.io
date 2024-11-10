@@ -86,6 +86,7 @@ h5 {
     margin: 10px;
 }
 
+
 /*  */
 /* Style for the scrolling news ticker */
 .news-ticker {
@@ -97,11 +98,12 @@ h5 {
     /* Width of the news section */
     height: 80%;
     /* Height of the news section */
-    padding: 10px;
 }
 
 .news-ticker marquee {
     font-size: 1rem;
+    padding: 30px;
+    border: 1px solid black;
 }
 
 /* Make sure the news ticker doesn't overlap with the cards */
