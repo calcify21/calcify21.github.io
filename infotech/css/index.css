@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    /* padding-right: 250px; */
 }
 
 .card {
@@ -87,6 +88,7 @@ h5 {
 }
 
 
+
 /*  */
 /* Style for the scrolling news ticker */
 .news-ticker {
@@ -106,24 +108,55 @@ h5 {
     border: 1px solid black;
 }
 
-/* Make sure the news ticker doesn't overlap with the cards */
-.card-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding-right: 270px;
-    /* Added space for the news ticker */
-}
-
 /* For responsiveness, adjust the news ticker on smaller screens */
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
     .news-ticker {
         width: 200px;
-        /* Reduce width on smaller screens */
+        Reduce width on smaller screens
+    } */
+
+/* .card-container {
+    padding-right: 220px;
+    Adjust for smaller news ticker
+} */
+
+
+@media screen and (max-width: 1750px) {
+    .card-container {
+        padding-right: 100px;
+    }
+}
+
+@media screen and (max-width: 1370px) {
+    .card-container {
+        padding-right: 250px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .news-ticker {
+        top: 240px;
+    }
+}
+
+@media screen and (max-width: 557px) {
+    .news-ticker {
+        top: 270px;
+    }
+}
+
+@media screen and (max-width: 362px) {
+    .news-ticker {
+        top: 320px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .news-ticker {
+        width: 180px;
     }
 
     .card-container {
-        padding-right: 220px;
-        /* Adjust for smaller news ticker */
+        padding-right: 200px;
     }
 }

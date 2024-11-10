@@ -127,8 +127,7 @@ img {
     max-width: 1320px;
     width: 100%;
     padding-inline: 12px;
-    margin-right: auto;
-    margin-left: auto;
+    margin-inline: auto;
 }
 
 .mb-4 {
