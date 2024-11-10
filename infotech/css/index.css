@@ -75,3 +75,53 @@ h5 {
     font-weight: 500;
     line-height: 1.2;
 }
+
+.video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro {
+    margin: 10px;
+}
+
+/*  */
+/* Style for the scrolling news ticker */
+.news-ticker {
+    position: absolute;
+    top: 200px;
+    /* Adjust to position on the page */
+    right: 10px;
+    width: 250px;
+    /* Width of the news section */
+    height: 80%;
+    /* Height of the news section */
+    padding: 10px;
+}
+
+.news-ticker marquee {
+    font-size: 1rem;
+}
+
+/* Make sure the news ticker doesn't overlap with the cards */
+.card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-right: 270px;
+    /* Added space for the news ticker */
+}
+
+/* For responsiveness, adjust the news ticker on smaller screens */
+@media screen and (max-width: 768px) {
+    .news-ticker {
+        width: 200px;
+        /* Reduce width on smaller screens */
+    }
+
+    .card-container {
+        padding-right: 220px;
+        /* Adjust for smaller news ticker */
+    }
+}
