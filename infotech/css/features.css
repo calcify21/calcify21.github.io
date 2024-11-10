@@ -1,3 +1,7 @@
 .features {
     line-height: 2;
 }
+
+body {
+    background-color: skyblue;
+}

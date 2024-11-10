@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: azure;
+}
+
 .card-container {
     display: flex;
     justify-content: center;
@@ -93,7 +97,7 @@ h5 {
 /* Style for the scrolling news ticker */
 .news-ticker {
     position: absolute;
-    top: 200px;
+    top: 230px;
     /* Adjust to position on the page */
     right: 10px;
     width: 250px;

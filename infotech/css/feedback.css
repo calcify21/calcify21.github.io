@@ -3,7 +3,9 @@ label {
     display: inline-block;
 }
 
-
+body {
+    background-color: aquamarine;
+}
 
 input,
 textarea {
