@@ -9,4 +9,27 @@ svg {
     margin-bottom: 30px;
     display: flex;
     align-items: center;
+
+}
+
+.reachout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page {
+    height: 69vh;
+}
+
+.page h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.caption {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 50px;
 }
