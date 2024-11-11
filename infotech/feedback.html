@@ -51,7 +51,7 @@
             </div>
             <div class="flex">
                 <div class="reachout">
-                    <div class="details">
+                    <div>
                         <div class="location">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                                 <path fill="orange"
@@ -87,25 +87,24 @@
                 <div class="form">
                     <form>
                         <div class="name">
-                            <label for="name">Your Name:</label>
+                            <label for="name"> Name:</label>
                             <input type="text" id="name">
                         </div>
                         <br>
                         <div class="contact">
                             <div class="phn">
-                                <label for="phn">Your Mobile Number:</label>
-                                <input type="tel" id="phn" pattern="[6-9][0-9]{9}"
-                                    title="Enter a valid 10-digit Indian mobile number" autocomplete="tel"
-                                    inputmode="numeric">
+                                <label for="phn">Mobile Number:</label>
+                                <input type="tel" id="phn" title="Enter a 10-digit mobile number" maxlength="10"
+                                    pattern="[0-9]{10}">
                             </div>
                             <div class="email">
-                                <label for="email">Your Email:</label>
+                                <label for="email">Email:</label>
                                 <input type="email" id="email">
                             </div>
                         </div>
                         <br>
                         <div class="msg">
-                            <label for="msg">Your Feedback:</label>
+                            <label for="msg"> Feedback:</label>
                             <textarea id="msg" rows="5" cols="50" noresize="noresize"></textarea>
                         </div>
                         <button type="submit" class="btn">Submit</button>
