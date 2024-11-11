@@ -5,3 +5,7 @@
 body {
     background-color: skyblue;
 }
+
+.features ul{
+    margin-left: 20px;
+}

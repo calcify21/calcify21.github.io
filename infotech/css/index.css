@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: azure;
+    background-color: aqua;
 }
 
 .card-container {
@@ -24,6 +24,7 @@ body {
     border-radius: 6px;
     transition: all 0.3s ease-in-out;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .35);
+    background-color: white;
 }
 
 .card:hover {
@@ -104,12 +105,19 @@ h5 {
     /* Width of the news section */
     height: 80%;
     /* Height of the news section */
+    border: 1px solid black;
+    background-color: white;
+}
+
+.news-ticker h3{
+    text-align: center;
+    margin-block: 10px;
 }
 
 .news-ticker marquee {
     font-size: 1rem;
     padding: 30px;
-    border: 1px solid black;
+    
 }
 
 /* For responsiveness, adjust the news ticker on smaller screens */

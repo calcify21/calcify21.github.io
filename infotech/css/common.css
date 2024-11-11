@@ -20,7 +20,6 @@ main {
 .logo {
     display: flex;
     align-items: center;
-    /* background-color: #333; */
 }
 
 .navbar {
@@ -28,7 +27,8 @@ main {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    color: #fff;
+    color: white;
+    margin-bottom: 24px;
 }
 
 .nav-ul {
@@ -52,7 +52,7 @@ main {
     display: block;
     padding-block: 5px;
     text-decoration: none;
-    color: #fff;
+    color: white;
     /* Default color */
     transition: color 0.2s ease-in-out, font-weight 0.2s ease-in-out;
 }
@@ -92,7 +92,7 @@ main {
 /* On hover, add a bold effect */
 .nav-item a:hover {
     font-weight: bold;
-    color: #f39c12;
+    color: orange;
     /* Hover color */
 }
 
@@ -100,7 +100,7 @@ main {
 .nav-item a:hover::after {
     width: 100%;
     opacity: 1;
-    background-color: #f39c12;
+    background-color: orange;
 }
 
 img {
@@ -110,8 +110,8 @@ img {
 .img-fluid {
     max-width: 100%;
     height: auto;
-    border-top-left-radius: 0.375rem;
-    border-top-right-radius: 0.375rem;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 
 .logo-text {
@@ -143,14 +143,10 @@ img {
     margin-inline: auto;
 }
 
-.mb-4 {
-    margin-bottom: 1.5rem !important;
-}
-
 footer {
     background-color: rgb(69, 69, 69);
-    padding-block: 1rem;
-    margin-top: 1.5rem;
+    padding-block: 16px;
+    margin-top: 24px;
     margin-bottom: 0;
     color: wheat !important;
 }
@@ -170,7 +166,7 @@ footer {
 
 .f-ul li a {
     color: white;
-    padding-inline: 0.5rem;
+    padding-inline: 8px;
     text-decoration: none;
 }
 
@@ -212,4 +208,27 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.btn {margin-top: 3px;
+    padding: 6px 12px;
+    border: 1px solid blue;
+    background-color: blue;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: white;
+    text-align: center;}
+
+.btn:hover {
+    background-color: royalblue;
+    border-color: royalblue;
+}
+
+.btn a {
+    text-decoration: none;
+    color: inherit;
 }
