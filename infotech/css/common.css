@@ -60,17 +60,14 @@ main {
 /* Create the underline effect using ::after */
 .nav-item a::after {
     content: "";
-    /* This is required for the pseudo-element to appear */
     position: absolute;
     bottom: 0;
     left: 0;
     width: 0;
-    /* Initially, the underline is hidden */
     height: 2px;
     background-color: white;
     transition: width 0.3s ease, opacity 0.3s ease;
     opacity: 0;
-    /* Initially, the pseudo-element is hidden */
 }
 
 /* Active link should also have the underline by default */
