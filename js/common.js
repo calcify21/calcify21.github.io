@@ -106,3 +106,5 @@ function checkTheme() {
         }
     }
 }
+
+window.onload = checkTheme();
