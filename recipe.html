@@ -16,7 +16,7 @@
 <body>
     <header>
         <!-- * Navbar -->
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand">
                     <img src="assets/images/logo.png" class="logo">
@@ -60,8 +60,8 @@
     <main>
         <div class="container">
             <section class="mb-3">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="text-center heading">Search your favourite
+                <div class="d-flex align-items-center flex-column mb-5">
+                    <h2 class="text-center heading mb-3">Search your favourite
                         recipes...</h2>
                     <form class="d-flex me-2 mb-2 mb-lg-0" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search for recipes..."
@@ -69,7 +69,6 @@
                         <button class="btn btn-outline-success" type="submit" id="search-btn">Search</button>
                     </form>
                 </div>
-                <br>
                 <div id="recipe-container" class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4"></div>
             </section>
             <div id="modal">
