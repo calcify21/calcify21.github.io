@@ -50,6 +50,12 @@ main {
     height: 70px;
 }
 
+/* .container-fluid {
+    background-color: #455A64 !important;
+    padding: 20px;
+    height: 100px !important;
+} */
+
 .nav-underline {
     gap: 1rem;
 }
@@ -89,4 +95,24 @@ main {
     width: 100%;
     opacity: 1;
     background-color: white;
+}
+
+@media screen and (max-width: 991px) {
+    .navbar {
+        height: 150px;
+    }
+
+    main {
+        margin-top: 150px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .navbar {
+        height: 220px;
+    }
+
+    main {
+        margin-top: 220px;
+    }
 }
