@@ -108,3 +108,83 @@ function checkTheme() {
 }
 
 window.onload = checkTheme();
+
+document.addEventListener("DOMContentLoaded", function () {
+    const navbar = document.querySelector(".navbar");
+    const navbarCollapse = document.querySelector("#navbarSupportedContent");
+    const mainElement = document.querySelector("main");
+
+    // When the menu is expanded
+    navbarCollapse.addEventListener("show.bs.collapse", function () {
+        navbar.style.height = "auto"; // Adjust to fit content
+
+        // Check the screen width and apply corresponding margin
+        if (window.innerWidth <= 520) {
+            mainElement.style.marginTop = "220px";
+        } else if (window.innerWidth <= 991) {
+            mainElement.style.marginTop = "150px";
+        } else {
+            mainElement.style.marginTop = "70px"; // Default margin for larger screens
+        }
+
+
+    });
+
+    // When the menu is collapsed
+    navbarCollapse.addEventListener("hidden.bs.collapse", function () {
+        navbar.style.height = "70px"; // Default collapsed height
+
+        mainElement.style.marginTop = "70px"; // Reset margin when collapsed
+
+
+    });
+    window.addEventListener("resize", function () {
+        navbarCollapse.addEventListener("show.bs.collapse", function () {
+            // Check the screen width and apply corresponding margin
+            if (window.innerWidth <= 520) {
+                mainElement.style.marginTop = "220px";
+            } else if (window.innerWidth <= 991) {
+                mainElement.style.marginTop = "150px";
+            } else {
+                mainElement.style.marginTop = "70px"; // Default margin for larger screens
+            }
+        });
+        navbarCollapse.addEventListener("hidden.bs.collapse", function () {
+            navbar.style.height = "70px"; // Default collapsed height
+
+            mainElement.style.marginTop = "70px"; // Reset margin when collapsed
+
+
+        });
+    });
+});
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     const navbarCollapse = document.querySelector("#navbarSupportedContent");
+//     const mainElement = document.querySelector("main");
+
+//     function adjustMainMargin() {
+//         if (navbarCollapse.classList.contains("show")) {
+//             // Check the screen width and apply corresponding margin
+//             if (window.innerWidth <= 520) {
+//                 mainElement.style.marginTop = "220px";
+//             } else if (window.innerWidth <= 991) {
+//                 mainElement.style.marginTop = "150px";
+//             } else {
+//                 mainElement.style.marginTop = "70px"; // Default margin for larger screens
+//             }
+//         } else {
+//             mainElement.style.marginTop = "70px"; // Reset margin when collapsed
+//         }
+//     }
+
+//     // Listen for menu expand and collapse
+//     navbarCollapse.addEventListener("show.bs.collapse", adjustMainMargin);
+//     navbarCollapse.addEventListener("hidden.bs.collapse", adjustMainMargin);
+
+//     // Adjust margin on window resize
+//     window.addEventListener("resize", adjustMainMargin);
+
+//     // Initial adjustment on page load
+//     adjustMainMargin();
+// });
