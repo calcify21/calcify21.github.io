@@ -44,7 +44,6 @@ function increaseLength() {
 }
 
 function copyPassword() {
-    const passwordField = document.getElementById('generatedPwd');
     const password = document.getElementById('generatedPwd').value;
     // const toastTrigger = document.getElementById('copyBtn');
 
@@ -69,12 +68,8 @@ function copyPassword() {
             })
             .catch(err => {
                 console.error('Failed to copy text: ', err);
-                passwordField.select();
-                document.execCommand('copy');
-                // alert('Password copied to clipboard!');
-                const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast1);
                 // alert('Failed to copy password. Check browser permissions or HTTPS.');
-                // const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast3);
+                const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast3);
                 toastBootstrap.show()
             });
     } else {
