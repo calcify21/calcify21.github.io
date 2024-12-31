@@ -17,6 +17,9 @@ function toggleFav(calcName) {
   } else if (calcName == "Password Generator") {
     let starPasswordBtn = document.getElementById("starPwd");
     fav(starPasswordBtn, calcName);
+  } else if (calcName == "QR Code Generator") {
+    let starQRBtn = document.getElementById("starQR");
+    fav(starQRBtn, calcName);
   }
 }
 
@@ -74,6 +77,10 @@ function checkCalc(calcName) {
     star.style.color = "#FFD43B";
   } else if (calcName == "Password Generator") {
     let star = document.getElementById("starPwd");
+    star.classList.replace("fa-regular", "fa-solid");
+    star.style.color = "#FFD43B";
+  } else if (calcName == "QR Code Generator") {
+    let star = document.getElementById("starQR");
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";
   }

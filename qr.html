@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="assets/images/calculator-solid.svg" type="image/x-icon" />
 </head>
 
-<body class="bg-light">
+<body>
     <header>
         <!-- * Navbar -->
         <nav class="navbar navbar-expand-lg fixed-top">
@@ -58,43 +58,40 @@
         <br>
     </header>
     <main>
-        <div class="container py-5">
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body text-center">
-                            <h1 class="h4 mb-3">QR Code Generator</h1>
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <div class="card shadow-sm generator">
+                    <div class="card-body text-center">
+                        <h1 class="h4 mb-3">QR Code Generator</h1>
 
-                            <!-- Input Field -->
-                            <input type="text" id="qrInput" class="form-control mb-3" placeholder="Enter text or URL"
-                                aria-label="QR Code Input">
+                        <!-- Input Field -->
+                        <input type="text" id="qrInput" class="form-control mb-3" placeholder="Enter text or URL"
+                            aria-label="QR Code Input">
 
-                            <!-- Dropdown for Size -->
-                            <div class="mb-3">
-                                <label for="qrSize" class="form-label">Select QR Code Size:</label>
-                                <select id="qrSize" class="form-select">
-                                    <option value="100">100x100</option>
-                                    <option value="200">200x200</option>
-                                    <option value="300">300x300</option>
-                                    <option value="400">400x400</option>
-                                    <option value="500">500x500</option>
-                                    <option value="600">600x600</option>
-                                    <option value="700">700x700</option>
-                                    <option value="800">800x800</option>
-                                    <option value="900">900x900</option>
-                                </select>
-                            </div>
-
-                            <!-- Buttons -->
-                            <button id="generateBtn" class="btn btn-primary w-100 mb-3">Generate QR Code</button>
-                            <button id="downloadBtn" class="btn btn-success w-100" style="display: none;">Download QR
-                                Code</button>
-
-                            <!-- QR Code Display -->
-                            <div id="qrcode-container" class="d-flex justify-content-center align-items-center p-3">
-                                <div id="qrcode" class="bg-white border rounded"></div>
-                            </div>
+                        <!-- Dropdown for Size -->
+                        <div class="mb-3">
+                            <label for="qrSize" class="form-label">Select QR Code Size:</label>
+                            <select id="qrSize" class="form-select">
+                                <option value="100">100x100</option>
+                                <option value="200">200x200</option>
+                                <option value="300">300x300</option>
+                                <option value="400">400x400</option>
+                                <option value="500">500x500</option>
+                                <option value="600">600x600</option>
+                                <option value="700">700x700</option>
+                                <option value="800">800x800</option>
+                                <option value="900">900x900</option>
+                            </select>
                         </div>
+                        <button id="generateBtn" class="btn btn-primary w-100 mb-3">Generate QR Code</button>
+
+                        <!-- QR Code Display -->
+                        <div id="qrcode-container" class="d-flex justify-content-center align-items-center p-3">
+                            <div id="qrcode" class="border rounded" style="display: none;"></div>
+                        </div>
+
+                        <button id="downloadBtn" class="btn btn-success w-100" style="display: none;">Download QR
+                            Code</button>
                     </div>
                 </div>
             </div>
@@ -104,6 +101,18 @@
                     class="fa-solid fa-arrow-up"></i></button>
             <button onclick="gotobottom()" id="bottombtn" class="btn btn-warning"><i
                     class="fa-solid fa-arrow-down"></i></button>
+
+            <!-- * Toast -->
+            <div class="toast-container position-fixed end-0 p-3 toastContainer">
+                <div id="liveToast" class="toast text-bg-warning border-0" role="alert" aria-live="assertive"
+                    aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">Please enter the text or URL to generate QR Code.</div>
+                        <button type="button" class="btn-close me-2 m-auto btn-close-white" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 

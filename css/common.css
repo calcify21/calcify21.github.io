@@ -116,3 +116,8 @@ main {
 main {
     transition: margin-top 0.05s ease;
 }
+
+.toastContainer {
+    top: 55px;
+    width: 200px;
+}

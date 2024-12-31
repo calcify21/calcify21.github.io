@@ -52,9 +52,8 @@ function copyPassword() {
     const toast3 = document.getElementById('err')
 
     if (!password) {
-        // alert('No password to copy!');
         const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast2);
-        toastBootstrap.show()
+        toastBootstrap.show();
         return;
     }
 

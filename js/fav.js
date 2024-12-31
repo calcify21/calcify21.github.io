@@ -34,6 +34,9 @@ function generateCalculatorHtml(id) {
     } else if (id == "Password Generator") {
         text = "A simple password generator that generates a secure random password of the desired length."
         firstWord = "pwd"
+    } else if (id == "QR Code Generator") {
+        text = "A QR code generator that allows users to create QR codes for any text or URL."
+        firstWord = "qr"
     }
     return `<li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
