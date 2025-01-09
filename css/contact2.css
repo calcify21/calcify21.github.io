@@ -5,3 +5,23 @@
 textarea {
     resize: none;
 }
+
+.contact-image {
+    animation: myAnimation 4s ease-in-out 1s infinite alternate;
+    position: relative;
+}
+
+/* Animation */
+@keyframes myAnimation {
+    0% {
+        top: 0px;
+    }
+
+    50% {
+        top: -30px;
+    }
+
+    100% {
+        top: 0px;
+    }
+}
