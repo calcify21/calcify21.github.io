@@ -67,27 +67,48 @@
                             class="d-none d-md-block img-fluid pt-4 contact-image">
                     </div>
                     <div class="col-md-6">
-                        <form>
+                        <form class="needs-validation" novalidate id="contactUsForm">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Your Name:</label>
-                                <input type="text" id="name" class="form-control">
+                                <span class="form-text" id="nameInfo">
+                                    (Required)
+                                </span>
+                                <input type="text" id="name" class="form-control" required>
+
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="email" class="form-label">Your Email:</label>
-                                    <input type="email" id="email" class="form-control">
+                                    <input type="email" id="email" class="form-control" aria-describedby="emailMobHelp">
+                                    <div id="emailMobHelp" class="form-text">
+                                        We'll never share your email with anyone else.
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please enter a valid email.
+                                    </div>
                                 </div>
                                 <div class="col">
                                     <label for="phn" class="form-label">Your Mobile Number:</label>
-                                    <input type="tel" id="phn" class="form-control" pattern="[0-6][0-9]{9}">
+                                    <input type="tel" id="phn" class="form-control" pattern="[6-9][0-9]{9}"
+                                        aria-describedby="MobHelp">
+                                    <div id="MobHelp" class="form-text">
+                                        Please don't use 0 or +91 in the beginning.
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please enter a valid phone number.
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="mb-3">
                                 <label for="rating" class="form-label">How much would you rate Calcify?</label>
                                 <div id="rating" class="text-center">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                            id="inlineRadio1" value="option1">
+                                            id="inlineRadio1" value="option1" required>
                                         <label class="form-check-label" for="inlineRadio1">1</label>
                                     </div>
                                     <div class="form-check form-check-inline">
@@ -114,7 +135,13 @@
                             </div>
                             <div class="mb-3">
                                 <label for="message" class="form-label">Your Message:</label>
-                                <textarea id="message" class="form-control" rows="3"></textarea>
+                                <textarea id="message" class="form-control" rows="3" required></textarea>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter your message. It would be great to hear from you.
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary" id="submit-btn">Send Message</button>
                         </form>
@@ -127,7 +154,8 @@
                         <!-- Tick path -->
                         <path d="M14 27 l8 8 l16 -16" stroke="#4caf50" stroke-width="4" fill="none" />
                     </svg>
-                    <div id="custom-message">Thank you for your submission!</div>
+                    <div id="custom-message">Thank you for your submission!</div><br>
+                    <button type="button" class="btn btn-success returnToForm">Go Back</button>
                 </div>
             </div>
         </div>
