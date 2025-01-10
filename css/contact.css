@@ -1,21 +1,23 @@
-#gForm {
-    height: 1600px;
-    width: 640px;
-    max-width: 100%;
-    border: none;
+.contact {
+    max-width: 900px;
 }
 
-#spinner {
-    height: 90.2vh;
+textarea {
+    resize: none;
 }
 
-#tick-container {
+.contact-image {
+    animation: planeMovement 4s ease-in-out 1s infinite alternate;
+    position: relative;
+}
+
+.tick-container {
     display: none;
     /* Initially hidden */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* position: absolute; */
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
     text-align: center;
 }
 
@@ -37,6 +39,21 @@
     color: #4caf50;
     font-size: 1.5rem;
     margin-top: 20px;
+}
+
+/* Animations */
+@keyframes planeMovement {
+    0% {
+        top: 0px;
+    }
+
+    50% {
+        top: -30px;
+    }
+
+    100% {
+        top: 0px;
+    }
 }
 
 @keyframes draw {

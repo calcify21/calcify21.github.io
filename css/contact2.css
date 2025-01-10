@@ -1,27 +1,50 @@
-.contact {
-    max-width: 900px;
+#gForm {
+    height: 1600px;
+    width: 640px;
+    max-width: 100%;
+    border: none;
 }
 
-textarea {
-    resize: none;
+#spinner {
+    height: 90.2vh;
 }
 
-.contact-image {
-    animation: myAnimation 4s ease-in-out 1s infinite alternate;
-    position: relative;
+#tick-container {
+    display: none;
+    /* Initially hidden */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
-/* Animation */
-@keyframes myAnimation {
+.tick-svg {
+    width: 120px;
+    /* Increased size for better visibility */
+    height: 120px;
+    stroke: #4caf50;
+    /* Green color similar to GPay */
+    stroke-width: 5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: draw 1s ease forwards;
+    /* Trigger the animation */
+}
+
+#custom-message {
+    color: #4caf50;
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+@keyframes draw {
     0% {
-        top: 0px;
-    }
-
-    50% {
-        top: -30px;
+        stroke-dasharray: 0, 100;
     }
 
     100% {
-        top: 0px;
+        stroke-dasharray: 100, 0;
     }
 }
