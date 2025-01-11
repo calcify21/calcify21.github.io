@@ -45,3 +45,23 @@
         form.classList.remove('was-validated');
     });
 })();
+
+document.getElementById("contactUsForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phn").value,
+        rating: document.getElementsByName("inlineRadioOptions").value,
+        message: document.getElementById("message").value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbw6PpxA4Kn5oDj0HFOae3jVw0p8pHdcRvkQjlD0bhrIZRdrMbiF0D_atQ-yRrLr1E4i2w/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+    })
+        .then(response => alert("Form submitted successfully!"))
+        .catch(error => console.error("Error:", error));
+});
