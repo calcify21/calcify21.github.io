@@ -182,52 +182,53 @@
 // // Load the API client and auth2 library
 // gapi.load('client:auth2', handleClientLoad);
 
-document.getElementById('contactUsForm').addEventListener('submit', function (event) {
-    event.preventDefault();
+// document.getElementById('contactUsForm').addEventListener('submit', function (event) {
+//     event.preventDefault();
 
-    // Collect form data
-    var name = document.getElementById('name').value;
-    var email = document.getElementById('email').value;
-    var phone = document.getElementById('phn').value;
-    var rating = document.querySelector('input[name="inlineRadioOptions"]:checked').value;
-    var message = document.getElementById('message').value;
+//     // Collect form data
+//     var name = document.getElementById('name').value;
+//     var email = document.getElementById('email').value;
+//     var phone = document.getElementById('phn').value;
+//     var rating = document.querySelector('input[name="inlineRadioOptions"]:checked').value;
+//     var message = document.getElementById('message').value;
 
-    // Construct data object
-    var data = {
-        name: name,
-        email: email,
-        phone: phone,
-        rating: rating,
-        message: message
-    };
+//     // Construct data object
+//     var data = {
+//         name: name,
+//         email: email,
+//         phone: phone,
+//         rating: rating,
+//         message: message
+//     };
 
-    // Send data to Google Apps Script web app
-    fetch('https://script.google.com/macros/s/AKfycbzt0WhneUmhriorz-RC7Xt7aiL4eiSvsLNX_ga3UjeW1ooyAHibHwTkJgHUbUOM8w0a1Q/exec', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-        .then(result => {
-            if (result.status === 'success') {
-                // Show the tick container and hide the form.
-                const tickContainer = document.querySelector('.tick-container');
-                const contactFormContainer = document.getElementById("contact-form");
+//     // Send data to Google Apps Script web app
+//     fetch('https://script.google.com/macros/s/AKfycbzt0WhneUmhriorz-RC7Xt7aiL4eiSvsLNX_ga3UjeW1ooyAHibHwTkJgHUbUOM8w0a1Q/exec', {
+//         method: 'POST',
+//         mode: 'cors',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(data)
+//     })
+//         .then(response => response.json())
+//         .then(result => {
+//             if (result.status === 'success') {
+//                 // Show the tick container and hide the form.
+//                 const tickContainer = document.querySelector('.tick-container');
+//                 const contactFormContainer = document.getElementById("contact-form");
 
-                contactFormContainer.style.display = "none";
-                tickContainer.style.display = 'block';
-            } else {
-                alert('Submission failed. Please try again.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Submission failed. Please try again.');
-        });
-});
+//                 contactFormContainer.style.display = "none";
+//                 tickContainer.style.display = 'block';
+//             } else {
+//                 alert('Submission failed. Please try again.');
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//             alert('Submission failed. Please try again.');
+//         });
+// });
+
 document.getElementById('contactUsForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
