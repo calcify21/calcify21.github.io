@@ -254,7 +254,8 @@ document.getElementById('contactUsForm').addEventListener('submit', function (ev
         method: "POST",
         headers: myHeaders,
         body: raw,
-        redirect: "follow"
+        redirect: "follow",
+        mode: "no-cors"
     };
 
     fetch("https://script.google.com/macros/s/AKfycbzt0WhneUmhriorz-RC7Xt7aiL4eiSvsLNX_ga3UjeW1ooyAHibHwTkJgHUbUOM8w0a1Q/exec", requestOptions)
