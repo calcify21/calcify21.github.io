@@ -258,17 +258,6 @@ document.getElementById('contactUsForm').addEventListener('submit', function (ev
 
     fetch("https://script.google.com/macros/s/AKfycbzt0WhneUmhriorz-RC7Xt7aiL4eiSvsLNX_ga3UjeW1ooyAHibHwTkJgHUbUOM8w0a1Q/exec", requestOptions)
         .then((response) => response.text())
-        .then((result) => {
-            if (result.status === 'success') {
-                // Show the tick container and hide the form.
-                const tickContainer = document.querySelector('.tick-container');
-                const contactFormContainer = document.getElementById("contact-form");
-
-                contactFormContainer.style.display = "none";
-                tickContainer.style.display = 'block';
-            } else {
-                alert('Submission failed. Please try again.');
-            }
-        })
+        .then((result) => console.log(result))
         .catch((error) => console.error(error));
 });
