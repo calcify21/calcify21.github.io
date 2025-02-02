@@ -15,37 +15,37 @@ function loadFavorites() {
 
 function generateCalculatorHtml(id) {
     let text = "";
-    let firstWord;
-    if (id == 'Prime Number Checker') {
+    if (id == 'prime') {
+        title = "Prime Number Checker"
         text = "A calculator to check whether the given number is prime or not."
-        firstWord = "prime"
-    } else if (id == 'Percentage Calculator') {
+    } else if (id == 'percentage') {
+        title = "Percentage Calculator"
         text = "A calculator containing various operations on percentages."
-        firstWord = "percentage"
-    } else if (id == 'Area Calculator') {
-        text = "A calculator to find the area of various 2D figures."
-        firstWord = "area"
-    } else if (id == 'Mean, Median, Mode, Range Calculator') {
+    } else if (id == 'mean') {
+        title = "Mean, Median, Mode, Range Calculator"
         text = "A calculator to find the mean, median, mode, and range of a set of numbers."
-        firstWord = "centraltendancy"
-    } else if (id == "Recipe APP") {
+    } else if (id == 'area') {
+        title = "Area Calculator"
+        text = "A calculator to find the area of various 2D figures."
+    } else if (id == "recipe") {
+        title = "Recipe APP"
         text = "A recipe app that allows users to search for their favourite recipes."
-        firstWord = "recipe"
-    } else if (id == "Password Generator") {
+    } else if (id == "pwd") {
+        title = "Password Generator"
         text = "A simple password generator that generates a secure random password of the desired length."
-        firstWord = "pwd"
-    } else if (id == "QR Code Generator") {
+    } else if (id == "qr") {
+        title = "QR Code Generator"
         text = "A QR code generator that allows users to create QR codes for any text or URL."
-        firstWord = "qr"
     }
+
     return `<li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
                         <div class="fw-bold">
-                            ${id}
+                            ${title}
                         </div>
                         ${text}
                     </div>
-                    <a href="${firstWord.toLowerCase()}.html" class="btn btn-outline-primary">Open</a>
+                    <a href="${id}.html" class="btn btn-outline-primary">Open</a>
                 </li>`;
 }
 

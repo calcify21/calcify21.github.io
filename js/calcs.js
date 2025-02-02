@@ -1,23 +1,23 @@
 function toggleFav(calcName) {
-  if (calcName == "Prime Number Checker") {
+  if (calcName == "prime") {
     let starPrimeBtn = document.getElementById("starPrime");
     fav(starPrimeBtn, calcName);
-  } else if (calcName == "Percentage Calculator") {
+  } else if (calcName == "percentage") {
     let starPercentBtn = document.getElementById("starPercent");
     fav(starPercentBtn, calcName);
-  } else if (calcName == "Area Calculator") {
+  } else if (calcName == "area") {
     let starAreaBtn = document.getElementById("starArea");
     fav(starAreaBtn, calcName);
-  } else if (calcName == "Mean, Median, Mode, Range Calculator") {
+  } else if (calcName == "mean") {
     let starCentralTendancyBtn = document.getElementById("starCentralTendancy");
     fav(starCentralTendancyBtn, calcName);
-  } else if (calcName == "Recipe APP") {
+  } else if (calcName == "recipe") {
     let starRecipeBtn = document.getElementById("starRecipe");
     fav(starRecipeBtn, calcName);
-  } else if (calcName == "Password Generator") {
+  } else if (calcName == "pwd") {
     let starPasswordBtn = document.getElementById("starPwd");
     fav(starPasswordBtn, calcName);
-  } else if (calcName == "QR Code Generator") {
+  } else if (calcName == "qr") {
     let starQRBtn = document.getElementById("starQR");
     fav(starQRBtn, calcName);
   }
@@ -55,31 +55,31 @@ function checkFav() {
 }
 
 function checkCalc(calcName) {
-  if (calcName == "Prime Number Checker") {
+  if (calcName == "prime") {
     let star = document.getElementById("starPrime");
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";
-  } else if (calcName == "Percentage Calculator") {
+  } else if (calcName == "percentage") {
     let star = document.getElementById("starPercent");
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";
-  } else if (calcName == "Area Calculator") {
+  } else if (calcName == "area") {
     let star = document.getElementById("starArea");
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";
-  } else if (calcName == "Mean, Median, Mode, Range Calculator") {
+  } else if (calcName == "mean") {
     let star = document.getElementById("starCentralTendancy");
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";
-  } else if (calcName == "Recipe APP") {
+  } else if (calcName == "recipe") {
     let star = document.getElementById("starRecipe");
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";
-  } else if (calcName == "Password Generator") {
+  } else if (calcName == "pwd") {
     let star = document.getElementById("starPwd");
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";
-  } else if (calcName == "QR Code Generator") {
+  } else if (calcName == "qr") {
     let star = document.getElementById("starQR");
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";

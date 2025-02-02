@@ -36,11 +36,13 @@ var generatePassword = function () {
 function decreaseLength() {
     sliderValue.value = parseInt(sliderValue.value) - 1; // Convert to number and then subtract 1
     document.getElementById("length").textContent = sliderValue.value;
+    generatePassword();
 }
 
 function increaseLength() {
     sliderValue.value = parseInt(sliderValue.value) + 1; // Convert to number and then add 1
     document.getElementById("length").textContent = sliderValue.value;
+    generatePassword();
 }
 
 function copyPassword() {

@@ -18,7 +18,7 @@
         <!-- * Navbar -->
         <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand">
+                <a class="navbar-brand" href="index.html">
                     <img src="assets/images/logo.png" class="logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -77,7 +77,7 @@
                                 onclick="decreaseLength()"><i class="fa-solid fa-minus"></i></button>
                             <div class="slider-content w-100">
                                 <input type="range" class="form-range w-100" min="3" max="50" value="8"
-                                    id="passwordLength">
+                                    id="passwordLength" onchange="generatePassword()">
                             </div>
                             <button class="btn btn-outline-dark rounded-circle ms-2" id="increaseBtn"
                                 onclick="increaseLength()"><i class="fa-solid fa-plus"></i></button>
@@ -91,27 +91,28 @@
                             <div class="checkbox-settings col">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input controlled-checkbox" type="checkbox"
-                                        id="include-uppercase" value="uppercase" checked>
+                                        id="include-uppercase" value="uppercase" onchange="generatePassword()" checked>
                                     <label class="form-check-label" for="include-uppercase">ABC</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input controlled-checkbox" type="checkbox"
-                                        id="include-lowercase" value="lowercase" checked>
+                                        id="include-lowercase" value="lowercase" onchange="generatePassword()" checked>
                                     <label class="form-check-label" for="include-lowercase">abc</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input controlled-checkbox" type="checkbox"
-                                        id="include-numbers" value="numbers" checked>
+                                        id="include-numbers" value="numbers" onchange="generatePassword()" checked>
                                     <label class="form-check-label" for="include-numbers">123</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input controlled-checkbox" type="checkbox"
-                                        id="include-specialChars" value="specialChars" checked>
+                                        id="include-specialChars" value="specialChars" onchange="generatePassword()"
+                                        checked>
                                     <label class="form-check-label" for="include-specialChars">!@#</label>
                                 </div>
                             </div>
                             <div class="col-4 col-sm-3 col-lg-2">
-                                <button type="button" class="btn btn-danger" id="generateBtn"
+                                <button type="button" class="btn btn-outline-warning rounded-pill" id="generateBtn"
                                     onclick="generatePassword()">Generate</button>
                             </div>
                         </div>
