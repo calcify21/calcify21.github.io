@@ -3,10 +3,13 @@ function checkPrime() {
   let result = document.getElementById("result");
   result.style.display = "block";
 
-  if (num == "") {
+  // Prevent numbers larger than JavaScript's safe limit
+  if (num > Number.MAX_SAFE_INTEGER) {
     result.classList.replace("alert-success", "alert-danger");
-    result.textContent =
-      "Please enter a number to check for prime or composite.";
+    result.textContent = `Please enter a number ≤ ${Number.MAX_SAFE_INTEGER}.`;
+  } else if (num == "") {
+    result.classList.replace("alert-success", "alert-danger");
+    result.textContent = "Please enter a number.";
   } else if (num % 1 !== 0 || num <= 1) {
     result.classList.replace("alert-danger", "alert-success");
     result.textContent = `${num} is neither prime nor composite.`;
@@ -15,7 +18,6 @@ function checkPrime() {
     result.textContent = `${num} is a prime number.`;
   } else if (num > 2) {
     result.classList.replace("alert-danger", "alert-success");
-
     for (let i = 2; i <= Math.sqrt(num); i++) {
       if (num % i === 0) {
         ans = `${num} is a composite number. It is divisible by ${i}.`;

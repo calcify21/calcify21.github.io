@@ -30,7 +30,20 @@ var generatePassword = function () {
         password += characterPool[randomIndex];
     }
 
-    document.getElementById("generatedPwd").value = password;
+    // Typewriter effect for password
+    let generatedPwd = document.getElementById("generatedPwd");
+    generatedPwd.value = '';
+    let i = 0;
+
+    function typewriter() {
+        if (i < password.length) {
+            generatedPwd.value += password[i];
+            i++;
+            setTimeout(typewriter, 40);
+        }
+    }
+
+    typewriter();
 }
 
 function decreaseLength() {
@@ -91,4 +104,5 @@ checkboxes.forEach(checkbox => {
 
 window.onload = function () {
     document.getElementById("length").textContent = sliderValue.value;
+    generatePassword();
 }
