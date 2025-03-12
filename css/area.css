@@ -1,9 +1,4 @@
-#result1,
-#result2,
-#result3,
-#result4,
-#result5,
-#result6 {
+.result {
     display: none;
 }
 
@@ -15,11 +10,7 @@
     display: block;
 }
 
-#sq_form,
-#quad_form,
-#para_form,
-#tri_form,
-#circle_form {
+.calcs {
     display: none;
 }
 

@@ -22,3 +22,8 @@
 .card-body {
     border: none;
 }
+
+.list-group-numbered>.list-group-item::before {
+    position: absolute;
+    top: 13px;
+}
