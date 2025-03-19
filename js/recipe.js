@@ -3,39 +3,43 @@ const searchBtn = document.getElementById("search-btn");
 let recipes = [];
 
 function fetchRecipes(query) {
-    const fetchedData = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)
-        .then(response => response.json())
-        .then(data => {
-            recipes = data.meals;
-            if (recipes === null) {
-                document.querySelector(".heading").textContent = "No recipe found for this query.";
-                document.querySelector(".heading").classList.add("text-danger");
-                document.querySelector("#recipe-container").innerHTML = "";
-            } else {
-                document.querySelector(".heading").innerHTML = `Showing ${recipes.length} recipes for "${query}": `;
-                document.querySelector(".heading").classList.remove("text-danger");
-                showRecipes();
-            }
-            // console.log(data.meals);
-        })
-        .catch(error => console.log(error));
-
+  const fetchedData = fetch(
+    `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      recipes = data.meals;
+      if (recipes === null) {
+        document.querySelector(".heading").textContent =
+          "No recipe found for this query.";
+        document.querySelector(".heading").classList.add("text-danger");
+        document.querySelector("#recipe-container").innerHTML = "";
+      } else {
+        document.querySelector(
+          ".heading"
+        ).innerHTML = `Showing ${recipes.length} recipes for "${query}": `;
+        document.querySelector(".heading").classList.remove("text-danger");
+        showRecipes();
+      }
+      // console.log(data.meals);
+    })
+    .catch((error) => console.log(error));
 }
 
 searchBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    const searchTerm = searchInput.value.trim();
-    fetchRecipes(searchTerm)
-})
+  e.preventDefault();
+  const searchTerm = searchInput.value.trim();
+  fetchRecipes(searchTerm);
+});
 
 function showRecipes() {
-    const recipeContainer = document.getElementById("recipe-container");
-    recipeContainer.innerHTML = "";
-    recipes.forEach((recipe, index) => {
-        const recipeTitle = capitalize(recipe.strMeal);
-        const recipeImage = recipe.strMealThumb;
-        const recipeArea = recipe.strArea;
-        const recipeItemHtmlCtrl = `
+  const recipeContainer = document.getElementById("recipe-container");
+  recipeContainer.innerHTML = "";
+  recipes.forEach((recipe, index) => {
+    const recipeTitle = capitalize(recipe.strMeal);
+    const recipeImage = recipe.strMealThumb;
+    const recipeArea = recipe.strArea;
+    const recipeItemHtmlCtrl = `
         <div class="col">
             <div class="card h-100">
                 <img src=${recipeImage} class="card-img-top">
@@ -46,45 +50,42 @@ function showRecipes() {
                 </div>
             </div>
         </div>
-        `
-        recipeContainer.insertAdjacentHTML("beforeend", recipeItemHtmlCtrl);
-    });
+        `;
+    recipeContainer.insertAdjacentHTML("beforeend", recipeItemHtmlCtrl);
+  });
 }
-
-
 
 const getIngredients = (recipe) => {
-    let ingredientList = "";
-    for (let i = 1; i <= 20; i++) {
-        const ingredient = recipe[`strIngredient${i}`];
-        const measure = recipe[`strMeasure${i}`];
-        if (ingredient && measure) {
-            ingredientList += `${ingredient} - ${measure}<br>`;
-        } else {
-            break;
-        }
+  let ingredientList = "";
+  for (let i = 1; i <= 20; i++) {
+    const ingredient = recipe[`strIngredient${i}`];
+    const measure = recipe[`strMeasure${i}`];
+    if (ingredient && measure) {
+      ingredientList += `${ingredient} - ${measure}<br>`;
+    } else {
+      break;
     }
-    return ingredientList;
-}
+  }
+  return ingredientList;
+};
 
 function showModal(id) {
-    let ingredients = document.querySelector(".ingredients")
-    let instructions = document.querySelector(".instructions")
-    let recipeLink = document.querySelector(".recipe-link")
-    let modalTitle = document.querySelector(".modal-title");
-    const recipe = recipes[id];
-    const recipeInstructions = recipe.strInstructions.replace(/\r\n/g, '<br>');
-    const recipeIngredients = getIngredients(recipe);
-    recipeLink.href = recipe.strYoutube;
-    instructions.innerHTML = recipeInstructions;
-    ingredients.innerHTML = recipeIngredients;
-    modalTitle.innerHTML = `How to make ${capitalize(recipe.strMeal)}`;
+  let ingredients = document.querySelector(".ingredients");
+  let instructions = document.querySelector(".instructions");
+  let recipeLink = document.querySelector(".recipe-link");
+  let modalTitle = document.querySelector(".modal-title");
+  const recipe = recipes[id];
+  const recipeInstructions = recipe.strInstructions.replace(/\r\n/g, "<br>");
+  const recipeIngredients = getIngredients(recipe);
+  recipeLink.href = recipe.strYoutube;
+  instructions.innerHTML = recipeInstructions;
+  ingredients.innerHTML = recipeIngredients;
+  modalTitle.innerHTML = `How to make ${capitalize(recipe.strMeal)}`;
 }
 
-
 function capitalize(str) {
-    return str.replace(
-        /\w\S*/g,
-        text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
-    );
+  return str.replace(
+    /\w\S*/g,
+    (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+  );
 }

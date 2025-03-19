@@ -1,21 +1,21 @@
 body {
-    font-family: 'Open Sans', sans-serif;
-    height: 100%;
+  font-family: "Open Sans", sans-serif;
+  height: 100%;
 }
 
 .error img {
-    width: 500px;
+  width: 500px;
 }
 
 .error h1 {
-    font-size: 48px;
+  font-size: 48px;
 }
 
 .error p {
-    font-size: 22px;
+  font-size: 22px;
 }
 
 .icon-link-hover:hover i {
-    transform: var(--bs-icon-link-transform, translate3d(.25em, 0, 0));
-    transition: transform .2s ease-in-out;
+  transform: var(--bs-icon-link-transform, translate3d(0.25em, 0, 0));
+  transition: transform 0.2s ease-in-out;
 }

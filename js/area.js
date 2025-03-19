@@ -1,8 +1,8 @@
 function toggleCalc(calc) {
-  document.querySelectorAll(".calcs").forEach(calc => {
+  document.querySelectorAll(".calcs").forEach((calc) => {
     calc.style.display = "none";
   });
-  document.querySelectorAll(".tab").forEach(tab => {
+  document.querySelectorAll(".tab").forEach((tab) => {
     tab.classList.remove("active");
   });
   if (calc == "rect") {
@@ -31,7 +31,6 @@ function toggleCalc(calc) {
   }
 }
 
-
 function arearect() {
   let length = document.getElementById("length").value;
   let width = document.getElementById("width").value;
@@ -40,8 +39,7 @@ function arearect() {
   if (length == "" || width == "") {
     resultdiv.classList.remove("alert-success");
     resultdiv.classList.add("alert-danger");
-    resultdiv.textContent =
-      "Please enter the length and width of the rectangle correctly.";
+    resultdiv.textContent = "Please enter the values correctly.";
   } else {
     resultdiv.classList.add("alert-success");
     resultdiv.classList.remove("alert-danger");
@@ -58,8 +56,7 @@ function areapara() {
   if (base == "" || height == "") {
     resultdiv.classList.remove("alert-success");
     resultdiv.classList.add("alert-danger");
-    resultdiv.textContent =
-      "Please enter the base and height of the parallelogram correctly.";
+    ("Please enter the values correctly.");
   } else {
     resultdiv.classList.add("alert-success");
     resultdiv.classList.remove("alert-danger");
@@ -76,8 +73,7 @@ function areatri() {
   if (base == "" || height == "") {
     resultdiv.classList.remove("alert-success");
     resultdiv.classList.add("alert-danger");
-    resultdiv.textContent =
-      "Please enter the base and height of the triangle correctly.";
+    resultdiv.textContent = "Please enter the values correctly.";
   } else {
     resultdiv.classList.add("alert-success");
     resultdiv.classList.remove("alert-danger");
@@ -87,19 +83,18 @@ function areatri() {
 }
 
 function areatri2() {
-  let s;
-  let s1 = parseFloat(document.getElementById("side1").value);
-  let s2 = parseFloat(document.getElementById("side2").value);
-  let s3 = parseFloat(document.getElementById("side3").value);
+  let s1 = document.getElementById("side1").value;
+  let s2 = document.getElementById("side2").value;
+  let s3 = document.getElementById("side3").value;
   let resultdiv = document.getElementById("result6");
   resultdiv.style.display = "block";
 
   if (s1 == "" || s2 == "" || s3 == "") {
-    resultdiv.classList.replace("alert-success", "alert-danger")
+    resultdiv.classList.replace("alert-success", "alert-danger");
     resultdiv.textContent = "Please enter the values correctly.";
   } else {
-    s = (s1 + s2 + s3) / 2;
-    resultdiv.classList.replace("alert-danger", "alert-success")
+    let s = (s1 + s2 + s3) / 2;
+    resultdiv.classList.replace("alert-danger", "alert-success");
     let area = Math.sqrt(s * (s - s1) * (s - s2) * (s - s3));
     resultdiv.textContent = `The area of the triangle is ${area} square units.`;
   }
@@ -112,7 +107,7 @@ function areasq() {
   if (side == "") {
     resultdiv.classList.remove("alert-success");
     resultdiv.classList.add("alert-danger");
-    resultdiv.textContent = "Please enter the side of the square correctly.";
+    resultdiv.textContent = "Please enter the values correctly.";
   } else {
     resultdiv.classList.add("alert-success");
     resultdiv.classList.remove("alert-danger");
@@ -145,7 +140,7 @@ function areacircle() {
   if (r == "") {
     resultdiv.classList.remove("alert-success");
     resultdiv.classList.add("alert-danger");
-    resultdiv.textContent = "Please enter the radius of the circle correctly.";
+    resultdiv.textContent = "Please enter the values correctly.";
   } else {
     resultdiv.classList.add("alert-success");
     resultdiv.classList.remove("alert-danger");
@@ -186,7 +181,7 @@ function checksolve5(event) {
 
 function checksolve6(event) {
   if (event.keyCode == 13) {
-    area_tri2();
+    areatri2();
   }
 }
 
@@ -233,60 +228,60 @@ function reset_circle() {
   resultdiv.style.display = "none";
 }
 
-const toastTrigger = document.getElementById('reset1')
-const toastTrigger2 = document.getElementById('reset2')
-const toastTrigger3 = document.getElementById('reset3')
-const toastTrigger4 = document.getElementById('reset4')
-const toastTrigger5 = document.getElementById('reset5')
-const toastTrigger6 = document.getElementById('reset6')
-const toastTrigger7 = document.getElementById('reset7')
-const toastLiveExample = document.getElementById('liveToast')
+const toastTrigger = document.getElementById("reset1");
+const toastTrigger2 = document.getElementById("reset2");
+const toastTrigger3 = document.getElementById("reset3");
+const toastTrigger4 = document.getElementById("reset4");
+const toastTrigger5 = document.getElementById("reset5");
+const toastTrigger6 = document.getElementById("reset6");
+const toastTrigger7 = document.getElementById("reset7");
+const toastLiveExample = document.getElementById("liveToast");
 
 if (toastTrigger) {
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-  toastTrigger.addEventListener('click', () => {
-    toastBootstrap.show()
-  })
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+  toastTrigger.addEventListener("click", () => {
+    toastBootstrap.show();
+  });
 }
 
 if (toastTrigger2) {
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-  toastTrigger2.addEventListener('click', () => {
-    toastBootstrap.show()
-  })
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+  toastTrigger2.addEventListener("click", () => {
+    toastBootstrap.show();
+  });
 }
 
 if (toastTrigger3) {
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-  toastTrigger3.addEventListener('click', () => {
-    toastBootstrap.show()
-  })
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+  toastTrigger3.addEventListener("click", () => {
+    toastBootstrap.show();
+  });
 }
 
 if (toastTrigger4) {
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-  toastTrigger4.addEventListener('click', () => {
-    toastBootstrap.show()
-  })
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+  toastTrigger4.addEventListener("click", () => {
+    toastBootstrap.show();
+  });
 }
 
 if (toastTrigger5) {
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-  toastTrigger5.addEventListener('click', () => {
-    toastBootstrap.show()
-  })
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+  toastTrigger5.addEventListener("click", () => {
+    toastBootstrap.show();
+  });
 }
 
 if (toastTrigger6) {
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-  toastTrigger6.addEventListener('click', () => {
-    toastBootstrap.show()
-  })
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+  toastTrigger6.addEventListener("click", () => {
+    toastBootstrap.show();
+  });
 }
 
 if (toastTrigger7) {
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-  toastTrigger7.addEventListener('click', () => {
-    toastBootstrap.show()
-  })
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+  toastTrigger7.addEventListener("click", () => {
+    toastBootstrap.show();
+  });
 }

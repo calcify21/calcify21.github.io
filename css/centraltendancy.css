@@ -1,37 +1,37 @@
 #result {
-    display: none;
+  display: none;
 }
 
 i:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .toastContainer {
-    top: 55px;
-    width: 200px;
+  top: 55px;
+  width: 200px;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 table,
 th,
 td {
-    border: 1px solid black;
+  border: 1px solid black;
 }
 
 th,
 td {
-    padding: 8px;
-    text-align: left;
+  padding: 8px;
+  text-align: left;
 }
 
 th {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 #resultsTable {
-    display: none;
+  display: none;
 }

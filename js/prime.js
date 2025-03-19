@@ -43,12 +43,12 @@ function checkEnter(event) {
   }
 }
 
-const toastTrigger = document.getElementById('reset1')
-const toastLiveExample = document.getElementById('liveToast')
+const toastTrigger = document.getElementById("reset1");
+const toastLiveExample = document.getElementById("liveToast");
 
 if (toastTrigger) {
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-  toastTrigger.addEventListener('click', () => {
-    toastBootstrap.show()
-  })
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+  toastTrigger.addEventListener("click", () => {
+    toastBootstrap.show();
+  });
 }

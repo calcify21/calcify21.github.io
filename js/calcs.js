@@ -96,14 +96,14 @@ function removeAllFavorites() {
 }
 
 // Toast
-const toastTrigger = document.getElementById('removeFavoritesBtn')
-const toastLiveExample = document.getElementById('liveToast')
+const toastTrigger = document.getElementById("removeFavoritesBtn");
+const toastLiveExample = document.getElementById("liveToast");
 
 if (document.querySelector("#removeFavoritesBtn")) {
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-  toastTrigger.addEventListener('click', () => {
-    toastBootstrap.show()
-  })
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+  toastTrigger.addEventListener("click", () => {
+    toastBootstrap.show();
+  });
 }
 
 window.onload = checkFav();

@@ -1,29 +1,29 @@
 .toastContainer {
-    top: 55px;
-    width: 200px;
+  top: 55px;
+  width: 200px;
 }
 
 @media screen and (max-width: 412px) {
-    #removeFavoritesBtn {
-        width: 100px;
-    }
+  #removeFavoritesBtn {
+    width: 100px;
+  }
 }
 
-#custom-start-list>li::before {
-    content: counters(custom-item, ".") ". ";
-    counter-increment: custom-item;
+#custom-start-list > li::before {
+  content: counters(custom-item, ".") ". ";
+  counter-increment: custom-item;
 }
 
 #custom-start-list {
-    counter-reset: custom-item 0;
-    /* Set this to the start number minus 1 */
+  counter-reset: custom-item 0;
+  /* Set this to the start number minus 1 */
 }
 
 .card-body {
-    border: none;
+  border: none;
 }
 
-.list-group-numbered>.list-group-item::before {
-    position: absolute;
-    top: 13px;
+.list-group-numbered > .list-group-item::before {
+  position: absolute;
+  top: 13px;
 }

@@ -1,20 +1,20 @@
 .result {
-    display: none;
+  display: none;
 }
 
 .big {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 #rect_form {
-    display: block;
+  display: block;
 }
 
 .calcs {
-    display: none;
+  display: none;
 }
 
 .toastContainer {
-    top: 55px;
-    width: 200px;
+  top: 55px;
+  width: 200px;
 }

@@ -8,18 +8,18 @@
 
 /* QR Code Element */
 #qrcode {
-    padding: 10px;
-    /* display: inline-block;
+  padding: 10px;
+  /* display: inline-block;
     max-width: 100%;
     max-height: 90vh; */
 }
 
 /* Prevent QR Code Overflow */
 #qrcode img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 .generator {
-    width: fit-content;
+  width: fit-content;
 }

@@ -1,21 +1,21 @@
 .input-group-icons,
 .input-group-icons:hover {
-    border-color: var(--bs-border-color);
+  border-color: var(--bs-border-color);
 }
 
 .input-group-icons:hover i {
-    transform: translate3d(0, -.125rem, 0);
-    transition: transform 0.2s ease;
+  transform: translate3d(0, -0.125rem, 0);
+  transition: transform 0.2s ease;
 }
 
 .input-container input {
-    padding-inline: 2rem;
-    height: 70px;
+  padding-inline: 2rem;
+  height: 70px;
 }
 
 .toastContainer {
-    top: 55px;
-    width: 300px;
+  top: 55px;
+  width: 300px;
 }
 
 /* * Range Input Styles */
@@ -23,50 +23,50 @@
 /* * Chrome, Safari, Opera and Edge Chromium styles */
 /* slider track */
 input[type="range"]::-webkit-slider-runnable-track {
-    background-color: #fff;
-    box-shadow: 0 0 0 1px #000;
+  background-color: #fff;
+  box-shadow: 0 0 0 1px #000;
 }
 
 /* slider thumb */
 input[type="range"]::-webkit-slider-thumb {
-    margin-top: -10px;
-    background-color: #000;
-    height: 25px;
+  margin-top: -10px;
+  background-color: #000;
+  height: 25px;
 }
 
 input[type="range"]:focus::-webkit-slider-thumb {
-    border: 1px solid #053a5f;
-    outline: 3px solid #053a5f;
-    outline-offset: 0.125rem;
+  border: 1px solid #053a5f;
+  outline: 3px solid #053a5f;
+  outline-offset: 0.125rem;
 }
 
 /* * Firefox styles */
 /* slider track */
 input[type="range"]::-moz-range-track {
-    background-color: #fff;
-    box-shadow: 0 0 0 1px #000;
+  background-color: #fff;
+  box-shadow: 0 0 0 1px #000;
 }
 
 /* slider thumb */
 input[type="range"]::-moz-range-thumb {
-    background-color: #000;
-    height: 25px;
+  background-color: #000;
+  height: 25px;
 }
 
 input[type="range"]:focus::-moz-range-thumb {
-    outline: 3px solid #053a5f;
-    outline-offset: 0.125rem;
+  outline: 3px solid #053a5f;
+  outline-offset: 0.125rem;
 }
 
 /* * Media Queries */
 
 @media screen and (max-width: 450px) {
-    .length-settings {
-        display: block;
-    }
+  .length-settings {
+    display: block;
+  }
 
-    .label {
-        width: 100%;
-        text-align: center;
-    }
+  .label {
+    width: 100%;
+    text-align: center;
+  }
 }
