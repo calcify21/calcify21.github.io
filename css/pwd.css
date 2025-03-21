@@ -13,6 +13,11 @@
   height: 70px;
 }
 
+.modal-body .input-container input {
+  padding-inline: 2rem;
+  height: 50px;
+}
+
 .toastContainer {
   top: 55px;
   width: 300px;

@@ -61,9 +61,24 @@ function typewriter(pwd) {
   type();
 }
 
-function copyPassword() {
-  const password = document.getElementById("generatedPwd").value;
+function typewriter2(pwd) {
+  let generatedPwd = document.getElementById("generatedPwd2");
+  generatedPwd.value = "";
 
+  let i = 0;
+
+  function type() {
+    if (i < pwd.length) {
+      generatedPwd.value += pwd[i];
+      i++;
+      setTimeout(type, 40);
+    }
+  }
+
+  type();
+}
+
+function copyPassword(password) {
   const toast1 = document.getElementById("copied");
   const toast2 = document.getElementById("nopwd");
   const toast3 = document.getElementById("err");
@@ -109,9 +124,15 @@ window.onload = function () {
   generatePassword();
 };
 
-function generateMemorablePassword(name) {
-  if (!name || name.length < 3) {
-    alert("Please enter a name with at least 3 characters.");
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function generateMemorablePassword() {
+  let word = document.getElementById("name1").value.replace(/\s/g, "");
+
+  if (!word || word.length < 3) {
+    alert("Please enter a valid name with at least 3 characters.");
     return;
   }
 
@@ -123,7 +144,7 @@ function generateMemorablePassword(name) {
 
   function getRandomNameSegment(name) {
     let start = Math.floor(Math.random() * (name.length - 2));
-    return name.slice(start, start + 3);
+    return capitalize(name.slice(start, start + 3));
   }
 
   function getRandomNumberSegment() {
@@ -132,26 +153,31 @@ function generateMemorablePassword(name) {
 
   const patterns = [
     `${getRandomNameSegment(
-      name
+      word
     )}@${getRandomNumberSegment()}${getRandomElement(symbols)}`,
 
-    `${getRandomElement(symbols)}${name.slice(-3)}${Math.floor(
+    `${getRandomElement(symbols)}${getRandomNameSegment(word)}${Math.floor(
       100 + Math.random() * 900
     )}`,
 
-    `${getRandomNameSegment(name)}${getRandomElement(
+    `${getRandomNameSegment(word)}${getRandomElement(
       symbols
     )}${getRandomNumberSegment()}`,
 
-    `${getRandomNameSegment(name)}${getRandomElement(
+    `${getRandomNameSegment(word)}${getRandomElement(
       symbols
-    )}${getRandomNumberSegment()}${getRandomNameSegment(name)}`,
+    )}${getRandomNumberSegment()}${getRandomElement(symbols)}`,
 
-    `${getRandomNameSegment(name)}${getRandomElement(symbols)}${Math.floor(
+    `${getRandomNameSegment(word)}${getRandomElement(symbols)}${Math.floor(
       1000 + Math.random() * 9000
     )}`,
   ];
 
   const password = patterns[Math.floor(Math.random() * patterns.length)];
-  typewriter(password);
+  typewriter2(password);
+}
+
+function clearModal() {
+  document.getElementById("generatedPwd2").value = "";
+  document.getElementById("name1").value = "";
 }
