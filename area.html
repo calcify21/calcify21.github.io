@@ -1,616 +1,353 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calcify | Area Calculator</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="css/area.css" />
-    <link rel="stylesheet" href="css/common.css" />
-    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
-    <link
-      rel="shortcut icon"
-      href="assets/images/calculator-solid.svg"
-      type="image/x-icon"
-    />
-  </head>
 
-  <body>
-    <header>
-      <!-- * Navbar -->
-      <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
-            <img src="assets/images/logo.png" class="logo" />
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <span class="me-auto"></span>
-            <ul class="nav nav-underline mb-2 mb-lg-0 me-auto">
-              <li class="nav-item">
-                <a href="index.html" class="nav-link" aria-current="page"
-                  >Home</a
-                >
-              </li>
-              <li class="nav-item">
-                <a href="about.html" class="nav-link">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="calcs.html" class="nav-link">Our Calculators</a>
-              </li>
-              <li class="nav-item">
-                <a href="fav.html" class="nav-link">Favourites</a>
-              </li>
-              <li class="nav-item">
-                <a href="contact.html" class="nav-link">Get in Touch</a>
-              </li>
-            </ul>
-            <div>
-              <select
-                class="form-select"
-                onchange="toggleTheme()"
-                id="select-menu"
-              >
-                <option selected value="light">Light Mode</option>
-                <option value="dark">Dark Mode</option>
-                <option value="auto">Auto Mode</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </nav>
-      <br />
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://calc.aurabyte.in/area.html" />
+  <title>Calcify | Area Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/area.css" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="assets/images/calculator-solid.svg" type="image/x-icon" />
+  <meta name="description"
+    content="Find the area of rectangles, triangles, circles and more with our quick and accurate Area Calculator." />
+</head>
 
-    <main>
-      <div class="container">
-        <div class="text-center">
-          <h2>Area Calculator</h2>
-          <hr class="myhr" />
-          <br />
-
-          <!-- * Tabs -->
-          <ul class="nav nav-tabs">
+<body>
+  <header>
+    <!-- * Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/images/logo.png" class="logo" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <span class="me-auto"></span>
+          <ul class="nav nav-underline mb-2 mb-lg-0 me-auto">
             <li class="nav-item">
-              <a
-                class="nav-link active tab"
-                aria-current="page"
-                href="#"
-                onclick="toggleCalc('rect')"
-                id="rectTab"
-                >Rectangle</a
-              >
+              <a href="index.html" class="nav-link" aria-current="page">Home</a>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link tab"
-                aria-current="page"
-                href="#"
-                onclick="toggleCalc('sq')"
-                id="sqTab"
-                >Square</a
-              >
+              <a href="about.html" class="nav-link">About Us</a>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link tab"
-                aria-current="page"
-                href="#"
-                onclick="toggleCalc('quad')"
-                id="quadTab"
-                >Quadrilateral</a
-              >
+              <a href="calcs.html" class="nav-link">Our Calculators</a>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link tab"
-                aria-current="page"
-                href="#"
-                onclick="toggleCalc('para')"
-                id="paraTab"
-                >Parallelogram</a
-              >
+              <a href="fav.html" class="nav-link">Favourites</a>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link tab"
-                aria-current="page"
-                href="#"
-                onclick="toggleCalc('tri')"
-                id="triTab"
-                >Triangle</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link tab"
-                aria-current="page"
-                href="#"
-                onclick="toggleCalc('circle')"
-                id="circleTab"
-                >Circle</a
-              >
+              <a href="contact.html" class="nav-link">Get in Touch</a>
             </li>
           </ul>
-          <br />
+          <div>
+            <select class="form-select" onchange="toggleTheme()" id="select-menu">
+              <option selected value="light">Light Mode</option>
+              <option value="dark">Dark Mode</option>
+              <option value="auto">Auto Mode</option>
+            </select>
+          </div>
         </div>
+      </div>
+    </nav>
+    <br />
+  </header>
 
-        <!-- * Rectangle Form -->
-        <div id="rect_form" class="calcs">
-          <form>
-            <p class="fw-bold">Formula: Area = length x width</p>
-            <div class="row">
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="length"
-                    placeholder="l"
-                    onkeyup="checksolve1(event)"
-                  />
-                  <label for="length">Length</label>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="width"
-                    placeholder="w"
-                    onkeyup="checksolve1(event)"
-                  />
-                  <label for="width">Width</label>
-                </div>
-              </div>
-            </div>
-            <span>
-              <button
-                type="button"
-                class="btn btn-outline-success"
-                onclick="arearect()"
-              >
-                <a href="#result1" class="text-decoration-none inheritColor"
-                  >Calculate</a
-                >
-              </button>
-              <button
-                type="reset"
-                class="btn btn-outline-dark"
-                onclick="reset_rect()"
-                id="reset1"
-              >
-                Reset
-              </button> </span
-            ><br />
-          </form>
-          <br />
-          <div
-            id="result1"
-            class="alert alert-success text-center result"
-            role="alert"
-          ></div>
-        </div>
+  <main>
+    <div class="container">
+      <div class="text-center">
+        <h2>Area Calculator</h2>
+        <hr class="myhr" />
+        <br />
 
-        <!-- * Square Form -->
-        <div id="sq_form" class="calcs">
-          <p class="fw-bold">Formula: Area = side x side</p>
+        <!-- * Tabs -->
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active tab" aria-current="page" href="#" onclick="toggleCalc('rect')"
+              id="rectTab">Rectangle</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('sq')" id="sqTab">Square</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('quad')"
+              id="quadTab">Quadrilateral</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('para')"
+              id="paraTab">Parallelogram</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('tri')" id="triTab">Triangle</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link tab" aria-current="page" href="#" onclick="toggleCalc('circle')"
+              id="circleTab">Circle</a>
+          </li>
+        </ul>
+        <br />
+      </div>
+
+      <!-- * Rectangle Form -->
+      <div id="rect_form" class="calcs">
+        <form>
+          <p class="fw-bold">Formula: Area = length x width</p>
           <div class="row">
             <div class="col">
               <div class="form-floating mb-3">
-                <input
-                  type="number"
-                  class="form-control"
-                  id="side"
-                  placeholder="s"
-                  onkeyup="checksolve2(event)"
-                />
-                <label for="side">Side</label>
+                <input type="number" class="form-control" id="length" placeholder="l" onkeyup="checksolve1(event)" />
+                <label for="length">Length</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="width" placeholder="w" onkeyup="checksolve1(event)" />
+                <label for="width">Width</label>
               </div>
             </div>
           </div>
           <span>
-            <button
-              type="button"
-              class="btn btn-outline-success"
-              onclick="areasq()"
-            >
-              <a href="#result2" class="text-decoration-none inheritColor"
-                >Calculate</a
-              >
+            <button type="button" class="btn btn-outline-success" onclick="arearect()">
+              <a href="#result1" class="text-decoration-none inheritColor">Calculate</a>
             </button>
-            <button
-              type="button"
-              class="btn btn-outline-dark"
-              onclick="reset_sq()"
-              id="reset2"
-            >
+            <button type="reset" class="btn btn-outline-dark" onclick="reset_rect()" id="reset1">
               Reset
-            </button></span
-          ><br />
-          <div
-            id="result2"
-            class="alert alert-success text-center result"
-            role="alert"
-          ></div>
-        </div>
+            </button> </span><br />
+        </form>
+        <br />
+        <div id="result1" class="alert alert-success text-center result" role="alert"></div>
+      </div>
 
-        <!-- * Quadrilateral Form -->
-        <div id="quad_form" class="calcs">
-          <form>
-            <p class="fw-bold">
-              Formula: Area = 1/2 x diagonal x (sum of offsets)
-            </p>
-            <div class="row">
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="diagonal"
-                    placeholder="d"
-                    onkeyup="checksolve3(event)"
-                  />
-                  <label for="diagonal">Diagonal</label>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="height1"
-                    placeholder="h1"
-                    onkeyup="checksolve3(event)"
-                  />
-                  <label for="height1">Offset 1</label>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="height2"
-                    placeholder="h2"
-                    onkeyup="checksolve3(event)"
-                  />
-                  <label for="height2">Offset 2</label>
-                </div>
-              </div>
+      <!-- * Square Form -->
+      <div id="sq_form" class="calcs">
+        <p class="fw-bold">Formula: Area = side x side</p>
+        <div class="row">
+          <div class="col">
+            <div class="form-floating mb-3">
+              <input type="number" class="form-control" id="side" placeholder="s" onkeyup="checksolve2(event)" />
+              <label for="side">Side</label>
             </div>
-            <span>
-              <button
-                type="button"
-                class="btn btn-outline-success"
-                onclick="areaquad()"
-              >
-                <a href="#result3" class="text-decoration-none inheritColor"
-                  >Calculate</a
-                >
-              </button>
-              <button
-                type="reset"
-                class="btn btn-outline-dark"
-                onclick="reset_quad()"
-                id="reset3"
-              >
-                Reset
-              </button></span
-            ><br />
-          </form>
-          <br />
-          <div
-            id="result3"
-            class="alert alert-success text-center result"
-            role="alert"
-          ></div>
+          </div>
         </div>
+        <span>
+          <button type="button" class="btn btn-outline-success" onclick="areasq()">
+            <a href="#result2" class="text-decoration-none inheritColor">Calculate</a>
+          </button>
+          <button type="button" class="btn btn-outline-dark" onclick="reset_sq()" id="reset2">
+            Reset
+          </button></span><br />
+        <div id="result2" class="alert alert-success text-center result" role="alert"></div>
+      </div>
 
-        <!-- * Parallelogram Form -->
-        <div id="para_form" class="calcs">
-          <form>
-            <p class="fw-bold">Formula: Area = base x corresponding height</p>
-            <div class="row">
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="base"
-                    placeholder="b"
-                    onkeyup="checksolve4(event)"
-                  />
-                  <label for="base">Base</label>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="h"
-                    placeholder="height"
-                    onkeyup="checksolve4(event)"
-                  />
-                  <label for="h">Height</label>
-                </div>
-              </div>
-            </div>
-
-            <span>
-              <button
-                type="button"
-                class="btn btn-outline-success"
-                onclick="areapara()"
-              >
-                <a href="#result4" class="text-decoration-none inheritColor"
-                  >Calculate</a
-                >
-              </button>
-              <button
-                type="reset"
-                class="btn btn-outline-dark"
-                onclick="reset_para()"
-                id="reset4"
-              >
-                Reset
-              </button></span
-            ><br />
-          </form>
-          <br />
-          <div
-            id="result4"
-            class="alert alert-success text-center result"
-            role="alert"
-          ></div>
-        </div>
-
-        <!-- * Triangle Form -->
-        <div id="tri_form" class="calcs">
-          <!-- * Simple -->
-          <p class="fw-bold">Formula: Area = 1/2 x base x height</p>
-          <form>
-            <div class="row">
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="base2"
-                    placeholder="base"
-                    onkeyup="checksolve5(event)"
-                  />
-                  <label for="base">Base</label>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="h2"
-                    placeholder="height"
-                    onkeyup="checksolve5(event)"
-                  />
-                  <label for="h">Height</label>
-                </div>
-              </div>
-            </div>
-            <span>
-              <button
-                type="button"
-                class="btn btn-outline-success"
-                onclick="areatri()"
-              >
-                <a href="#result5" class="text-decoration-none inheritColor"
-                  >Calculate</a
-                >
-              </button>
-              <button
-                type="reset"
-                class="btn btn-outline-dark"
-                onclick="reset_tri()"
-                id="reset5"
-              >
-                Reset
-              </button></span
-            ><br />
-          </form>
-          <br />
-          <div
-            id="result5"
-            class="alert alert-success text-center result"
-            role="alert"
-          ></div>
-
-          <!-- * Heron's formula -->
+      <!-- * Quadrilateral Form -->
+      <div id="quad_form" class="calcs">
+        <form>
           <p class="fw-bold">
-            Formula: Area =
-            <math>
+            Formula: Area = 1/2 x diagonal x (sum of offsets)
+          </p>
+          <div class="row">
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="diagonal" placeholder="d" onkeyup="checksolve3(event)" />
+                <label for="diagonal">Diagonal</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="height1" placeholder="h1" onkeyup="checksolve3(event)" />
+                <label for="height1">Offset 1</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="height2" placeholder="h2" onkeyup="checksolve3(event)" />
+                <label for="height2">Offset 2</label>
+              </div>
+            </div>
+          </div>
+          <span>
+            <button type="button" class="btn btn-outline-success" onclick="areaquad()">
+              <a href="#result3" class="text-decoration-none inheritColor">Calculate</a>
+            </button>
+            <button type="reset" class="btn btn-outline-dark" onclick="reset_quad()" id="reset3">
+              Reset
+            </button></span><br />
+        </form>
+        <br />
+        <div id="result3" class="alert alert-success text-center result" role="alert"></div>
+      </div>
+
+      <!-- * Parallelogram Form -->
+      <div id="para_form" class="calcs">
+        <form>
+          <p class="fw-bold">Formula: Area = base x corresponding height</p>
+          <div class="row">
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="base" placeholder="b" onkeyup="checksolve4(event)" />
+                <label for="base">Base</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="h" placeholder="height" onkeyup="checksolve4(event)" />
+                <label for="h">Height</label>
+              </div>
+            </div>
+          </div>
+
+          <span>
+            <button type="button" class="btn btn-outline-success" onclick="areapara()">
+              <a href="#result4" class="text-decoration-none inheritColor">Calculate</a>
+            </button>
+            <button type="reset" class="btn btn-outline-dark" onclick="reset_para()" id="reset4">
+              Reset
+            </button></span><br />
+        </form>
+        <br />
+        <div id="result4" class="alert alert-success text-center result" role="alert"></div>
+      </div>
+
+      <!-- * Triangle Form -->
+      <div id="tri_form" class="calcs">
+        <!-- * Simple -->
+        <p class="fw-bold">Formula: Area = 1/2 x base x height</p>
+        <form>
+          <div class="row">
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="base2" placeholder="base" onkeyup="checksolve5(event)" />
+                <label for="base">Base</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="h2" placeholder="height" onkeyup="checksolve5(event)" />
+                <label for="h">Height</label>
+              </div>
+            </div>
+          </div>
+          <span>
+            <button type="button" class="btn btn-outline-success" onclick="areatri()">
+              <a href="#result5" class="text-decoration-none inheritColor">Calculate</a>
+            </button>
+            <button type="reset" class="btn btn-outline-dark" onclick="reset_tri()" id="reset5">
+              Reset
+            </button></span><br />
+        </form>
+        <br />
+        <div id="result5" class="alert alert-success text-center result" role="alert"></div>
+
+        <!-- * Heron's formula -->
+        <p class="fw-bold">
+          Formula: Area =
+          <math>
+            <mstyle mathvariant="bold">
               <msqrt>
                 <mi>
                   Semi Perimeter x (Semi Perimeter - Side 1) x (Semi Perimeter -
                   Side 2) x (Semi Perimeter - Side 3)
                 </mi>
               </msqrt>
-            </math>
-          </p>
-          <form>
-            <div class="row">
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="side1"
-                    placeholder="side1"
-                    onkeyup="checksolve6(event)"
-                  />
-                  <label for="side1">Side 1</label>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="side2"
-                    placeholder="side2"
-                    onkeyup="checksolve6(event)"
-                  />
-                  <label for="side2">Side 2</label>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="side3"
-                    placeholder="side3"
-                    onkeyup="checksolve6(event)"
-                  />
-                  <label for="side3">Side 3</label>
-                </div>
+            </mstyle>
+          </math>
+        </p>
+        <form>
+          <div class="row">
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="side1" placeholder="side1" onkeyup="checksolve6(event)" />
+                <label for="side1">Side 1</label>
               </div>
             </div>
-            <span>
-              <button
-                type="button"
-                class="btn btn-outline-success"
-                onclick="areatri2()"
-              >
-                <a href="#result6" class="text-decoration-none inheritColor"
-                  >Calculate</a
-                >
-              </button>
-              <button
-                type="reset"
-                class="btn btn-outline-dark"
-                onclick="reset_tri2()"
-                id="reset6"
-              >
-                Reset
-              </button></span
-            ><br />
-          </form>
-          <br />
-
-          <div
-            id="result6"
-            class="alert alert-success text-center result"
-            role="alert"
-          ></div>
-        </div>
-
-        <!-- * Circle Form -->
-        <div id="circle_form" class="calcs">
-          <form>
-            <p class="fw-bold">Formula: Area = &pi; x radius x radius</p>
-            <div class="form-floating mb-3">
-              <input
-                type="number"
-                class="form-control"
-                id="radius"
-                placeholder="radius"
-                onkeyup="checksolve7(event)"
-              />
-              <label for="radius">Radius</label>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="side2" placeholder="side2" onkeyup="checksolve6(event)" />
+                <label for="side2">Side 2</label>
+              </div>
             </div>
-
-            <span>
-              <button
-                type="button"
-                class="btn btn-outline-success"
-                onclick="areacircle()"
-              >
-                <a href="#result7" class="text-decoration-none inheritColor"
-                  >Calculate</a
-                >
-              </button>
-              <button
-                type="reset"
-                class="btn btn-outline-dark"
-                onclick="reset_circle()"
-                id="reset7"
-              >
-                Reset
-              </button> </span
-            ><br />
-          </form>
-          <br />
-          <div
-            id="result7"
-            class="alert alert-success text-center result"
-            role="alert"
-          ></div>
-        </div>
-
-        <!-- Go to top and bottom buttons -->
-        <button onclick="gototop()" id="topbtn" class="btn btn-warning">
-          <i class="fa-solid fa-arrow-up"></i>
-        </button>
-        <button onclick="gotobottom()" id="bottombtn" class="btn btn-warning">
-          <i class="fa-solid fa-arrow-down"></i>
-        </button>
-
-        <!-- * Toast -->
-        <div class="toast-container position-fixed end-0 p-3 toastContainer">
-          <div
-            id="liveToast"
-            class="toast text-bg-success border-0"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true"
-          >
-            <div class="d-flex">
-              <div class="toast-body">Reset successfully!</div>
-              <button
-                type="button"
-                class="btn-close me-2 m-auto btn-close-white"
-                data-bs-dismiss="toast"
-                aria-label="Close"
-              ></button>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="side3" placeholder="side3" onkeyup="checksolve6(event)" />
+                <label for="side3">Side 3</label>
+              </div>
             </div>
+          </div>
+          <span>
+            <button type="button" class="btn btn-outline-success" onclick="areatri2()">
+              <a href="#result6" class="text-decoration-none inheritColor">Calculate</a>
+            </button>
+            <button type="reset" class="btn btn-outline-dark" onclick="reset_tri2()" id="reset6">
+              Reset
+            </button></span><br />
+        </form>
+        <br />
+
+        <div id="result6" class="alert alert-success text-center result" role="alert"></div>
+      </div>
+
+      <!-- * Circle Form -->
+      <div id="circle_form" class="calcs">
+        <form>
+          <p class="fw-bold">Formula: Area = &pi; x radius x radius</p>
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="radius" placeholder="radius" onkeyup="checksolve7(event)" />
+            <label for="radius">Radius</label>
+          </div>
+
+          <span>
+            <button type="button" class="btn btn-outline-success" onclick="areacircle()">
+              <a href="#result7" class="text-decoration-none inheritColor">Calculate</a>
+            </button>
+            <button type="reset" class="btn btn-outline-dark" onclick="reset_circle()" id="reset7">
+              Reset
+            </button> </span><br />
+        </form>
+        <br />
+        <div id="result7" class="alert alert-success text-center result" role="alert"></div>
+      </div>
+
+      <!-- Go to top and bottom buttons -->
+      <button onclick="gototop()" id="topbtn" class="btn btn-warning">
+        <i class="fa-solid fa-arrow-up"></i>
+      </button>
+      <button onclick="gotobottom()" id="bottombtn" class="btn btn-warning">
+        <i class="fa-solid fa-arrow-down"></i>
+      </button>
+
+      <!-- * Toast -->
+      <div class="toast-container position-fixed end-0 p-3 toastContainer">
+        <div id="liveToast" class="toast text-bg-success border-0" role="alert" aria-live="assertive"
+          aria-atomic="true">
+          <div class="d-flex">
+            <div class="toast-body">Reset successfully!</div>
+            <button type="button" class="btn-close me-2 m-auto btn-close-white" data-bs-dismiss="toast"
+              aria-label="Close"></button>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+  </main>
 
-    <!-- Scripts -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <script src="js/area.js"></script>
-    <script src="js/common.js"></script>
-  </body>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="js/area.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
 </html>

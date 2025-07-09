@@ -174,6 +174,9 @@ function generateMemorablePassword() {
   ];
 
   const password = patterns[Math.floor(Math.random() * patterns.length)];
+  if (password.endsWith("_" || "+")) {
+    generateMemorablePassword();
+  }
   typewriter2(password);
 }
 
