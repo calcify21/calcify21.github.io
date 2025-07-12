@@ -1,249 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href="https://calc.aurabyte.in/pwd.html" />
+    <title>Calcify | Password Generator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/pwd.css" />
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+    <meta
+      name="description"
+      content="Generate strong, secure passwords with this customizable password generator tool."
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="canonical" href="https://calc.aurabyte.in/pwd.html" />
-  <title>Calcify | Password Generator</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-  <link rel="stylesheet" href="css/common.css" />
-  <link rel="stylesheet" href="css/pwd.css" />
-  <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
-  <link rel="shortcut icon" href="assets/images/calculator-solid.svg" type="image/x-icon" />
-  <meta name="description"
-    content="Generate strong, secure passwords with this customizable password generator tool." />
-</head>
-
-<body>
-  <header>
-    <!-- * Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">
-          <img src="assets/images/logo.png" class="logo" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <span class="me-auto"></span>
-          <ul class="nav nav-underline mb-2 mb-lg-0 me-auto">
-            <li class="nav-item">
-              <a href="index.html" class="nav-link" aria-current="page">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="about.html" class="nav-link">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a href="calcs.html" class="nav-link">Our Calculators</a>
-            </li>
-            <li class="nav-item">
-              <a href="fav.html" class="nav-link">Favourites</a>
-            </li>
-            <li class="nav-item">
-              <a href="contact.html" class="nav-link">Get in Touch</a>
-            </li>
-          </ul>
-          <div>
-            <select class="form-select" onchange="toggleTheme()" id="select-menu">
-              <option selected value="light">Light Mode</option>
-              <option value="dark">Dark Mode</option>
-              <option value="auto">Auto Mode</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <br />
-  </header>
-  <main>
-    <div class="container">
-      <div class="text-center">
-        <h2 class="mb-3 fw-bold">Password Generator</h2>
-        <h5>
-          Create strong and secure passwords to keep your account safe online.
-        </h5>
-        <hr class="myhr" />
-        <br />
-      </div>
-      <div class="generator">
-        <div class="generator-settings mb-4">
-          <div class="length-settings row align-items-center mb-4">
-            <div class="label fs-4 col-3">
-              <label for="passwordLength" class="fw-semibold me-2">Password Length:</label>
-              <span class="length fw-bold" id="length"></span>
-            </div>
-            <div class="slider-settings d-flex align-items-center col">
-              <button class="btn btn-outline-dark rounded-circle me-2" id="decreaseBtn" onclick="decreaseLength()">
-                <i class="fa-solid fa-minus"></i>
-              </button>
-              <div class="slider-content w-100">
-                <input type="range" class="form-range w-100" min="3" max="50" value="8" id="passwordLength"
-                  onchange="generatePassword()" />
-              </div>
-              <button class="btn btn-outline-dark rounded-circle ms-2" id="increaseBtn" onclick="increaseLength()">
-                <i class="fa-solid fa-plus"></i>
-              </button>
-            </div>
-          </div>
-          <div class="complexity-settings fs-4">
-            <div class="label">
-              <label for="passwordComplexity" class="fw-semibold">Characters to include:</label>
-            </div>
-            <div class="row">
-              <div class="checkbox-settings col">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input controlled-checkbox" type="checkbox" id="include-uppercase"
-                    value="uppercase" onchange="generatePassword()" checked />
-                  <label class="form-check-label" for="include-uppercase">ABC</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input controlled-checkbox" type="checkbox" id="include-lowercase"
-                    value="lowercase" onchange="generatePassword()" checked />
-                  <label class="form-check-label" for="include-lowercase">abc</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input controlled-checkbox" type="checkbox" id="include-numbers"
-                    value="numbers" onchange="generatePassword()" checked />
-                  <label class="form-check-label" for="include-numbers">123</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input controlled-checkbox" type="checkbox" id="include-specialChars"
-                    value="specialChars" onchange="generatePassword()" checked />
-                  <label class="form-check-label" for="include-specialChars">!@#</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="input-container align-items-center">
-        <div class="input-group">
-          <!-- Apply "rounded-pill" to the input group, not just the input -->
-          <input type="text" class="form-control rounded-start-pill fs-4" placeholder="Your Generated Password"
-            aria-label="readonly input example" readonly id="generatedPwd" />
-          <button class="input-group-text btn input-group-icons"
-            onclick="copyPassword(document.getElementById('generatedPwd').value)" id="inputGroup-sizing-lg">
-            <i class="fa-regular fa-clipboard"></i>
+  <body>
+    <header>
+      <!-- * Navbar -->
+      <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">
+            <img src="assets/images/logo.png" class="logo" />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
           </button>
-          <button class="input-group-text btn input-group-icons rounded-end-pill" onclick="generatePassword()"
-            id="inputGroup-sizing-lg">
-            <i class="fa-solid fa-arrow-rotate-left"></i>
-          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <span class="me-auto"></span>
+            <ul class="nav nav-underline mb-2 mb-lg-0 me-auto">
+              <li class="nav-item">
+                <a href="index.html" class="nav-link" aria-current="page"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="about.html" class="nav-link">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a href="calcs.html" class="nav-link">Our Calculators</a>
+              </li>
+              <li class="nav-item">
+                <a href="fav.html" class="nav-link">Favourites</a>
+              </li>
+              <li class="nav-item">
+                <a href="contact.html" class="nav-link">Get in Touch</a>
+              </li>
+            </ul>
+            <div>
+              <select
+                class="form-select"
+                onchange="toggleTheme()"
+                id="select-menu"
+              >
+                <option selected value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+                <option value="auto">Auto Mode</option>
+              </select>
+            </div>
+          </div>
         </div>
-      </div>
+      </nav>
       <br />
-
-      <div class="text-center memorable-pwd-generator-trigger">
-        <p>Having trouble remembering your password? Try our
-          <a href="contact.html"
-            class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-            data-bs-toggle="modal" data-bs-target="#memorablePwdGeneratorModal">memorable
-            password generator</a>!
-        </p>
-      </div>
-
-      <!-- Modal -->
-      <div class="modal fade" id="memorablePwdGeneratorModal" tabindex="-1" aria-labelledby="modalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="modalLabel">
-                Memorable Password Generator
-              </h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                onclick="clearModal()"></button>
-            </div>
-            <div class="modal-body">
-              <div class="mb-3">
-                <label for="name1" class="form-label">Please enter your name:</label>
-                <input type="text" class="form-control" id="name1" placeholder="John Doe">
+    </header>
+    <main>
+      <div class="container">
+        <div class="text-center">
+          <h2 class="mb-3 fw-bold">Password Generator</h2>
+          <h5>
+            Create strong and secure passwords to keep your account safe online.
+          </h5>
+          <hr class="myhr" />
+          <br />
+        </div>
+        <div class="generator">
+          <div class="generator-settings mb-4">
+            <div class="length-settings row align-items-center mb-4">
+              <div class="label fs-4 col-3">
+                <label for="passwordLength" class="fw-semibold me-2"
+                  >Password Length:</label
+                >
+                <span class="length fw-bold" id="length"></span>
               </div>
-              <div class="input-container align-items-center">
-                <div class="input-group">
-                  <!-- Apply "rounded-pill" to the input group, not just the input -->
-                  <input type="text" class="form-control rounded-start-pill" placeholder="Your Generated Password"
-                    aria-label="readonly input" readonly id="generatedPwd2" />
-                  <button class="input-group-text btn input-group-icons"
-                    onclick="copyPassword(document.getElementById('generatedPwd2').value)" id="inputGroup-sizing-lg">
-                    <i class="fa-regular fa-clipboard"></i>
-                  </button>
-                  <button class="input-group-text btn input-group-icons rounded-end-pill"
-                    onclick="generateMemorablePassword()" id="inputGroup-sizing-lg">
-                    <i class="fa-solid fa-arrow-rotate-left"></i>
-                  </button>
+              <div class="slider-settings d-flex align-items-center col">
+                <button
+                  class="btn btn-outline-dark rounded-circle me-2"
+                  id="decreaseBtn"
+                  onclick="decreaseLength()"
+                >
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <div class="slider-content w-100">
+                  <input
+                    type="range"
+                    class="form-range w-100"
+                    min="3"
+                    max="50"
+                    value="8"
+                    id="passwordLength"
+                    onchange="generatePassword()"
+                  />
+                </div>
+                <button
+                  class="btn btn-outline-dark rounded-circle ms-2"
+                  id="increaseBtn"
+                  onclick="increaseLength()"
+                >
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="complexity-settings fs-4">
+              <div class="label">
+                <label for="passwordComplexity" class="fw-semibold"
+                  >Characters to include:</label
+                >
+              </div>
+              <div class="row">
+                <div class="checkbox-settings col">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input controlled-checkbox"
+                      type="checkbox"
+                      id="include-uppercase"
+                      value="uppercase"
+                      onchange="generatePassword()"
+                      checked
+                    />
+                    <label class="form-check-label" for="include-uppercase"
+                      >ABC</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input controlled-checkbox"
+                      type="checkbox"
+                      id="include-lowercase"
+                      value="lowercase"
+                      onchange="generatePassword()"
+                      checked
+                    />
+                    <label class="form-check-label" for="include-lowercase"
+                      >abc</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input controlled-checkbox"
+                      type="checkbox"
+                      id="include-numbers"
+                      value="numbers"
+                      onchange="generatePassword()"
+                      checked
+                    />
+                    <label class="form-check-label" for="include-numbers"
+                      >123</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input controlled-checkbox"
+                      type="checkbox"
+                      id="include-specialChars"
+                      value="specialChars"
+                      onchange="generatePassword()"
+                      checked
+                    />
+                    <label class="form-check-label" for="include-specialChars"
+                      >!@#</label
+                    >
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" onclick="generateMemorablePassword()">
-                Generate Password
-              </button>
+          </div>
+        </div>
+
+        <div class="input-container align-items-center">
+          <div class="input-group">
+            <!-- Apply "rounded-pill" to the input group, not just the input -->
+            <input
+              type="text"
+              class="form-control rounded-start-pill fs-4"
+              placeholder="Your Generated Password"
+              aria-label="readonly input example"
+              readonly
+              id="generatedPwd"
+            />
+            <button
+              class="input-group-text btn input-group-icons"
+              onclick="copyPassword(document.getElementById('generatedPwd').value)"
+              id="inputGroup-sizing-lg"
+            >
+              <i class="fa-regular fa-clipboard"></i>
+            </button>
+            <button
+              class="input-group-text btn input-group-icons rounded-end-pill"
+              onclick="generatePassword()"
+              id="inputGroup-sizing-lg"
+            >
+              <i class="fa-solid fa-arrow-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+        <br />
+
+        <div class="text-center memorable-pwd-generator-trigger">
+          <p>
+            Having trouble remembering your password? Try our
+            <a
+              href="contact.html"
+              class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+              data-bs-toggle="modal"
+              data-bs-target="#memorablePwdGeneratorModal"
+              >memorable password generator</a
+            >!
+          </p>
+        </div>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="memorablePwdGeneratorModal"
+          tabindex="-1"
+          aria-labelledby="modalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalLabel">
+                  Memorable Password Generator
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  onclick="clearModal()"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="name1" class="form-label"
+                    >Please enter your name:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name1"
+                    placeholder="John Doe"
+                  />
+                </div>
+                <div class="input-container align-items-center">
+                  <div class="input-group">
+                    <!-- Apply "rounded-pill" to the input group, not just the input -->
+                    <input
+                      type="text"
+                      class="form-control rounded-start-pill"
+                      placeholder="Your Generated Password"
+                      aria-label="readonly input"
+                      readonly
+                      id="generatedPwd2"
+                    />
+                    <button
+                      class="input-group-text btn input-group-icons"
+                      onclick="copyPassword(document.getElementById('generatedPwd2').value)"
+                      id="inputGroup-sizing-lg"
+                    >
+                      <i class="fa-regular fa-clipboard"></i>
+                    </button>
+                    <button
+                      class="input-group-text btn input-group-icons rounded-end-pill"
+                      onclick="generateMemorablePassword()"
+                      id="inputGroup-sizing-lg"
+                    >
+                      <i class="fa-solid fa-arrow-rotate-left"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onclick="generateMemorablePassword()"
+                >
+                  Generate Password
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Go to top and bottom buttons -->
-    <button onclick="gototop()" id="topbtn" class="btn btn-warning">
-      <i class="fa-solid fa-arrow-up"></i>
-    </button>
-    <button onclick="gotobottom()" id="bottombtn" class="btn btn-warning">
-      <i class="fa-solid fa-arrow-down"></i>
-    </button>
+      <!-- Go to top and bottom buttons -->
+      <button onclick="gototop()" id="topbtn" class="btn btn-warning">
+        <i class="fa-solid fa-arrow-up"></i>
+      </button>
+      <button onclick="gotobottom()" id="bottombtn" class="btn btn-warning">
+        <i class="fa-solid fa-arrow-down"></i>
+      </button>
 
-    <!-- * Toast -->
-    <div class="toast-container position-fixed end-0 p-3 toastContainer">
-      <div id="copied" class="toast text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-          <div class="toast-body">Password copied to clipboard!</div>
-          <button type="button" class="btn-close me-2 m-auto btn-close-white" data-bs-dismiss="toast"
-            aria-label="Close"></button>
+      <!-- * Toast -->
+      <div class="toast-container position-fixed end-0 p-3 toastContainer">
+        <div
+          id="copied"
+          class="toast text-bg-success border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="d-flex">
+            <div class="toast-body">Password copied to clipboard!</div>
+            <button
+              type="button"
+              class="btn-close me-2 m-auto btn-close-white"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="toast-container position-fixed end-0 p-3 toastContainer">
-      <div id="nopwd" class="toast text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-          <div class="toast-body">No password to copy!</div>
-          <button type="button" class="btn-close me-2 m-auto btn-close-white" data-bs-dismiss="toast"
-            aria-label="Close"></button>
+      <div class="toast-container position-fixed end-0 p-3 toastContainer">
+        <div
+          id="nopwd"
+          class="toast text-bg-danger border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="d-flex">
+            <div class="toast-body">No password to copy!</div>
+            <button
+              type="button"
+              class="btn-close me-2 m-auto btn-close-white"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="toast-container position-fixed end-0 p-3 toastContainer">
-      <div id="err" class="toast text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-          <div class="toast-body">Error in copying password!</div>
-          <button type="button" class="btn-close me-2 m-auto btn-close-white" data-bs-dismiss="toast"
-            aria-label="Close"></button>
+      <div class="toast-container position-fixed end-0 p-3 toastContainer">
+        <div
+          id="err"
+          class="toast text-bg-danger border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="d-flex">
+            <div class="toast-body">Error in copying password!</div>
+            <button
+              type="button"
+              class="btn-close me-2 m-auto btn-close-white"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-  <script src="js/pwd.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/common.js"></script>
-
-</body>
-
+    <!-- Scripts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/pwd.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/common.js"></script>
+  </body>
 </html>
