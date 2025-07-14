@@ -119,11 +119,6 @@ checkboxes.forEach((checkbox) => {
   });
 });
 
-window.onload = function () {
-  document.getElementById("length").textContent = sliderValue.value;
-  generatePassword();
-};
-
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -136,7 +131,7 @@ function generateMemorablePassword() {
     return;
   }
 
-  const symbols = "!@#$%^&*()_+{}[]<>?,.";
+  const symbols = "!@#$%^&*_+?";
 
   function getRandomElement(str) {
     return str[Math.floor(Math.random() * str.length)];
@@ -184,3 +179,8 @@ function clearModal() {
   document.getElementById("generatedPwd2").value = "";
   document.getElementById("name1").value = "";
 }
+
+window.addEventListener("load", () => {
+  document.getElementById("length").textContent = sliderValue.value;
+  generatePassword();
+});
