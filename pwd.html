@@ -23,7 +23,6 @@
 
   <body>
     <header>
-      <!-- * Navbar -->
       <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
           <a class="navbar-brand" href="index.html">
@@ -112,7 +111,6 @@
                     max="50"
                     value="8"
                     id="passwordLength"
-                    onchange="generatePassword()"
                   />
                 </div>
                 <button
@@ -138,7 +136,6 @@
                       type="checkbox"
                       id="include-uppercase"
                       value="uppercase"
-                      onchange="generatePassword()"
                       checked
                     />
                     <label class="form-check-label" for="include-uppercase"
@@ -151,7 +148,6 @@
                       type="checkbox"
                       id="include-lowercase"
                       value="lowercase"
-                      onchange="generatePassword()"
                       checked
                     />
                     <label class="form-check-label" for="include-lowercase"
@@ -164,7 +160,6 @@
                       type="checkbox"
                       id="include-numbers"
                       value="numbers"
-                      onchange="generatePassword()"
                       checked
                     />
                     <label class="form-check-label" for="include-numbers"
@@ -192,7 +187,6 @@
 
         <div class="input-container align-items-center">
           <div class="input-group">
-            <!-- Apply "rounded-pill" to the input group, not just the input -->
             <input
               type="text"
               class="form-control rounded-start-pill fs-4"
@@ -223,7 +217,7 @@
           <p>
             Having trouble remembering your password? Try our
             <a
-              href="contact.html"
+              href="#"
               class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
               data-bs-toggle="modal"
               data-bs-target="#memorablePwdGeneratorModal"
@@ -232,7 +226,6 @@
           </p>
         </div>
 
-        <!-- Modal -->
         <div
           class="modal fade"
           id="memorablePwdGeneratorModal"
@@ -240,7 +233,7 @@
           aria-labelledby="modalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="modalLabel">
@@ -256,23 +249,283 @@
               </div>
               <div class="modal-body">
                 <div class="mb-3">
+                  <label class="form-label d-block mb-2"
+                    >Choose Password Generation Method:</label
+                  >
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="memorableGenMethod"
+                      id="methodNamePhrase"
+                      value="namePhrase"
+                      checked
+                    />
+                    <label class="form-check-label" for="methodNamePhrase"
+                      >Name/Phrase Based</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="memorableGenMethod"
+                      id="methodStructured"
+                      value="structured"
+                    />
+                    <label class="form-check-label" for="methodStructured"
+                      >Structured Pattern (e.g., Rain@234#)</label
+                    >
+                  </div>
+                </div>
+
+                <div id="namePhraseInputGroup" class="mb-3">
                   <label for="name1" class="form-label"
-                    >Please enter your name:</label
+                    >Enter a Name or Phrase:</label
                   >
                   <input
                     type="text"
                     class="form-control"
                     id="name1"
-                    placeholder="John Doe"
+                    placeholder="e.g., John Doe, MyFavoritePet"
                   />
+                  <small class="text-muted"
+                    >This will be the base for your memorable password.</small
+                  >
                 </div>
-                <div class="input-container align-items-center">
+
+                <div
+                  id="structuredPatternInputGroup"
+                  class="mb-3"
+                  style="display: none"
+                >
+                  <label for="commonWord" class="form-label"
+                    >Optional: Enter a Base Word (or leave blank for
+                    random):</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="commonWord"
+                    placeholder="e.g., Rain, Tree, Cloud"
+                  />
+                  <small class="text-muted"
+                    >If left blank, a random common word will be used.</small
+                  >
+                </div>
+
+                <div class="form-check mb-3">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="memorableCapitalizeFirst"
+                    checked
+                  />
+                  <label class="form-check-label" for="memorableCapitalizeFirst"
+                    >Capitalize First Letter of Base</label
+                  >
+                </div>
+
+                <div class="form-check mb-3">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="memorableCapitalizeRandomWords"
+                    checked
+                  />
+                  <label
+                    class="form-check-label"
+                    for="memorableCapitalizeRandomWords"
+                    >Capitalize Random Characters</label
+                  >
+                  <div
+                    id="memorableRandomCapitalizationOptions"
+                    class="option-group mt-2"
+                  >
+                    <label for="memorableNumRandomCaps" class="form-label"
+                      >Number of Random Capitalizations:</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="memorableNumRandomCaps"
+                      value="1"
+                      min="0"
+                      max="3"
+                    />
+                    <small class="text-muted"
+                      >Randomly capitalize characters within the base
+                      string.</small
+                    >
+                  </div>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="memorableAddSpecialChar"
+                    checked
+                  />
+                  <label class="form-check-label" for="memorableAddSpecialChar"
+                    >Include Special Characters</label
+                  >
+                  <div
+                    id="memorableSpecialCharOptions"
+                    class="option-group mt-2"
+                  >
+                    <label for="memorableNumSpecialChars" class="form-label"
+                      >Number of Special Characters:</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="memorableNumSpecialChars"
+                      value="1"
+                      min="0"
+                      max="3"
+                    />
+
+                    <p class="mt-3 mb-1">Placement:</p>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="memorableSpecialCharPlacement"
+                        id="memorableSCRandom"
+                        value="random"
+                        checked
+                      />
+                      <label class="form-check-label" for="memorableSCRandom"
+                        >Random</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="memorableSpecialCharPlacement"
+                        id="memorableSCStart"
+                        value="start"
+                      />
+                      <label class="form-check-label" for="memorableSCStart"
+                        >Start</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="memorableSpecialCharPlacement"
+                        id="memorableSCEnd"
+                        value="end"
+                      />
+                      <label class="form-check-label" for="memorableSCEnd"
+                        >End</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="memorableSpecialCharPlacement"
+                        id="memorableSCReplace"
+                        value="replace"
+                      />
+                      <label class="form-check-label" for="memorableSCReplace"
+                        >Replace Letter (e.g., S/A/I with $/@/!)</label
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="memorableAddNumber"
+                    checked
+                  />
+                  <label class="form-check-label" for="memorableAddNumber"
+                    >Include Numbers</label
+                  >
+                  <div id="memorableNumberOptions" class="option-group mt-2">
+                    <div class="row">
+                      <div class="col-md-6 mb-2">
+                        <label for="memorableNumberMin" class="form-label"
+                          >Min Number (0-999):</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="memorableNumberMin"
+                          value="0"
+                          min="0"
+                          max="999"
+                        />
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <label for="memorableNumberMax" class="form-label"
+                          >Max Number (0-999):</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="memorableNumberMax"
+                          value="99"
+                          min="0"
+                          max="999"
+                        />
+                      </div>
+                    </div>
+
+                    <p class="mt-3 mb-1">Placement:</p>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="memorableNumberPlacement"
+                        id="memorableNumRandom"
+                        value="random"
+                        checked
+                      />
+                      <label class="form-check-label" for="memorableNumRandom"
+                        >Random</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="memorableNumberPlacement"
+                        id="memorableNumStart"
+                        value="start"
+                      />
+                      <label class="form-check-label" for="memorableNumStart"
+                        >Start</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="memorableNumberPlacement"
+                        id="memorableNumEnd"
+                        value="end"
+                      />
+                      <label class="form-check-label" for="memorableNumEnd"
+                        >End</label
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="input-container align-items-center mt-4">
                   <div class="input-group">
-                    <!-- Apply "rounded-pill" to the input group, not just the input -->
                     <input
                       type="text"
-                      class="form-control rounded-start-pill"
-                      placeholder="Your Generated Password"
+                      class="form-control rounded-start-pill fs-5"
+                      placeholder="Your Memorable Password"
                       aria-label="readonly input"
                       readonly
                       id="generatedPwd2"
@@ -280,17 +533,9 @@
                     <button
                       class="input-group-text btn input-group-icons"
                       onclick="copyPassword(document.getElementById('generatedPwd2').value)"
-                      id="inputGroup-sizing-lg"
                     >
                       <i class="fa-regular fa-clipboard"></i>
                     </button>
-                    <!-- <button
-                      class="input-group-text btn input-group-icons rounded-end-pill"
-                      onclick="generateMemorablePassword()"
-                      id="inputGroup-sizing-lg"
-                    >
-                      <i class="fa-solid fa-arrow-rotate-left"></i>
-                    </button> -->
                   </div>
                 </div>
               </div>
@@ -300,7 +545,7 @@
                   class="btn btn-primary"
                   onclick="generateMemorablePassword()"
                 >
-                  Generate Password
+                  Generate Memorable Password
                 </button>
               </div>
             </div>
@@ -308,7 +553,6 @@
         </div>
       </div>
 
-      <!-- Go to top and bottom buttons -->
       <button onclick="gototop()" id="topbtn" class="btn btn-warning">
         <i class="fa-solid fa-arrow-up"></i>
       </button>
@@ -316,7 +560,6 @@
         <i class="fa-solid fa-arrow-down"></i>
       </button>
 
-      <!-- * Toast -->
       <div class="toast-container position-fixed end-0 p-3 toastContainer">
         <div
           id="copied"
@@ -378,7 +621,6 @@
       </div>
     </main>
 
-    <!-- Scripts -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

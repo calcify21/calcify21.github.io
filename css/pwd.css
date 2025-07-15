@@ -1,3 +1,5 @@
+/* Existing styles */
+
 .input-group-icons,
 .input-group-icons:hover {
   border-color: var(--bs-border-color);
@@ -13,9 +15,15 @@
   height: 70px;
 }
 
+/* Specific styling for modal inputs */
 .modal-body .input-container input {
   padding-inline: 2rem;
-  height: 50px;
+  height: 50px; /* Reduced height for modal inputs */
+}
+
+.modal-body .form-control {
+  /* General input style within modal */
+  font-size: 1em;
 }
 
 .toastContainer {
@@ -74,4 +82,24 @@ input[type="range"]:focus::-moz-range-thumb {
     width: 100%;
     text-align: center;
   }
+}
+
+/* --- Styles for Memorable Password Generator in Modal (Optimized for Dark Mode) --- */
+.modal-body .option-group {
+  /* Using Bootstrap's primary color variable for the border */
+  border-left: 3px solid var(--bs-primary) !important;
+  /* Using Bootstrap's subtle background for contrast */
+  background-color: #e9f5ff; /* Or var(--bs-secondary-bg) for a slightly different shade */
+  padding: 15px;
+  border-radius: var(
+    --bs-border-radius
+  ); /* Use Bootstrap's border-radius variable */
+  border: 1px solid var(--bs-border-color); /* Add a subtle border for definition */
+}
+
+/* Specific adjustment for dark mode to override the light blue */
+[data-bs-theme="dark"] .modal-body .option-group {
+  background-color: var(
+    --bs-tertiary-bg
+  ); /* A suitable dark background for option groups */
 }
