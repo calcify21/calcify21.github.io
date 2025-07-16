@@ -4,6 +4,9 @@ sliderValue.addEventListener("input", function () {
   document.getElementById("length").textContent = sliderValue.value;
 });
 
+// Add event listener for slider change to regenerate password
+sliderValue.addEventListener("change", generatePassword);
+
 function generatePassword() {
   const length = sliderValue.value;
   const includeLowercase = document.getElementById("include-lowercase").checked;
@@ -79,9 +82,6 @@ mainCheckboxes.forEach((checkbox) => {
     const checkedCheckboxes = [...mainCheckboxes].filter((cb) => cb.checked);
     if (checkedCheckboxes.length === 0) {
       checkbox.checked = true; // Prevent all from being unchecked
-      alert(
-        "At least one character type must be selected for the main generator."
-      );
     }
     generatePassword(); // Regenerate password on change
   });
@@ -131,213 +131,6 @@ const commonWords = [
   "Crimson",
 ];
 
-// function generateMemorablePassword() {
-//   const selectedMethod = document.querySelector(
-//     'input[name="memorableGenMethod"]:checked'
-//   ).value;
-
-//   let baseString = "";
-
-//   // Options are collected regardless of method, and applied where relevant
-//   const options = {
-//     capitalizeFirst: document.getElementById("memorableCapitalizeFirst")
-//       .checked,
-//     capitalizeRandomWords: document.getElementById(
-//       "memorableCapitalizeRandomWords"
-//     ).checked,
-//     numRandomCaps: parseInt(
-//       document.getElementById("memorableNumRandomCaps").value
-//     ),
-//     addSpecialChar: document.getElementById("memorableAddSpecialChar").checked,
-//     numSpecialChars: parseInt(
-//       document.getElementById("memorableNumSpecialChars").value
-//     ),
-//     specialCharPlacement: document.querySelector(
-//       'input[name="memorableSpecialCharPlacement"]:checked'
-//     ).value,
-//     addNumber: document.getElementById("memorableAddNumber").checked,
-//     numberRange: {
-//       min: parseInt(document.getElementById("memorableNumberMin").value),
-//       max: parseInt(document.getElementById("memorableNumberMax").value),
-//     },
-//     numberPlacement: document.querySelector(
-//       'input[name="memorableNumberPlacement"]:checked'
-//     ).value,
-//     commonSpecialChars: ["!", "@", "#", "$", "%", "&", "*", "_", "-"],
-//   };
-
-//   if (selectedMethod === "namePhrase") {
-//     let rawNameInput = document.getElementById("name1").value.trim();
-//     if (!rawNameInput) {
-//       alert("Please enter a name or phrase for your memorable password.");
-//       return;
-//     }
-
-//     let nameParts = rawNameInput.split(/\s+/).filter((part) => part.length > 0);
-
-//     if (nameParts.length > 1) {
-//       const numWordsToUse = Math.min(
-//         Math.ceil(Math.random() * nameParts.length),
-//         2
-//       );
-//       const selectedWordIndices = [];
-//       while (selectedWordIndices.length < numWordsToUse) {
-//         const randomIndex = Math.floor(Math.random() * nameParts.length);
-//         if (!selectedWordIndices.includes(randomIndex)) {
-//           selectedWordIndices.push(randomIndex);
-//         }
-//       }
-//       baseString = selectedWordIndices.map((idx) => nameParts[idx]).join("");
-//     } else {
-//       const name = rawNameInput;
-//       if (name.length <= 3) {
-//         baseString = name;
-//       } else {
-//         const segmentLength = Math.floor(Math.random() * 3) + 3; // 3, 4, or 5 characters
-//         const startIndex = Math.floor(
-//           Math.random() * (name.length - segmentLength + 1)
-//         );
-//         baseString = name.substring(startIndex, startIndex + segmentLength);
-//       }
-//     }
-//     baseString = baseString.toLowerCase(); // Convert to lowercase for consistent capitalization application
-//   } else {
-//     // selectedMethod === 'structured'
-//     let userWord = document.getElementById("commonWord").value.trim();
-//     let wordForPattern = "";
-
-//     if (userWord) {
-//       wordForPattern = userWord.toLowerCase();
-//     } else {
-//       wordForPattern =
-//         commonWords[
-//           Math.floor(Math.random() * commonWords.length)
-//         ].toLowerCase();
-//     }
-
-//     baseString = wordForPattern;
-//   }
-
-//   let finalPassword = baseString;
-
-//   // Apply capitalization (first letter and random) - applies to both methods
-//   if (options.capitalizeFirst && finalPassword.length > 0) {
-//     finalPassword =
-//       finalPassword.charAt(0).toUpperCase() + finalPassword.slice(1);
-//   }
-
-//   if (options.capitalizeRandomWords && options.numRandomCaps > 0) {
-//     let chars = finalPassword.split("");
-//     const charsToCapitalizeIndices = [];
-//     const actualCaps = Math.min(options.numRandomCaps, chars.length);
-
-//     while (charsToCapitalizeIndices.length < actualCaps) {
-//       const randomIndex = Math.floor(Math.random() * chars.length);
-//       if (!charsToCapitalizeIndices.includes(randomIndex)) {
-//         charsToCapitalizeIndices.push(randomIndex);
-//       }
-//     }
-
-//     let tempPasswordArray = [];
-//     for (let i = 0; i < chars.length; i++) {
-//       if (charsToCapitalizeIndices.includes(i)) {
-//         tempPasswordArray.push(chars[i].toUpperCase());
-//       } else {
-//         tempPasswordArray.push(chars[i]);
-//       }
-//     }
-//     finalPassword = tempPasswordArray.join("");
-//   }
-
-//   // Add Special Characters - applies to both methods
-//   if (options.addSpecialChar && options.commonSpecialChars.length > 0) {
-//     for (let i = 0; i < options.numSpecialChars; i++) {
-//       const randomChar =
-//         options.commonSpecialChars[
-//           Math.floor(Math.random() * options.commonSpecialChars.length)
-//         ];
-
-//       if (options.specialCharPlacement === "start") {
-//         finalPassword = randomChar + finalPassword;
-//       } else if (options.specialCharPlacement === "end") {
-//         finalPassword = finalPassword + randomChar;
-//       } else if (options.specialCharPlacement === "replace") {
-//         let replaced = false;
-//         if (
-//           !replaced &&
-//           finalPassword.toLowerCase().includes("s") &&
-//           randomChar === "$"
-//         ) {
-//           finalPassword = finalPassword.replace(/s/gi, "$");
-//           replaced = true;
-//         }
-//         if (
-//           !replaced &&
-//           finalPassword.toLowerCase().includes("a") &&
-//           randomChar === "@"
-//         ) {
-//           finalPassword = finalPassword.replace(/a/gi, "@");
-//           replaced = true;
-//         }
-//         if (
-//           !replaced &&
-//           finalPassword.toLowerCase().includes("i") &&
-//           randomChar === "!"
-//         ) {
-//           finalPassword = finalPassword.replace(/i/gi, "!");
-//           replaced = true;
-//         }
-//         if (!replaced) {
-//           const randomIndex = Math.floor(
-//             Math.random() * (finalPassword.length + 1)
-//           );
-//           finalPassword =
-//             finalPassword.slice(0, randomIndex) +
-//             randomChar +
-//             finalPassword.slice(randomIndex);
-//         }
-//       } else {
-//         // 'random' placement
-//         const randomIndex = Math.floor(
-//           Math.random() * (finalPassword.length + 1)
-//         );
-//         finalPassword =
-//           finalPassword.slice(0, randomIndex) +
-//           randomChar +
-//           finalPassword.slice(randomIndex);
-//       }
-//     }
-//   }
-
-//   // Add Number - applies to both methods
-//   if (options.addNumber) {
-//     let minNum = Math.max(0, Math.min(999, options.numberRange.min));
-//     let maxNum = Math.max(0, Math.min(999, options.numberRange.max));
-//     if (minNum > maxNum) [minNum, maxNum] = [maxNum, minNum];
-
-//     const randomNumber =
-//       Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
-//     const numString = String(randomNumber);
-
-//     if (options.numberPlacement === "start") {
-//       finalPassword = numString + finalPassword;
-//     } else if (options.numberPlacement === "end") {
-//       finalPassword = finalPassword + numString;
-//     } else {
-//       // 'random' placement
-//       const randomIndex = Math.floor(
-//         Math.random() * (finalPassword.length + 1)
-//       );
-//       finalPassword =
-//         finalPassword.slice(0, randomIndex) +
-//         numString +
-//         finalPassword.slice(randomIndex);
-//     }
-//   }
-
-//   typewriter(finalPassword, "generatedPwd2");
-// }
-
 function generateMemorablePassword() {
   const selectedMethod = document.querySelector(
     'input[name="memorableGenMethod"]:checked'
@@ -347,8 +140,8 @@ function generateMemorablePassword() {
 
   // Options are collected regardless of method, and applied where relevant
   const options = {
-    capitalizeFirst: document.getElementById("memorableCapitalizeFirst")
-      .checked,
+    // capitalizeFirst: document.getElementById("memorableCapitalizeFirst")
+    //   .checked,
     capitalizeRandomWords: document.getElementById(
       "memorableCapitalizeRandomWords"
     ).checked,
@@ -363,20 +156,19 @@ function generateMemorablePassword() {
       'input[name="memorableSpecialCharPlacement"]:checked'
     ).value, // This will be less relevant for the strict pattern
     addNumber: document.getElementById("memorableAddNumber").checked,
-    numberRange: {
-      min: parseInt(document.getElementById("memorableNumberMin").value),
-      max: parseInt(document.getElementById("memorableNumberMax").value),
-    },
     numberPlacement: document.querySelector(
       'input[name="memorableNumberPlacement"]:checked'
     ).value, // This will be less relevant for the strict pattern
-    commonSpecialChars: ["!", "@", "#", "$", "%", "&", "*", "_", "-"],
+    commonSpecialChars: ["@", "!", "#", "$", "@", "%", "&", "*", "@"],
   };
 
   if (selectedMethod === "namePhrase") {
     let rawNameInput = document.getElementById("name1").value.trim();
     if (!rawNameInput) {
-      alert("Please enter a name or phrase for your memorable password.");
+      // alert("Please enter a name or phrase for your memorable password.");
+      const toast4 = document.getElementById("noName");
+      const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast4);
+      toastBootstrap.show();
       return;
     }
 
@@ -428,10 +220,10 @@ function generateMemorablePassword() {
   let finalPassword = baseString;
 
   // Apply capitalization (first letter and random) - applies to both methods
-  if (options.capitalizeFirst && finalPassword.length > 0) {
-    finalPassword =
-      finalPassword.charAt(0).toUpperCase() + finalPassword.slice(1);
-  }
+  // if (options.capitalizeFirst && finalPassword.length > 0) {
+  //   finalPassword =
+  //     finalPassword.charAt(0).toUpperCase() + finalPassword.slice(1);
+  // }
 
   if (options.capitalizeRandomWords && options.numRandomCaps > 0) {
     let chars = finalPassword.split("");
@@ -469,10 +261,8 @@ function generateMemorablePassword() {
 
     // 2. Add number(s)
     if (options.addNumber) {
-      let minNum = Math.max(0, Math.min(999, options.numberRange.min));
-      let maxNum = Math.max(0, Math.min(999, options.numberRange.max));
-      if (minNum > maxNum) [minNum, maxNum] = [maxNum, minNum]; // Swap if min > max
-
+      const minNum = 0;
+      const maxNum = 999;
       const randomNumber =
         Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
       finalPassword += String(randomNumber);
@@ -553,10 +343,8 @@ function generateMemorablePassword() {
     // Add Number - applies to Name/Phrase method
     if (options.addNumber && selectedMethod !== "structured") {
       // Only add if not structured, as structured adds numbers differently
-      let minNum = Math.max(0, Math.min(999, options.numberRange.min));
-      let maxNum = Math.max(0, Math.min(999, options.numberRange.max));
-      if (minNum > maxNum) [minNum, maxNum] = [maxNum, minNum];
-
+      const minNum = 0;
+      const maxNum = 999;
       const randomNumber =
         Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
       const numString = String(randomNumber);
@@ -593,7 +381,7 @@ function clearModal() {
     .dispatchEvent(new Event("change")); // Trigger visibility update
 
   // Reset other memorable options to defaults
-  document.getElementById("memorableCapitalizeFirst").checked = true;
+  // document.getElementById("memorableCapitalizeFirst").checked = true;
   document.getElementById("memorableCapitalizeRandomWords").checked = true;
   document.getElementById("memorableNumRandomCaps").value = 1;
   document.getElementById("memorableAddSpecialChar").checked = true;
@@ -641,7 +429,9 @@ function copyPassword(password) {
         toastBootstrap.show();
       });
   } else {
-    alert("Clipboard API not supported in this browser. Please copy manually.");
+    // alert("Clipboard API not supported in this browser. Please copy manually.");
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast3);
+    toastBootstrap.show();
   }
 }
 
@@ -680,14 +470,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const structuredPatternInputGroup = document.getElementById(
     "structuredPatternInputGroup"
   );
+  const specialCharsDiv = document.querySelector(".specialCharsDiv");
+  const numberDiv = document.querySelector(".numberDiv");
 
   function toggleInputGroups() {
     if (methodNamePhraseRadio.checked) {
       namePhraseInputGroup.style.display = "block";
       structuredPatternInputGroup.style.display = "none";
+      specialCharsDiv.style.display = "block"; // Show special chars for name/phrase
+      numberDiv.style.display = "block"; // Show number options for name/phrase
     } else {
       namePhraseInputGroup.style.display = "none";
       structuredPatternInputGroup.style.display = "block";
+      specialCharsDiv.style.display = "none"; // Hide special chars for structured
+      numberDiv.style.display = "none"; // Hide number options for structured
     }
   }
 
