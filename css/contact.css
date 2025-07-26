@@ -38,6 +38,10 @@ textarea {
   margin-top: 20px;
 }
 
+.was-validated :invalid ~ .invalid-feedback {
+  display: inline;
+}
+
 /* Animations */
 @keyframes planeMovement {
   0% {
@@ -63,6 +67,46 @@ textarea {
   }
 }
 
-.was-validated :invalid ~ .invalid-feedback {
-  display: inline;
+/* Keyframes for the shake animation */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(-5px);
+  }
+  20% {
+    transform: translateX(5px);
+  }
+  30% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  60% {
+    transform: translateX(5px);
+  }
+  70% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(5px);
+  }
+  90% {
+    transform: translateX(-5px);
+  }
+}
+
+/* Class to apply the shake animation to the input itself */
+/* This will make the input and its immediate error message (if a sibling) shake */
+.input-shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }

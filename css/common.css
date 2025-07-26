@@ -55,11 +55,6 @@ main {
   background-color: #455a64 !important;
 }
 
-.navbar-nav {
-  flex-direction: row !important;
-  flex-wrap: wrap;
-}
-
 .nav-underline li a {
   color: white !important;
   border-bottom: none !important;
