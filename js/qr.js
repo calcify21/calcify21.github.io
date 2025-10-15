@@ -26,18 +26,58 @@ document.getElementById("generateBtn").addEventListener("click", function () {
 });
 
 // Function to download the QR code as an image
+// document.getElementById("downloadBtn").addEventListener("click", function () {
+//   const qrCodeImg = document.querySelector("#qrcode img");
+//   if (qrCodeImg) {
+//     const link = document.createElement("a");
+//     link.href = qrCodeImg.src;
+//     link.download = "qr_code.png";
+//     link.click();
+//   } else {
+//     document.getElementById("generateBtn").click();
+//     document.getElementById("downloadBtn").click();
+//   }
+// });
+
+// qr.js - Modified download event listener
+
 document.getElementById("downloadBtn").addEventListener("click", function () {
-  const qrCodeImg = document.querySelector("#qrcode img");
-  if (qrCodeImg) {
+  const qrCodeDiv = document.getElementById("qrcode");
+  const qrCodeImg = qrCodeDiv.querySelector("img");
+  const qrCodeCanvas = qrCodeDiv.querySelector("canvas");
+
+  let dataURL = null;
+
+  // 1. Prioritize downloading from the canvas (most reliable)
+  if (qrCodeCanvas) {
+    dataURL = qrCodeCanvas.toDataURL("image/png");
+  }
+  // 2. Fallback to the image tag (if the library rendered it this way)
+  else if (qrCodeImg && qrCodeImg.src) {
+    dataURL = qrCodeImg.src;
+  }
+
+  if (dataURL) {
     const link = document.createElement("a");
-    link.href = qrCodeImg.src;
+    link.href = dataURL;
     link.download = "qr_code.png";
+
+    // This is necessary on some browsers to ensure the link is briefly added to the DOM
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link); // Clean up
   } else {
-    document.getElementById("generateBtn").click();
-    document.getElementById("downloadBtn").click();
+    // ... (Your existing toast logic for error handling) ...
+    const toast = document.getElementById("liveToast");
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
+    document.querySelector(".toast-body").textContent =
+      "Please generate the QR code first.";
+    toastBootstrap.show();
+    // You might want a timeout to reset the toast message later
   }
 });
+
+// REMOVE the previous content of the downloadBtn event listener entirely.
 
 // Toast
 const toastTrigger = document.getElementById("removeFavoritesBtn");
