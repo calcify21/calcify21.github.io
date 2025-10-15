@@ -1,25 +1,58 @@
-/* QR Code Container */
-/* #qrcode-container {
-    max-width: 100%;
-    overflow: hidden;
-    text-align: center;
-    position: relative;
-} */
-
-/* QR Code Element */
-#qrcode {
-  padding: 10px;
-  /* display: inline-block;
-    max-width: 100%;
-    max-height: 90vh; */
+.generator {
+  width: max-content;
 }
 
-/* Prevent QR Code Overflow */
+/* --- Generator Specific Styles --- */
+
+/* QR Code Display Element */
+#qrcode {
+  padding: 10px;
+}
+
+/* Prevent QR Code image overflow and ensure responsiveness */
 #qrcode img {
   max-width: 100%;
   height: auto;
 }
 
-.generator {
-  width: fit-content;
+/* --- Scanner Specific Styles --- */
+
+/* Scanner Video Element */
+#qrVideo {
+  max-width: 100%;
+  max-height: 400px; /* Limits the max height of the video feed */
+  object-fit: cover;
+}
+
+/* Drop Zone Styles (for Upload/Drop functionality) */
+#dropZone {
+  border-style: dashed !important; /* Dashed border for visual cue */
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;
+}
+
+/* Highlight Drop Zone when a file is dragged over */
+#dropZone.border-primary {
+  background-color: rgba(13, 110, 253, 0.1); /* Light blue tint */
+}
+
+/* Hide the actual file input button */
+#qrImageInput {
+  display: none;
+}
+
+/* Scanner Result Container */
+#scanResultContainer {
+  word-wrap: break-word; /* Ensures long text/URLs don't break the layout */
+  background-color: var(--bs-light); /* Light background for visibility */
+}
+
+/* Dark Theme Adjustments for Scanner Result (Ensures readability in dark mode) */
+html[data-bs-theme="dark"] #scanResultContainer {
+  background-color: #343a40; /* Darker background */
+  border-color: #495057 !important;
+}
+
+#scanResult {
+  font-weight: 500;
 }

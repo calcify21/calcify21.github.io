@@ -79,10 +79,10 @@
     </header>
     <main>
       <div class="container">
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mb-5">
           <div class="card shadow-sm generator">
             <div class="card-body text-center">
-              <h1 class="h4 mb-3">QR Code Generator</h1>
+              <h4 class="h4 mb-3">QR Code Generator</h4>
 
               <!-- Input Field -->
               <input
@@ -111,7 +111,7 @@
                 </select>
               </div>
               <button id="generateBtn" class="btn btn-primary w-100 mb-3">
-                Generate QR Code
+                <i class="fa-solid fa-qrcode"></i> Generate QR Code
               </button>
 
               <!-- QR Code Display -->
@@ -126,13 +126,79 @@
                 ></div>
               </div>
 
+              <div class="mb-3 d-none" id="fileNameInputContainer">
+                <label for="fileNameInput" class="form-label"
+                  >File Name (optional):</label
+                >
+                <input
+                  type="text"
+                  id="fileNameInput"
+                  class="form-control"
+                  placeholder="e.g., my_new_qr"
+                  aria-label="QR Code File Name"
+                />
+              </div>
+
               <button
                 id="downloadBtn"
                 class="btn btn-success w-100"
                 style="display: none"
               >
-                Download QR Code
+                <i class="fa-solid fa-download"></i> Download QR Code
               </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center mb-5">
+          <div class="card shadow-sm generator">
+            <div class="card-body text-center">
+              <h4 class="h4 mb-3">QR Code Scanner</h4>
+
+              <button id="startScanBtn" class="btn btn-info w-100 mb-3">
+                <i class="fa-solid fa-camera"></i> Scan using Camera
+              </button>
+
+              <div class="mb-3 text-center d-none" id="videoContainer">
+                <video
+                  id="qrVideo"
+                  width="100%"
+                  height="auto"
+                  class="rounded border"
+                  autoplay
+                  playsinline
+                ></video>
+              </div>
+
+              <div
+                id="dropZone"
+                class="border border-2 rounded p-4 text-center"
+              >
+                <p>Drop an image here</p>
+                <p>OR</p>
+                <label for="qrImageInput" class="btn btn-secondary w-100">
+                  <i class="fa-solid fa-upload"></i> Upload QR Image
+                </label>
+                <input
+                  type="file"
+                  id="qrImageInput"
+                  accept="image/*"
+                  class="d-none"
+                  aria-label="Upload QR Code Image"
+                />
+              </div>
+
+              <canvas id="qrCanvas" class="d-none">
+                Sorry, your browser does not support the canvas element.
+              </canvas>
+
+              <div
+                id="scanResultContainer"
+                class="border rounded p-3 mt-3 text-start d-none"
+              >
+                <p class="mb-1">Scanned Content:</p>
+                <code id="scanResult" class="d-block text-truncate"></code>
+              </div>
             </div>
           </div>
         </div>
@@ -186,8 +252,9 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="js/qr.js"></script>
     <script src="js/common.js"></script>
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.min.js"></script>
   </body>
 </html>
