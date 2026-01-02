@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Family Spy Party</title>
+    <style>
+        :root {
+            --primary: #ff4e50;
+            --secondary: #f9d423;
+            --accent: #20e3b2;
+            --text-main: #2d3436;
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            font-family: "Segoe UI", Roboto, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            /* Dark ki jagah bright aur fun gradient */
+            background: linear-gradient(135deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 40px 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            max-width: 420px;
+            width: 100%;
+            border: 2px solid #ffffff;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: #d63031;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 900;
+        }
+
+        p {
+            color: #636e72;
+            font-weight: 500;
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff4e50, #f9d423);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 8px 0;
+            transition: all 0.2s ease;
+            font-weight: bold;
+            width: 90%;
+            box-shadow: 0 4px 15px rgba(255, 78, 80, 0.3);
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(255, 78, 80, 0.4);
+        }
+
+        .btn-secondary {
+            background: #dfe6e9;
+            color: #2d3436;
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background: #b2bec3;
+        }
+
+        .secret {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0984e3;
+            margin: 25px 0;
+            padding: 20px;
+            border: 3px dashed #0984e3;
+            border-radius: 15px;
+            display: none;
+            background: rgba(9, 132, 227, 0.05);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .player-tag {
+            font-size: 1.5rem;
+            color: #d63031;
+            font-weight: 800;
+            margin: 15px 0;
+            background: #fff3f3;
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .info-label {
+            display: inline-block;
+            background: #ffeaa7;
+            color: #d35400;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            border: 1px solid #f1c40f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div id="setup-area">
+            <h1>Spy Party! 🕵️</h1>
+            <p>Sabhi players taiyar hain?</p>
+            <button onclick="startGame(0)">MODE 1: BLANK CHIT</button>
+            <button onclick="startGame(1)">MODE 2: RELATED WORDS</button>
+            <button onclick="startGame(2)">MODE 3: QUESTIONS</button>
+        </div>
+
+        <div id="game-area" class="hidden">
+            <span class="info-label" id="current-var-text"></span>
+            <p>Phone isko pakdao:</p>
+            <div class="player-tag" id="player-name">---</div>
+            <br />
+            <button id="reveal-btn" onclick="toggleSecret(true)">🔍 REVEAL SECRET</button>
+            <div id="secret-word" class="secret"></div>
+            <button id="next-player-btn" class="hidden" onclick="nextPlayer()">AGLA PLAYER ➡️</button>
+        </div>
+
+        <div id="round-end-area" class="hidden">
+            <h1>Game Over! 🏁</h1>
+            <p>Kaun tha Spy? Kya pakde gaye?</p>
+            <button onclick="repeatMode()">PHIR SE KHELO (Same Mode)</button>
+            <button id="next-var-btn" onclick="nextVariation()">AGLI VARIATION NEXT ➡️</button>
+            <button class="btn-secondary" onclick="endGame()">GAME KHATAM KAREIN</button>
+        </div>
+
+        <div id="game-over-area" class="hidden">
+            <h1>SHUKRIYA! 👋</h1>
+            <p>Umeed hai maza aaya hoga!</p>
+            <button onclick="location.reload()">RESTART ALL</button>
+        </div>
+    </div>
+
+    <script>
+        const players = ["Me", "Sister", "Mom", "Dad"];
+
+        let wordPairs = [
+            ["Coffee", "Tea"], ["Smartphone", "Tablet"], ["Cricket", "Football"],
+            ["Instagram", "YouTube"], ["Doctor", "Nurse"], ["Pizza", "Burger"],
+            ["Shampoo", "Soap"], ["Aeroplane", "Helicopter"], ["Gold", "Silver"],
+            ["Earphones", "Headphones"], ["Beach", "Swimming Pool"], ["Pen", "Pencil"],
+        ];
+
+        let questionPairs = [
+            ["Favorite fruit?", "Favorite vegetable?"],
+            ["What do you eat for breakfast?", "What do you eat for dinner?"],
+            ["Which animal is the king of the jungle?", "Which animal is the tallest in the world?"],
+            ["Something you find in a kitchen?", "Something you find in a bathroom?"],
+            ["A winter fruit?", "A summer fruit?"],
+        ];
+
+        let currentMode = 0;
+        let playerIndex = 0;
+        let shuffledPlayers = [];
+        let citizenContent = "";
+        let imposterContent = "";
+        let imposterName = "";
+
+        function startGame(mode) {
+            currentMode = mode;
+            playerIndex = 0;
+            shuffledPlayers = [...players].sort(() => Math.random() - 0.5);
+            imposterName = players[Math.floor(Math.random() * players.length)];
+
+            if (!setupContent()) return;
+
+            document.getElementById("setup-area").classList.add("hidden");
+            document.getElementById("round-end-area").classList.add("hidden");
+            document.getElementById("game-over-area").classList.add("hidden");
+            document.getElementById("game-area").classList.remove("hidden");
+            showPlayer();
+        }
+
+        function setupContent() {
+            let label = "";
+            if (currentMode === 0) {
+                label = "Blank Chit Mode";
+                if (wordPairs.length === 0) return outOfWords();
+                let selection = wordPairs.splice(Math.floor(Math.random() * wordPairs.length), 1)[0];
+                citizenContent = selection[0];
+                imposterContent = "CHIT KHALI HAI! (You are Spy)";
+            } else if (currentMode === 1) {
+                label = "Related Words Mode";
+                if (wordPairs.length === 0) return outOfWords();
+                let pair = wordPairs.splice(Math.floor(Math.random() * wordPairs.length), 1)[0];
+                pair.sort(() => Math.random() - 0.5);
+                citizenContent = pair[0];
+                imposterContent = pair[1];
+            } else {
+                label = "Questions Mode";
+                if (questionPairs.length === 0) return outOfWords();
+                let qPair = questionPairs.splice(Math.floor(Math.random() * questionPairs.length), 1)[0];
+                qPair.sort(() => Math.random() - 0.5);
+                citizenContent = qPair[0];
+                imposterContent = qPair[1];
+            }
+            document.getElementById("current-var-text").innerText = label;
+            return true;
+        }
+
+        function outOfWords() {
+            alert("Sari words khatam ho gayi hain!");
+            endGame();
+            return false;
+        }
+
+        function showPlayer() {
+            document.getElementById("player-name").innerText = shuffledPlayers[playerIndex];
+            toggleSecret(false);
+        }
+
+        function toggleSecret(show) {
+            const secretDiv = document.getElementById("secret-word");
+            const revealBtn = document.getElementById("reveal-btn");
+            const nextBtn = document.getElementById("next-player-btn");
+
+            if (show) {
+                secretDiv.innerText = shuffledPlayers[playerIndex] === imposterName ? imposterContent : citizenContent;
+                secretDiv.style.display = "block";
+                revealBtn.classList.add("hidden");
+                nextBtn.classList.remove("hidden");
+            } else {
+                secretDiv.style.display = "none";
+                revealBtn.classList.remove("hidden");
+                nextBtn.classList.add("hidden");
+            }
+        }
+
+        function nextPlayer() {
+            playerIndex++;
+            if (playerIndex < shuffledPlayers.length) {
+                showPlayer();
+            } else {
+                document.getElementById("game-area").classList.add("hidden");
+                document.getElementById("round-end-area").classList.remove("hidden");
+                document.getElementById("next-var-btn").style.display = currentMode >= 2 ? "none" : "inline-block";
+            }
+        }
+
+        function repeatMode() { startGame(currentMode); }
+        function nextVariation() { startGame(currentMode + 1); }
+        function endGame() {
+            document.getElementById("round-end-area").classList.add("hidden");
+            document.getElementById("game-area").classList.add("hidden");
+            document.getElementById("game-over-area").classList.remove("hidden");
+        }
+    </script>
+</body>
+
+</html>
