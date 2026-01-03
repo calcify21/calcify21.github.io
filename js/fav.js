@@ -15,7 +15,9 @@ function loadFavorites() {
 }
 
 function generateCalculatorHtml(id) {
+  let title = "";
   let text = "";
+
   if (id == "prime") {
     title = "Prime Number Checker";
     text = "A calculator to check whether the given number is prime or not.";
@@ -41,17 +43,18 @@ function generateCalculatorHtml(id) {
     title = "QR Code Generator";
     text =
       "A QR code generator that allows users to create QR codes for any text or URL.";
+  } else if (id == "ncert") {
+    title = "NCERT E-book Hub";
+    text = "Access all NCERT textbooks of Class 9th in one place.";
   }
 
   return `<li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">
-                            ${title}
-                        </div>
-                        ${text}
-                    </div>
-                    <a href="${id}.html" class="btn btn-outline-primary">Open</a>
-                </li>`;
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">${title}</div>
+                    <small class="text-secondary">${text}</small>
+                </div>
+                <a href="${id}.html" class="btn btn-outline-primary align-self-center">Open</a>
+            </li>`;
 }
 
 function removeAllFavorites() {

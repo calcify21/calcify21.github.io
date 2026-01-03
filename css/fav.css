@@ -6,3 +6,22 @@
 #removeFavoritesBtn {
   display: block;
 }
+
+.list-group-item {
+  /* transition: all 0.3s ease; */ /* Transition coming from common.css * selector */
+}
+
+.list-group-item:hover {
+  border-left: 5px solid #ffc107;
+}
+
+.alert-warning {
+  border-radius: 12px;
+  padding: 30px;
+  border: 2px dashed #ffc107;
+}
+
+/* Dark mode tweaks */
+[data-bs-theme="dark"] .list-group-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}

@@ -1,3 +1,5 @@
+// common.js
+
 // Go to top and bottom buttons
 let topbtn = document.getElementById("topbtn");
 let downbtn = document.getElementById("bottombtn");

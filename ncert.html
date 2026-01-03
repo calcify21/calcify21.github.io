@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NCERT Class 9 E-Book Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640'><path d='M128 64C92.7 64 64 92.7 64 128L64 512C64 547.3 92.7 576 128 576L208 576L208 464C208 428.7 236.7 400 272 400L448 400L448 234.5C448 217.5 441.3 201.2 429.3 189.2L322.7 82.7C310.7 70.7 294.5 64 277.5 64L128 64zM389.5 240L296 240C282.7 240 272 229.3 272 216L272 122.5L389.5 240zM272 444C261 444 252 453 252 464L252 592C252 603 261 612 272 612C283 612 292 603 292 592L292 564L304 564C337.1 564 364 537.1 364 504C364 470.9 337.1 444 304 444L272 444zM304 524L292 524L292 484L304 484C315 484 324 493 324 504C324 515 315 524 304 524zM400 444C389 444 380 453 380 464L380 592C380 603 389 612 400 612L432 612C460.7 612 484 588.7 484 560L484 496C484 467.3 460.7 444 432 444L400 444zM420 572L420 484L432 484C438.6 484 444 489.4 444 496L444 560C444 566.6 438.6 572 432 572L420 572zM508 464L508 592C508 603 517 612 528 612C539 612 548 603 548 592L548 548L576 548C587 548 596 539 596 528C596 517 587 508 576 508L548 508L548 484L576 484C587 484 596 475 596 464C596 453 587 444 576 444L528 444C517 444 508 453 508 464z'/></svg>">
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f0f4f8;
+        }
+
+        .card-subject {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .card-subject:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -2px rgba(0, 4, 8, 0.05);
+        }
+
+        .back-button {
+            transition: all 0.2s;
+        }
+
+        .back-button:hover {
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <div id="app-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">
+                NCERT Class 9 Hub
+            </h1>
+            <p class="text-gray-500">
+                Access your e-books instantly (English Medium).
+            </p>
+            <div id="status" class="text-xs text-green-500 mt-2">
+                Data Loaded Locally.
+            </div>
+        </header>
+
+        <div id="content-area">
+            <div id="loading-spinner" class="text-center p-12">
+                <svg class="animate-spin h-8 w-8 text-blue-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+                <p class="mt-3 text-gray-600">Loading subjects...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <script>
+        // --- DEFINITIVE NCERT CLASS IX ENGLISH MEDIUM DATA (FINAL) ---
+        const booksData = {
+            'Mathematics': {
+                icon: 'calculator',
+                color: 'bg-red-500',
+                books: [{
+                    id: 'Maths',
+                    title: "Mathematics (Textbook)",
+                    linkPrefix: "https://ncert.nic.in/textbook/pdf/iemh1",
+                    chapters: [
+                        { name: "1. Number Systems", pdf: "01.pdf" },
+                        { name: "2. Polynomials", pdf: "02.pdf" },
+                        { name: "3. Coordinate Geometry", pdf: "03.pdf" },
+                        { name: "4. Linear Equations in Two Variables", pdf: "04.pdf" },
+                        { name: "5. Introduction to Euclid's Geometry", pdf: "05.pdf" },
+                        { name: "6. Lines and Angles", pdf: "06.pdf" },
+                        { name: "7. Triangles", pdf: "07.pdf" },
+                        { name: "8. Quadrilaterals", pdf: "08.pdf" },
+                        { name: "9. Circles", pdf: "09.pdf" },
+                        { name: "10. Heron's Formula", pdf: "10.pdf" },
+                        { name: "11. Surface Areas and Volumes", pdf: "11.pdf" },
+                        { name: "12. Statistics", pdf: "12.pdf" },
+                    ]
+                }]
+            },
+            'Science': {
+                icon: 'flask-conical',
+                color: 'bg-green-500',
+                books: [{
+                    id: 'Science',
+                    title: "Science (Textbook)",
+                    linkPrefix: "https://ncert.nic.in/textbook/pdf/iesc1",
+                    chapters: [
+                        { name: "1. Matter in Our Surroundings", pdf: "01.pdf" },
+                        { name: "2. Is Matter Around Us Pure", pdf: "02.pdf" },
+                        { name: "3. Atoms and Molecules", pdf: "03.pdf" },
+                        { name: "4. Structure of the Atom", pdf: "04.pdf" },
+                        { name: "5. The Fundamental Unit of Life", pdf: "05.pdf" },
+                        { name: "6. Tissues", pdf: "06.pdf" },
+                        { name: "7. Motion", pdf: "07.pdf" },
+                        { name: "8. Force and Laws of Motion", pdf: "08.pdf" },
+                        { name: "9. Gravitation", pdf: "09.pdf" },
+                        { name: "10. Work and Energy", pdf: "10.pdf" },
+                        { name: "11. Sound", pdf: "11.pdf" },
+                        { name: "12. Improvement in Food Resources", pdf: "12.pdf" },
+                    ]
+                }]
+            },
+            'English': {
+                icon: 'book-open',
+                color: 'bg-purple-500',
+                books: [
+                    {
+                        id: 'Beehive',
+                        title: "English: Beehive (Main Course Book)",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/iebe1",
+                        chapters: [
+                            { name: "1. The Fun They Had", pdf: "01.pdf" },
+                            { name: "2. The Sound of Music", pdf: "02.pdf" },
+                            { name: "3. The Little Girl", pdf: "03.pdf" },
+                            { name: "4. A Truly Beautiful Mind", pdf: "04.pdf" },
+                            { name: "5. The Snake and the Mirror", pdf: "05.pdf" },
+                            { name: "6. My Childhood", pdf: "06.pdf" },
+                            { name: "7. Reach for the Top", pdf: "07.pdf" },
+                            { name: "8. Kathmandu ", pdf: "08.pdf" },
+                            { name: "9. If I Were You", pdf: "09.pdf" },
+                        ]
+                    },
+                    {
+                        id: 'Moments',
+                        title: "English: Moments (Supplementary Reader)",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/iemo1",
+                        chapters: [
+                            { name: "1. The Lost Child", pdf: "01.pdf" },
+                            { name: "2. The Adventures of Toto", pdf: "02.pdf" },
+                            { name: "3. Iswaran the Storyteller", pdf: "03.pdf" },
+                            { name: "4. In the Kingdom of Fools", pdf: "04.pdf" },
+                            { name: "5. The Happy Prince", pdf: "05.pdf" },
+                            { name: "6. Weathering the Storm in Ersama", pdf: "06.pdf" },
+                            { name: "7. The Last Leaf", pdf: "07.pdf" },
+                            { name: "8. A House Is Not a Home", pdf: "08.pdf" },
+                            { name: "9. The Beggar", pdf: "09.pdf" },
+                        ]
+                    },
+                    {
+                        id: 'WordsExpressions',
+                        title: "English: Words and Expressions - I (Workbook)",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/iewe1",
+                        chapters: [
+                            { name: "1. Unit 1", pdf: "01.pdf" },
+                            { name: "2. Unit 2", pdf: "02.pdf" },
+                            { name: "3. Unit 3", pdf: "03.pdf" },
+                            { name: "4. Unit 4", pdf: "04.pdf" },
+                            { name: "5. Unit 5", pdf: "05.pdf" },
+                            { name: "6. Unit 6", pdf: "06.pdf" },
+                            { name: "7. Unit 7", pdf: "07.pdf" },
+                            { name: "8. Unit 8", pdf: "08.pdf" },
+                            { name: "9. Unit 9", pdf: "09.pdf" },
+                        ]
+                    }
+                ]
+            },
+            'Social Science (SST)': {
+                icon: 'globe',
+                color: 'bg-yellow-500',
+                books: [
+                    {
+                        id: 'History',
+                        title: "History: India and the Contemporary World - I",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/iess3",
+                        chapters: [
+                            { name: "1. The French Revolution", pdf: "01.pdf" },
+                            { name: "2. Socialism in Europe and the Russian Revolution", pdf: "02.pdf" },
+                            { name: "3. Nazism and the Rise of Hitler", pdf: "03.pdf" },
+                            { name: "4. Forest Society and Colonialism", pdf: "04.pdf" },
+                            { name: "5. Pastoralists in the Modern World", pdf: "05.pdf" },
+                        ]
+                    },
+                    {
+                        id: 'Geography',
+                        title: "Geography: Contemporary India - I",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/iess1",
+                        chapters: [
+                            { name: "1. India - Size and Location", pdf: "01.pdf" },
+                            { name: "2. Physical Features of India", pdf: "02.pdf" },
+                            { name: "3. Drainage", pdf: "03.pdf" },
+                            { name: "4. Climate", pdf: "04.pdf" },
+                            { name: "5. Natural Vegetation and Wildlife", pdf: "05.pdf" },
+                            { name: "6. Population", pdf: "06.pdf" },
+                        ]
+                    },
+                    {
+                        id: 'Civics',
+                        title: "Political Science (Civics): Democratic Politics - I",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/iess4",
+                        chapters: [
+                            { name: "1. What is Democracy? Why Democracy?", pdf: "01.pdf" },
+                            { name: "2. Constitutional Design", pdf: "02.pdf" },
+                            { name: "3. Electoral Politics", pdf: "03.pdf" },
+                            { name: "4. Working of Institutions", pdf: "04.pdf" },
+                            { name: "5. Democratic Rights", pdf: "05.pdf" },
+                        ]
+                    },
+                    {
+                        id: 'Economics',
+                        title: "Economics: Economics",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/iess2",
+                        chapters: [
+                            { name: "1. The Story of Village Palampur", pdf: "01.pdf" },
+                            { name: "2. People as Resource", pdf: "02.pdf" },
+                            { name: "3. Poverty as a Challenge", pdf: "03.pdf" },
+                            { name: "4. Food Security in India", pdf: "04.pdf" },
+                        ]
+                    }
+                ]
+            },
+            'Information & Comm. Tech.': {
+                icon: 'monitor',
+                color: 'bg-blue-600',
+                books: [{
+                    id: 'ICT',
+                    title: "Information and Communication Technology (ICT)",
+                    linkPrefix: "https://ncert.nic.in/textbook/pdf/iict1",
+                    chapters: [
+                        { name: "1. Introduction to ICT", pdf: "01.pdf" },
+                        { name: "2. Creating Textual Communication", pdf: "02.pdf" },
+                        { name: "3. Creating Visual Communication ", pdf: "03.pdf" },
+                        { name: "4. Creating Audio‑Video Communication", pdf: "04.pdf" },
+                        { name: "5. Presenting Ideas", pdf: "05.pdf" },
+                        { name: "6. Getting Connected: Internet", pdf: "06.pdf" },
+                        { name: "7. Safety and Security in the Cyber World ", pdf: "07.pdf" },
+                        { name: "8. Fun with Logic", pdf: "08.pdf" },
+                    ]
+                }]
+            },
+
+            'Health & Physical Education': {
+                icon: 'heart-pulse',
+                color: 'bg-pink-600',
+                books: [{
+                    id: 'HPE',
+                    title: "Health and Physical Education",
+                    linkPrefix: "https://ncert.nic.in/textbook/pdf/iehp1",
+                    chapters: [
+                        { name: "1. Health and Diseases", pdf: "01.pdf" },
+                        { name: "2. Growing up with Confidence", pdf: "02.pdf" },
+                        { name: "3. Physical Education", pdf: "03.pdf" },
+                        { name: "4. Physical Fitness", pdf: "04.pdf" },
+                        { name: "5. Sports Training", pdf: "05.pdf" },
+                        { name: "6. Individual Sports", pdf: "06.pdf" },
+                        { name: "7. Team Games", pdf: "07.pdf" },
+                        { name: "8. Ethics in Sports", pdf: "08.pdf" },
+                        { name: "9. Personality Development through Yoga", pdf: "09.pdf" },
+                        { name: "10. Waste Management", pdf: "10.pdf" },
+                        { name: "11. Diet for Healthy Living", pdf: "11.pdf" },
+                        { name: "12. First Aid and Safety", pdf: "12.pdf" },
+                        { name: "13. Social Health", pdf: "13.pdf" },
+                        { name: "14. Adolescent Friendly Health Services", pdf: "14.pdf" },
+                    ]
+                }]
+            },
+
+            'Hindi': {
+                icon: 'feather',
+                color: 'bg-orange-500',
+                books: [
+                    {
+                        id: 'Kshitij',
+                        title: "क्षितिज",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/ihks1",
+                        // CUSTOM CHAPTERS
+                        chapters: [
+                            { name: "1. दो बैलों की कथा", pdf: "01.pdf" },
+                            { name: "2. ल्हासा की ओर", pdf: "02.pdf" },
+                            { name: "3. उपभोक्तावाद की संस्कृति", pdf: "03.pdf" },
+                            { name: "4. साँवले सपनों की याद", pdf: "04.pdf" },
+                            { name: "5. प्रेमचंद के फटे जूते", pdf: "05.pdf" },
+                            { name: "6. मेरे बचपन के दिन", pdf: "06.pdf" },
+                            { name: "7. साखियाँ एवं सबद", pdf: "07.pdf" },
+                            { name: "8. वाख", pdf: "08.pdf" },
+                            { name: "9. सवैये", pdf: "09.pdf" },
+                            { name: "10. कैदी और कोकिला", pdf: "10.pdf" },
+                            { name: "11. ग्राम श्री", pdf: "11.pdf" },
+                            { name: "12. मेघ आए", pdf: "12.pdf" },
+                            { name: "13. बच्चे काम पर जा रहे हैं", pdf: "13.pdf" }
+                        ]
+                    },
+                    {
+                        id: 'Sprash',
+                        title: "स्पर्श",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/ihsp1",
+                        // CUSTOM CHAPTERS (Sprash)
+                        chapters: [
+                            { name: "1. दुःख का अधिकार", pdf: "01.pdf" },
+                            { name: "2. एवरेस्ट : मेरी शिखर यात्रा", pdf: "02.pdf" },
+                            { name: "3. तुम कब जाओगे, अतिथि", pdf: "03.pdf" },
+                            { name: "4. वैज्ञानिक चेतना के वाहक चंद्रशेखर वेंकट रामन्", pdf: "04.pdf" },
+                            { name: "5. शुक्रतारे के समान", pdf: "05.pdf" },
+                            { name: "6. पद", pdf: "06.pdf" },
+                            { name: "7. दोहे", pdf: "07.pdf" },
+                            { name: "8. गीत-अगीत", pdf: "08.pdf" },
+                            { name: "9. अग्नि पथ", pdf: "09.pdf" },
+                            { name: "10. नए इलाके में... / खुशबू रचते हैं हाथ", pdf: "10.pdf" }
+                        ]
+                    },
+                    {
+                        id: 'Kritika',
+                        title: "कृतिका",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/ihkr1",
+                        // CUSTOM CHAPTERS (Kritika)
+                        chapters: [
+                            { name: "1. इस जल प्रलय में", pdf: "01.pdf" },
+                            { name: "2. मेरे संग की औरतें", pdf: "02.pdf" },
+                            { name: "3. रीढ़ की हड्डी", pdf: "03.pdf" }
+                        ]
+                    },
+                    {
+                        id: 'Sanchayan',
+                        title: "संचयन",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/ihsa1",
+                        // CUSTOM CHAPTERS (Sanchayan)
+                        chapters: [
+                            { name: "1. गिल्लू", pdf: "01.pdf" },
+                            { name: "2. स्मृति", pdf: "02.pdf" },
+                            { name: "3. कल्लू कुम्हार की उनाकोटी", pdf: "03.pdf" },
+                            { name: "4. मेरा छोटा-सा निजी पुस्तकालय", pdf: "04.pdf" }
+                        ]
+                    }
+                ]
+            },
+            'Sanskrit': {
+                icon: 'scroll',
+                color: 'bg-amber-700',
+                books: [
+                    {
+                        id: 'Shemushi',
+                        title: "शेमुषी (प्रथमो भागः)",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/ihsh1",
+                        // CUSTOM CHAPTERS (10 confirmed chapters)
+                        chapters: [
+                            { name: "1. भारतीवसन्तगीतिः", pdf: "01.pdf" },
+                            { name: "2. स्वर्णकाकः", pdf: "02.pdf" },
+                            { name: "3. गोदोहनम्", pdf: "03.pdf" },
+                            { name: "4. सूक्तिमौक्तिकम्", pdf: "04.pdf" },
+                            { name: "5. भ्रान्तो बालः", pdf: "05.pdf" },
+                            { name: "6. लौहतुला", pdf: "06.pdf" },
+                            { name: "7. सिकतासेतुः", pdf: "07.pdf" },
+                            { name: "8. जटायोः शौर्यम्", pdf: "08.pdf" },
+                            { name: "9. पर्यावरणम्", pdf: "09.pdf" },
+                            { name: "10. वाङ्मनःप्राणस्वरूपम्", pdf: "10.pdf" }
+                        ]
+                    },
+                    {
+                        id: 'Vyakaranavithi',
+                        title: "व्याकरणवीथिः",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/jhva1",
+                        // 12 chapters only
+                        chapters: [
+                            { name: "1. वर्ण विचार", pdf: "01.pdf" },
+                            { name: "2. संज्ञा एवं परिभाषा प्रकरण", pdf: "02.pdf" },
+                            { name: "3. सन्धि", pdf: "03.pdf" },
+                            { name: "4. शब्दरूप सामान्य परिचय", pdf: "04.pdf" },
+                            { name: "5. धातुरूप सामान्य परिचय", pdf: "05.pdf" },
+                            { name: "6. उपसर्ग", pdf: "06.pdf" },
+                            { name: "7. अव्यय", pdf: "07.pdf" },
+                            { name: "8. प्रत्यय", pdf: "08.pdf" },
+                            { name: "9. समास परिचय", pdf: "09.pdf" },
+                            { name: "10. कारक और विभक्ति", pdf: "10.pdf" },
+                            { name: "11. वाच्य परिवर्तन", pdf: "11.pdf" },
+                            { name: "12. रचना प्रयोग", pdf: "12.pdf" }
+                        ]
+                    },
+                    {
+                        id: 'AbhyaswaanBhav',
+                        title: "अभ्यासवान् भव",
+                        linkPrefix: "https://ncert.nic.in/textbook/pdf/isab1",
+                        // 12 chapters only
+                        chapters: [
+                            { name: "1. अपठितावबोधनम्", pdf: "01.pdf" },
+                            { name: "2. पत्रम्", pdf: "02.pdf" },
+                            { name: "3. चित्रवर्णनम्", pdf: "03.pdf" },
+                            { name: "4. संवादानुच्छेदलेखनम्", pdf: "04.pdf" },
+                            { name: "5. रचनानुवादः", pdf: "05.pdf" },
+                            { name: "6. कारकोपपदविभक्तिः", pdf: "06.pdf" },
+                            { name: "7. सन्धिः", pdf: "07.pdf" },
+                            { name: "8. उपसर्गाव्ययप्रत्ययाः", pdf: "08.pdf" },
+                            { name: "9. समासाः", pdf: "09.pdf" },
+                            { name: "10. शब्दरूपाणि", pdf: "10.pdf" },
+                            { name: "11. धातुरूपाणि", pdf: "11.pdf" },
+                            { name: "12. वर्णविचारः", pdf: "12.pdf" }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        let currentState = { view: 'subjects', subjectKey: null, book: null };
+        const contentArea = document.getElementById('content-area');
+
+        // --- Utility/Rendering Functions ---
+
+        /** Renders the list of subjects. */
+        function renderSubjects() {
+            let html = '<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">';
+
+            for (const key in booksData) {
+                const subject = booksData[key];
+                html += `
+            <div class="card-subject ${subject.color} text-white p-6 rounded-xl shadow-lg flex items-center space-x-4" 
+                onclick="viewSubject('${key}')">
+                <i data-lucide="${subject.icon}" class="w-8 h-8"></i>
+                <div>
+                    <h2 class="text-xl font-bold">${key}</h2>
+                    <p class="text-sm opacity-80">${subject.books.length} Book(s) Available</p>
+                </div>
+            </div>
+        `;
+            }
+
+            html += '</div>';
+            contentArea.innerHTML = html;
+            // Initialize Lucide icons after DOM insertion
+            lucide.createIcons();
+        }
+
+        /** Renders the books and chapters for a selected subject. */
+        function renderSubjectDetails(subjectKey) {
+            const subject = booksData[subjectKey];
+            if (!subject) return;
+
+            // Static links (same for all books)
+            const rationalisedLink = "https://ncert.nic.in/textbook/pdf/Rationalised.pdf";
+            const qrGuideLink = "https://ncert.nic.in/textbook/pdf/instruction.pdf";
+
+
+            let html = `
+        <button onclick="goBack()" class="back-button text-blue-600 font-semibold mb-6 flex items-center">
+            <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i>
+            Back to All Subjects
+        </button>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">${subjectKey} Books</h2>
+    `;
+
+            subject.books.forEach(book => {
+                // Dynamic links (based on the book's base code)
+                const baseCode = book.linkPrefix.split('/').pop();
+                const prelimsLink = `${book.linkPrefix}ps.pdf`;
+                const zipDownloadLink = `${book.linkPrefix}dd.zip`;
+
+                html += `
+            <div class="bg-white rounded-xl shadow-md p-5 mb-6 border-l-4 ${subject.color.replace('bg-', 'border-')}">
+                <h3 class="text-xl font-bold text-gray-800 mb-3">${book.title}</h3>
+                <p class="text-gray-500 mb-4 text-sm">Base Code: <code>${baseCode}</code></p>
+                
+                <div class="mt-4 mb-5 border-t border-b border-gray-200 py-4">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Important Links</h4>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                        
+                        <a href="${zipDownloadLink}" class="bg-blue-100 text-blue-800 font-medium py-2 px-3 rounded-lg hover:bg-blue-200 transition duration-150 text-sm flex items-center justify-center" target="_blank" title="Download ZIP file for the entire book">
+                            <i data-lucide="download" class="w-4 h-4 mr-2"></i> Full Book (ZIP)
+                        </a>
+                        
+                        <a href="${prelimsLink}" class="bg-gray-100 text-gray-800 font-medium py-2 px-3 rounded-lg hover:bg-gray-200 transition duration-150 text-sm flex items-center justify-center" target="_blank" title="View the book's preface and introductory content">
+                            <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Prelims PDF
+                        </a>
+                        
+                        ${(book.id === 'Maths' || book.id === 'Science') ?
+                        `<a href="${book.linkPrefix}an.pdf" class="${book.id === 'Maths' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'} font-medium py-2 px-3 rounded-lg hover:bg-${book.id === 'Maths' ? 'red' : 'green'}-200 transition duration-150 text-sm flex items-center justify-center" target="_blank" title="View the Answers for the exercises">
+                                <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Answers
+                            </a>`
+                        : ''
+                    }
+
+                        ${(book.id === 'Kritika' || book.id === 'Sanchayan') ?
+                        `<a href="${book.linkPrefix}lp.pdf" class="bg-orange-100 text-orange-800 font-medium py-2 px-3 rounded-lg hover:bg-orange-200 transition duration-150 text-sm flex items-center justify-center" target="_blank" title="View Lekhak Parichay (Author Introduction)">
+                                <i data-lucide="feather" class="w-4 h-4 mr-2"></i> लेखक परिचय (LP)
+                            </a>`
+                        : ''
+                    }
+                        
+                        ${book.id === 'Maths' ?
+                        `
+                            <a href="${book.linkPrefix}a1.pdf" class="bg-red-100 text-red-800 font-medium py-2 px-3 rounded-lg hover:bg-red-200 transition duration-150 text-sm flex items-center justify-center" target="_blank" title="View Appendix I">
+                                <i data-lucide="book-open-check" class="w-4 h-4 mr-2"></i> Appendix I
+                            </a>
+                            <a href="${book.linkPrefix}a2.pdf" class="bg-red-100 text-red-800 font-medium py-2 px-3 rounded-lg hover:bg-red-200 transition duration-150 text-sm flex items-center justify-center" target="_blank" title="View Appendix II">
+                                <i data-lucide="book-open-check" class="w-4 h-4 mr-2"></i> Appendix II
+                            </a>
+                            `
+                        : ''
+                    }
+
+                        ${book.id === 'Vyakaranavithi' ?
+                        `
+                            <a href="${book.linkPrefix}a1.pdf" class="bg-amber-100 text-amber-800 font-medium py-2 px-3 rounded-lg hover:bg-amber-200 transition duration-150 text-sm flex items-center justify-center" target="_blank" title="View परिशिष्ट I (शब्दरूपाणि)">
+                                <i data-lucide="book-open-check" class="w-4 h-4 mr-2"></i> परिशिष्ट I
+                            </a>
+                            <a href="${book.linkPrefix}a2.pdf" class="bg-amber-100 text-amber-800 font-medium py-2 px-3 rounded-lg hover:bg-amber-200 transition duration-150 text-sm flex items-center justify-center" target="_blank" title="View परिशिष्ट II (धातुरूपाणि)">
+                                <i data-lucide="book-open-check" class="w-4 h-4 mr-2"></i> परिशिष्ट II
+                            </a>
+                            `
+                        : ''
+                    }
+                        
+                        <a href="${rationalisedLink}" class="bg-gray-100 text-gray-800 font-medium py-2 px-3 rounded-lg hover:bg-gray-200 transition duration-150 text-sm flex items-center justify-center" target="_blank" title="View the official document on rationalised content">
+                            <i data-lucide="file-check" class="w-4 h-4 mr-2"></i> Rationalised Content
+                        </a>
+                        
+                        <a href="${qrGuideLink}" class="bg-gray-100 text-gray-800 font-medium py-2 px-3 rounded-lg hover:bg-gray-200 transition duration-150 text-sm flex items-center justify-center" target="_blank" title="View the guide for using QR codes in NCERT books">
+                            <i data-lucide="scan" class="w-4 h-4 mr-2"></i> QR Code Guide
+                        </a>
+
+                    </div>
+                </div>
+                
+                <h4 class="text-lg font-semibold text-gray-700 mb-3">Chapter-wise PDF Links</h4>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        `;
+
+                book.chapters.forEach(chapter => {
+                    const fullLink = `${book.linkPrefix}${chapter.pdf}`;
+                    const displayLink = `${baseCode}${chapter.pdf}`;
+
+                    // Single link to open the PDF in a new tab
+                    html += `
+                <a href="${fullLink}" target="_blank" title="Link to: ${displayLink}" class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150 group">
+                    <span class="text-gray-700 font-medium group-hover:text-gray-900">${chapter.name}</span>
+                    <i data-lucide="external-link" class="w-4 h-4 ml-2 text-blue-600 group-hover:text-blue-700"></i>
+                </a>
+            `;
+                });
+
+                html += `</div></div>`;
+            });
+
+            contentArea.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        /** Navigation Functions attached to the global window object */
+        window.viewSubject = (subjectKey) => {
+            currentState = { view: 'details', subjectKey: subjectKey };
+            renderSubjectDetails(subjectKey);
+        };
+
+        window.goBack = () => {
+            currentState = { view: 'subjects', subjectKey: null };
+            renderSubjects();
+        };
+
+        /** Main initialization logic */
+        window.onload = function () {
+            renderSubjects();
+        };
+    </script>
+</body>
+
+</html>

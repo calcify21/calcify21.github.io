@@ -17,5 +17,5 @@ body {
 
 .icon-link-hover:hover i {
   transform: var(--bs-icon-link-transform, translate3d(0.25em, 0, 0));
-  transition: transform 0.2s ease-in-out;
+  /* transition: transform 0.2s ease-in-out; */ /* Transition coming from common.css * selector */
 }

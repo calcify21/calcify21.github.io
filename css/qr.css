@@ -28,7 +28,7 @@
 #dropZone {
   border-style: dashed !important; /* Dashed border for visual cue */
   cursor: pointer;
-  transition: border-color 0.2s ease-in-out;
+  /* transition: border-color 0.2s ease-in-out; */
 }
 
 /* Highlight Drop Zone when a file is dragged over */

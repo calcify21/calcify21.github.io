@@ -27,3 +27,15 @@
   position: absolute;
   top: 13px;
 }
+
+.category-header {
+  font-size: large;
+}
+
+.list-group-item {
+  /* transition: all 0.3s ease; */ /* Transition coming from common.css * selector */
+}
+
+.list-group-item:hover {
+  border-left: 5px solid #ffc107;
+}

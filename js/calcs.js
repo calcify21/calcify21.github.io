@@ -20,6 +20,9 @@ function toggleFav(calcName) {
   } else if (calcName == "qr") {
     let starQRBtn = document.getElementById("starQR");
     fav(starQRBtn, calcName);
+  } else if (calcName == "ncert") {
+    let starNCERTBtn = document.getElementById("starNcert");
+    fav(starNCERTBtn, calcName);
   }
 }
 
@@ -81,6 +84,10 @@ function checkCalc(calcName) {
     star.style.color = "#FFD43B";
   } else if (calcName == "qr") {
     let star = document.getElementById("starQR");
+    star.classList.replace("fa-regular", "fa-solid");
+    star.style.color = "#FFD43B";
+  } else if (calcName == "ncert") {
+    let star = document.getElementById("starNcert");
     star.classList.replace("fa-regular", "fa-solid");
     star.style.color = "#FFD43B";
   }
