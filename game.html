@@ -19,7 +19,6 @@
             text-align: center;
             margin: 0;
             padding: 20px;
-            /* Dark ki jagah bright aur fun gradient */
             background: linear-gradient(135deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);
             color: var(--text-main);
             min-height: 100vh;
@@ -31,16 +30,17 @@
         .card {
             background: var(--glass);
             backdrop-filter: blur(10px);
-            padding: 40px 25px;
+            padding: 30px 20px;
             border-radius: 25px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
             max-width: 420px;
             width: 100%;
             border: 2px solid #ffffff;
+            position: relative;
         }
 
         h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-bottom: 10px;
             color: #d63031;
             text-transform: uppercase;
@@ -57,10 +57,10 @@
             background: linear-gradient(45deg, #ff4e50, #f9d423);
             color: white;
             border: none;
-            padding: 15px 25px;
+            padding: 12px 20px;
             border-radius: 50px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             margin: 8px 0;
             transition: all 0.2s ease;
             font-weight: bold;
@@ -74,22 +74,35 @@
             box-shadow: 0 6px 20px rgba(255, 78, 80, 0.4);
         }
 
+        input {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            width: 80%;
+        }
+
         .btn-secondary {
             background: #dfe6e9;
             color: #2d3436;
             box-shadow: none;
         }
 
-        .btn-secondary:hover {
-            background: #b2bec3;
+        .btn-back {
+            background: transparent;
+            color: #636e72;
+            box-shadow: none;
+            width: auto;
+            font-size: 12px;
+            text-decoration: underline;
         }
 
         .secret {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
             color: #0984e3;
-            margin: 25px 0;
-            padding: 20px;
+            margin: 20px 0;
+            padding: 15px;
             border: 3px dashed #0984e3;
             border-radius: 15px;
             display: none;
@@ -97,23 +110,11 @@
             animation: fadeIn 0.5s ease;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         .player-tag {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: #d63031;
             font-weight: 800;
-            margin: 15px 0;
+            margin: 10px 0;
             background: #fff3f3;
             display: inline-block;
             padding: 5px 20px;
@@ -130,51 +131,122 @@
             color: #d35400;
             padding: 5px 15px;
             border-radius: 50px;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
             font-weight: bold;
             border: 1px solid #f1c40f;
+        }
+
+        .typing::after {
+            content: "";
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+            0% {
+                content: "";
+            }
+
+            33% {
+                content: ".";
+            }
+
+            66% {
+                content: "..";
+            }
+
+            100% {
+                content: "...";
+            }
+        }
+
+        .score-table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+        .score-table td {
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        .score-table .score-val {
+            text-align: right;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
     <div class="card">
-        <div id="setup-area">
-            <h1>Spy Party! 🕵️</h1>
-            <p>Sabhi players taiyar hain?</p>
+        <div id="setup-names-area">
+            <h1>Setup Party</h1>
+            <p>Enter Player Names:</p>
+            <div id="name-inputs">
+                <input type="text" class="p-name" placeholder="Me">
+                <input type="text" class="p-name" placeholder="Sister">
+                <input type="text" class="p-name" placeholder="Mom">
+                <input type="text" class="p-name" placeholder="Dad">
+            </div>
+            <button class="btn-secondary" onclick="addNameInput()" style="width: 40%;">+ Add</button>
+            <button onclick="saveNames()">Next: Choose Mode</button>
+        </div>
+
+        <div id="setup-area" class="hidden">
+            <button class="btn-back" onclick="goBack('setup-names-area')">← Back to Names</button>
+            <h1>Choose Mode</h1>
+            <p>Are all players ready?</p>
             <button onclick="startGame(0)">MODE 1: BLANK CHIT</button>
             <button onclick="startGame(1)">MODE 2: RELATED WORDS</button>
             <button onclick="startGame(2)">MODE 3: QUESTIONS</button>
         </div>
 
         <div id="game-area" class="hidden">
-            <span class="info-label" id="current-var-text"></span>
-            <p>Phone isko pakdao:</p>
+            <button class="btn-back" onclick="goBack('setup-area')">← Back to Modes</button>
+            <br><span class="info-label" id="current-var-text"></span>
+            <p>Pass the phone to:</p>
             <div class="player-tag" id="player-name">---</div>
             <br />
             <button id="reveal-btn" onclick="toggleSecret(true)">🔍 REVEAL SECRET</button>
             <div id="secret-word" class="secret"></div>
-            <button id="next-player-btn" class="hidden" onclick="nextPlayer()">AGLA PLAYER ➡️</button>
+            <button id="next-player-btn" class="hidden" onclick="nextPlayer()">NEXT PLAYER ➡️</button>
+        </div>
+
+        <div id="progress-area" class="hidden">
+            <h1>DISCUSS! 🗣️</h1>
+            <p class="typing" style="font-size: 1.2rem; font-weight: bold;">Game in Progress</p>
+            <p>The secret chits are out. Find the Imposter!</p>
+            <hr>
+            <p>Who won this round?</p>
+            <button style="background: #20e3b2;" onclick="recordWinner('Citizens')">Citizens Caught the Spy!</button>
+            <button style="background: #ff4e50;" onclick="recordWinner('Spy')">The Spy Fooled Everyone!</button>
         </div>
 
         <div id="round-end-area" class="hidden">
-            <h1>Game Over! 🏁</h1>
-            <p>Kaun tha Spy? Kya pakde gaye?</p>
-            <button onclick="repeatMode()">PHIR SE KHELO (Same Mode)</button>
-            <button id="next-var-btn" onclick="nextVariation()">AGLI VARIATION NEXT ➡️</button>
-            <button class="btn-secondary" onclick="endGame()">GAME KHATAM KAREIN</button>
+            <h1>Round Result</h1>
+            <div id="spy-reveal" style="background:#fff3f3; padding:10px; border-radius:10px; margin-bottom:10px;">
+            </div>
+            <h3>Current Scoreboard:</h3>
+            <table class="score-table" id="score-display"></table>
+            <br>
+            <button onclick="repeatMode()">PLAY AGAIN (Same Mode)</button>
+            <button id="next-var-btn" onclick="nextVariation()">NEXT VARIATION ➡️</button>
+            <button class="btn-secondary" onclick="endGame()">FINISH SESSION</button>
         </div>
 
         <div id="game-over-area" class="hidden">
-            <h1>SHUKRIYA! 👋</h1>
-            <p>Umeed hai maza aaya hoga!</p>
+            <h1>FINAL SCORE! 👋</h1>
+            <table class="score-table" id="final-stats"></table>
+            <br>
             <button onclick="location.reload()">RESTART ALL</button>
         </div>
     </div>
 
     <script>
-        const players = ["Me", "Sister", "Mom", "Dad"];
+        let players = [];
+        let playerScores = {}; // Now tracks individual scores
 
         let wordPairs = [
             ["Coffee", "Tea"], ["Smartphone", "Tablet"], ["Cricket", "Football"],
@@ -186,8 +258,8 @@
         let questionPairs = [
             ["Favorite fruit?", "Favorite vegetable?"],
             ["What do you eat for breakfast?", "What do you eat for dinner?"],
-            ["Which animal is the king of the jungle?", "Which animal is the tallest in the world?"],
-            ["Something you find in a kitchen?", "Something you find in a bathroom?"],
+            ["King of the jungle?", "Tallest animal?"],
+            ["Found in a kitchen?", "Found in a bathroom?"],
             ["A winter fruit?", "A summer fruit?"],
         ];
 
@@ -198,6 +270,34 @@
         let imposterContent = "";
         let imposterName = "";
 
+        function goBack(targetId) {
+            document.querySelectorAll('.card > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(targetId).classList.remove('hidden');
+        }
+
+        function addNameInput() {
+            const container = document.getElementById("name-inputs");
+            const input = document.createElement("input");
+            input.type = "text";
+            input.className = "p-name";
+            input.placeholder = "Player Name";
+            container.appendChild(input);
+        }
+
+        function saveNames() {
+            const inputs = document.querySelectorAll(".p-name");
+            players = Array.from(inputs).map(i => i.value.trim()).filter(v => v !== "");
+            if (players.length < 3) {
+                alert("Please enter at least 3 names!");
+                return;
+            }
+            // Initialize individual scores
+            players.forEach(name => {
+                if (!playerScores[name]) playerScores[name] = 0;
+            });
+            goBack('setup-area');
+        }
+
         function startGame(mode) {
             currentMode = mode;
             playerIndex = 0;
@@ -205,45 +305,35 @@
             imposterName = players[Math.floor(Math.random() * players.length)];
 
             if (!setupContent()) return;
-
-            document.getElementById("setup-area").classList.add("hidden");
-            document.getElementById("round-end-area").classList.add("hidden");
-            document.getElementById("game-over-area").classList.add("hidden");
-            document.getElementById("game-area").classList.remove("hidden");
+            goBack('game-area');
             showPlayer();
         }
 
         function setupContent() {
             let label = "";
+            const words = [...wordPairs];
+            const quests = [...questionPairs];
+
             if (currentMode === 0) {
                 label = "Blank Chit Mode";
-                if (wordPairs.length === 0) return outOfWords();
-                let selection = wordPairs.splice(Math.floor(Math.random() * wordPairs.length), 1)[0];
+                let selection = words[Math.floor(Math.random() * words.length)];
                 citizenContent = selection[0];
-                imposterContent = "CHIT KHALI HAI! (You are Spy)";
+                imposterContent = "YOU ARE THE SPY (Chit is Blank)";
             } else if (currentMode === 1) {
                 label = "Related Words Mode";
-                if (wordPairs.length === 0) return outOfWords();
-                let pair = wordPairs.splice(Math.floor(Math.random() * wordPairs.length), 1)[0];
-                pair.sort(() => Math.random() - 0.5);
-                citizenContent = pair[0];
-                imposterContent = pair[1];
+                let pair = words[Math.floor(Math.random() * words.length)];
+                let shuffledPair = [...pair].sort(() => Math.random() - 0.5);
+                citizenContent = shuffledPair[0];
+                imposterContent = shuffledPair[1];
             } else {
                 label = "Questions Mode";
-                if (questionPairs.length === 0) return outOfWords();
-                let qPair = questionPairs.splice(Math.floor(Math.random() * questionPairs.length), 1)[0];
-                qPair.sort(() => Math.random() - 0.5);
-                citizenContent = qPair[0];
-                imposterContent = qPair[1];
+                let qPair = quests[Math.floor(Math.random() * quests.length)];
+                let shuffledQ = [...qPair].sort(() => Math.random() - 0.5);
+                citizenContent = shuffledQ[0];
+                imposterContent = shuffledQ[1];
             }
             document.getElementById("current-var-text").innerText = label;
             return true;
-        }
-
-        function outOfWords() {
-            alert("Sari words khatam ho gayi hain!");
-            endGame();
-            return false;
         }
 
         function showPlayer() {
@@ -273,18 +363,45 @@
             if (playerIndex < shuffledPlayers.length) {
                 showPlayer();
             } else {
-                document.getElementById("game-area").classList.add("hidden");
-                document.getElementById("round-end-area").classList.remove("hidden");
-                document.getElementById("next-var-btn").style.display = currentMode >= 2 ? "none" : "inline-block";
+                goBack('progress-area');
             }
+        }
+
+        function recordWinner(winnerType) {
+            if (winnerType === 'Citizens') {
+                // Everyone except the spy gets a point
+                players.forEach(name => {
+                    if (name !== imposterName) playerScores[name]++;
+                });
+            } else {
+                // Only the spy gets a point
+                playerScores[imposterName]++;
+            }
+
+            updateScoreTable("score-display");
+            document.getElementById("spy-reveal").innerHTML = `The Spy was: <b>${imposterName.toUpperCase()}</b>`;
+            goBack('round-end-area');
+            document.getElementById("next-var-btn").style.display = currentMode >= 2 ? "none" : "inline-block";
+        }
+
+        function updateScoreTable(tableId) {
+            const table = document.getElementById(tableId);
+            table.innerHTML = "";
+            // Sort players by score
+            const sortedPlayers = Object.keys(playerScores).sort((a, b) => playerScores[b] - playerScores[a]);
+
+            sortedPlayers.forEach(name => {
+                const row = `<tr><td>${name}</td><td class="score-val">${playerScores[name]} pts</td></tr>`;
+                table.innerHTML += row;
+            });
         }
 
         function repeatMode() { startGame(currentMode); }
         function nextVariation() { startGame(currentMode + 1); }
+
         function endGame() {
-            document.getElementById("round-end-area").classList.add("hidden");
-            document.getElementById("game-area").classList.add("hidden");
-            document.getElementById("game-over-area").classList.remove("hidden");
+            updateScoreTable("final-stats");
+            goBack('game-over-area');
         }
     </script>
 </body>
