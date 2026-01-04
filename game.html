@@ -5,404 +5,738 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Family Spy Party</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --primary: #ff4e50;
             --secondary: #f9d423;
             --accent: #20e3b2;
-            --text-main: #2d3436;
-            --glass: rgba(255, 255, 255, 0.9);
+            --card-bg: #ffffff;
+            --chit-bg: #fffcf0;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
         }
 
         body {
-            font-family: "Segoe UI", Roboto, sans-serif;
-            text-align: center;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(135deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);
-            color: var(--text-main);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* --- Alert System --- */
+        #custom-alert {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2d3436;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            z-index: 9999;
+            transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--primary);
+            font-weight: bold;
+        }
+
+        /* --- Layout Containers --- */
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 480px;
         }
 
         .card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            padding: 30px 20px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            max-width: 420px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
             width: 100%;
-            border: 2px solid #ffffff;
+            box-sizing: border-box;
+            text-align: center;
             position: relative;
         }
 
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: #d63031;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 900;
+        /* --- Rules Modal Styling --- */
+        #modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            z-index: 5000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
         }
 
-        p {
-            color: #636e72;
-            font-weight: 500;
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 28px;
+            max-width: 450px;
+            width: 92%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 10px;
+        }
+
+        .rules-container {
+            text-align: left;
+            color: #444;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .rules-section {
+            margin-bottom: 25px;
+            border-bottom: 2px solid #f1f2f6;
+            padding-bottom: 15px;
+        }
+
+        .rules-section:last-child {
+            border-bottom: none;
+        }
+
+        .rules-title {
+            color: var(--primary);
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        .mode-box {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+        }
+
+        .mode-header {
+            font-weight: 800;
+            color: #2d3436;
+            margin-bottom: 8px;
+            display: block;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 4px;
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rules-list li {
+            margin-bottom: 6px;
+            padding-left: 18px;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .rules-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: #fff5f5;
+            border-left: 4px solid var(--primary);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* --- Game UI Elements --- */
+        .screen-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            min-height: 45px;
+            position: relative;
+        }
+
+        .back-nav {
+            position: absolute;
+            left: 0;
+            background: #f1f2f6;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: var(--text-light);
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            background: linear-gradient(to right, #ff4e50, #f9d423);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .chit-container {
+            perspective: 1000px;
+            margin: 25px 0;
+            display: none;
+            justify-content: center;
+        }
+
+        .physical-chit {
+            background: var(--chit-bg);
+            padding: 50px 20px;
+            width: 85%;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eee;
+            transform: rotateX(-90deg);
+            transform-origin: top;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 96%, 90% 100%, 80% 96%, 70% 100%, 60% 96%, 50% 100%, 40% 96%, 30% 100%, 20% 96%, 10% 100%, 0% 96%);
+        }
+
+        .chit-container.open .physical-chit {
+            transform: rotateX(0deg);
+        }
+
+        .chit-text {
+            font-size: 2rem;
+            font-weight: 900;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.4s;
+        }
+
+        .chit-container.open .chit-text {
+            opacity: 1;
+        }
+
+        /* --- ADDED FOR DELETE BUTTON --- */
+        .name-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        input {
+            padding: 16px;
+            border-radius: 16px;
+            border: 2px solid #f1f2f6;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .del-btn {
+            background: #ff7675;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
 
         button {
             background: linear-gradient(45deg, #ff4e50, #f9d423);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 50px;
+            padding: 18px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 14px;
-            margin: 8px 0;
-            transition: all 0.2s ease;
-            font-weight: bold;
-            width: 90%;
-            box-shadow: 0 4px 15px rgba(255, 78, 80, 0.3);
+            font-weight: 800;
+            width: 100%;
+            font-size: 1rem;
             text-transform: uppercase;
+            margin: 8px 0;
+            transition: 0.2s;
         }
 
-        button:hover {
-            transform: scale(1.03);
-            box-shadow: 0 6px 20px rgba(255, 78, 80, 0.4);
-        }
-
-        input {
-            padding: 10px;
-            margin: 5px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            width: 80%;
-        }
-
-        .btn-secondary {
-            background: #dfe6e9;
-            color: #2d3436;
-            box-shadow: none;
-        }
-
-        .btn-back {
+        .btn-outline {
             background: transparent;
-            color: #636e72;
-            box-shadow: none;
+            border: 2px solid #eee;
+            color: var(--text-light);
             width: auto;
-            font-size: 12px;
-            text-decoration: underline;
+            padding: 10px 24px;
+            box-shadow: none;
         }
 
-        .secret {
-            font-size: 24px;
-            font-weight: 800;
-            color: #0984e3;
-            margin: 20px 0;
-            padding: 15px;
-            border: 3px dashed #0984e3;
-            border-radius: 15px;
-            display: none;
-            background: rgba(9, 132, 227, 0.05);
-            animation: fadeIn 0.5s ease;
+        .btn-danger {
+            background: #fff;
+            color: #ff7675;
+            border: 1px solid #ff7675;
+            font-size: 0.8rem;
+            padding: 10px;
+            margin-top: 10px;
+            box-shadow: none;
         }
 
-        .player-tag {
-            font-size: 1.4rem;
-            color: #d63031;
-            font-weight: 800;
-            margin: 10px 0;
-            background: #fff3f3;
+        /* --- EXIT BUTTON STYLING --- */
+        .btn-exit {
+            background: #ff4e50 !important;
+            color: white !important;
+            margin-top: 20px !important;
+        }
+
+        #sequence-panel {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            padding: 20px;
+            border-radius: 24px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .order-chip {
+            background: white;
+            color: var(--text-dark);
+            padding: 10px 18px;
+            border-radius: 14px;
+            font-weight: bold;
+            margin: 5px;
             display: inline-block;
-            padding: 5px 20px;
-            border-radius: 10px;
+        }
+
+        .scoreboard-container {
+            margin-top: 15px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #f1f2f6;
+        }
+
+        .score-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-bottom: 1px solid #f1f2f6;
+            background: #fff;
+        }
+
+        .winner-highlight {
+            background: #fff9db !important;
+            border: 2px solid var(--secondary);
+            font-weight: bold;
         }
 
         .hidden {
             display: none;
         }
-
-        .info-label {
-            display: inline-block;
-            background: #ffeaa7;
-            color: #d35400;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-            font-weight: bold;
-            border: 1px solid #f1c40f;
-        }
-
-        .typing::after {
-            content: "";
-            animation: dots 1.5s infinite;
-        }
-
-        @keyframes dots {
-            0% {
-                content: "";
-            }
-
-            33% {
-                content: ".";
-            }
-
-            66% {
-                content: "..";
-            }
-
-            100% {
-                content: "...";
-            }
-        }
-
-        .score-table {
-            width: 100%;
-            margin-top: 15px;
-            border-collapse: collapse;
-        }
-
-        .score-table td {
-            padding: 5px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-        }
-
-        .score-table .score-val {
-            text-align: right;
-            font-weight: bold;
-        }
     </style>
 </head>
 
 <body>
-    <div class="card">
-        <div id="setup-names-area">
-            <h1>Setup Party</h1>
-            <p>Enter Player Names:</p>
-            <div id="name-inputs">
-                <input type="text" class="p-name" placeholder="Me">
-                <input type="text" class="p-name" placeholder="Sister">
-                <input type="text" class="p-name" placeholder="Mom">
-                <input type="text" class="p-name" placeholder="Dad">
+    <div id="custom-alert">Alert!</div>
+
+    <div id="modal-overlay">
+        <div class="modal-content">
+            <div class="rules-container">
+
+                <!-- TITLE -->
+                <div class="rules-section" style="text-align:center">
+                    <h1 style="font-size:1.6rem">🕵️ Spy Game – Complete Rulebook</h1>
+                    <p style="font-size:0.9rem;color:#555">
+                        Read once. Play smart. No arguments later 😄
+                    </p>
+                </div>
+
+                <!-- OBJECTIVE -->
+                <div class="rules-section">
+                    <div class="rules-title">🎯 OBJECTIVE</div>
+                    <ul class="rules-list">
+                        <li>There is <b>ONE SPY</b> hidden among the players.</li>
+                        <li>All other players are <b>CITIZENS</b>.</li>
+                        <li>Citizens win by <b>correctly identifying the Spy</b>.</li>
+                        <li>The Spy wins by <b>blending in and avoiding suspicion</b>.</li>
+                        <li>The phone acts as the <b>HOST</b>. No human knows all secrets.</li>
+                    </ul>
+                </div>
+
+                <!-- GENERAL FLOW -->
+                <div class="rules-section">
+                    <div class="rules-title">🔁 GAME FLOW</div>
+                    <ul class="rules-list">
+                        <li>Players enter names and choose a game mode.</li>
+                        <li>The phone is passed one-by-one for secret chits.</li>
+                        <li>Each player silently reads their chit.</li>
+                        <li>After all chits are seen, discussion begins.</li>
+                        <li>Everyone gives <b>ONE short description</b> in order.</li>
+                        <li>After discussion, decide who won the round.</li>
+                    </ul>
+                </div>
+
+                <!-- MODE 1 -->
+                <div class="rules-section">
+                    <div class="rules-title">🕵️ MODE 1: BLANK CHIT (CLASSIC)</div>
+                    <ul class="rules-list">
+                        <li>All Citizens receive the <b>SAME WORD</b>.</li>
+                        <li>The Spy receives a <b>BLANK chit</b>.</li>
+                        <li><b>Important Rule:</b> The first speaker is NEVER the Spy.</li>
+                        <li>Citizens describe the word without saying it.</li>
+                        <li>The Spy must guess the word from others’ hints.</li>
+                        <li>Spy should stay vague and avoid details.</li>
+                    </ul>
+                    <div class="highlight-box">
+                        Example: Word = "Pizza"<br />
+                        Citizens: "Cheesy, usually round"<br />
+                        Spy: "Something people enjoy together"
+                    </div>
+                </div>
+
+                <!-- MODE 2 -->
+                <div class="rules-section">
+                    <div class="rules-title">🎭 MODE 2: RELATED WORDS</div>
+                    <ul class="rules-list">
+                        <li>Two <b>similar but different</b> words are used.</li>
+                        <li>Citizens get Word A (e.g. Pizza).</li>
+                        <li>Spy gets Word B (e.g. Burger).</li>
+                        <li>Everyone thinks they are safe — including the Spy.</li>
+                        <li>Small detail mismatches expose the Spy.</li>
+                        <li>Over-specific answers are dangerous.</li>
+                    </ul>
+                    <div class="highlight-box">
+                        Pizza vs Burger<br />
+                        "Has slices" ❌ suspicious<br />
+                        "Fast food people love" ✅ safer
+                    </div>
+                </div>
+
+                <!-- MODE 3 -->
+                <div class="rules-section">
+                    <div class="rules-title">❓ MODE 3: QUESTIONS</div>
+                    <ul class="rules-list">
+                        <li>Two similar questions are used.</li>
+                        <li>Citizens answer Question A.</li>
+                        <li>Spy answers Question B.</li>
+                        <li>Answers must be <b>natural and honest</b>.</li>
+                        <li>No fixed word exists in this mode.</li>
+                        <li>Listen for answers that feel “off-topic”.</li>
+                    </ul>
+                    <div class="highlight-box">
+                        Question A: Favorite Hobby?<br />
+                        Question B: Favorite Sport?<br />
+                        Spy may mention cricket while others mention painting.
+                    </div>
+                </div>
+
+                <!-- DESCRIPTION RULES -->
+                <div class="rules-section">
+                    <div class="rules-title">🗣️ DESCRIPTION RULES</div>
+                    <ul class="rules-list">
+                        <li>Each player speaks <b>ONCE</b> per round.</li>
+                        <li>If players feel unsure, they may agree to play <b>another description round</b> before
+                            voting.</li>
+                        <li>Maximum: <b>1-2 words or ONE short phrase</b>.</li>
+                        <li>Speak in the order shown on screen.</li>
+                        <li>No interruptions or side comments.</li>
+                    </ul>
+                </div>
+
+                <!-- VOTING & REVEAL -->
+                <div class="rules-section">
+                    <div class="rules-title">🗳️ VOTING & REVEAL</div>
+                    <ul class="rules-list">
+                        <li>After discussion rounds are complete, players move to voting.</li>
+                        <li>Each player votes for <b>ONE suspected Spy</b>.</li>
+                        <li>Votes are counted openly.</li>
+                        <li>The player with the <b>most votes</b> is accused as the Spy.</li>
+                        <li>If there is a tie, description giving rounds continue.</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        🕵️ <b>Spy Reveal Rule:</b><br />
+                        If the accused player is the Spy, they may now reveal themselves and attempt to
+                        <b>guess the correct word</b>.
+                    </div>
+                </div>
+
+
+                <!-- STRICTLY NOT ALLOWED -->
+                <div class="rules-section">
+                    <div class="rules-title">🚫 STRICTLY NOT ALLOWED</div>
+                    <ul class="rules-list">
+                        <li>❌ Saying the exact word or spelling it.</li>
+                        <li>❌ Using actions, sounds, or gestures.</li>
+                        <li>❌ Copying another player's description.</li>
+                        <li>❌ Changing your answer after hearing others.</li>
+                    </ul>
+                </div>
+
+                <!-- SCORING -->
+                <div class="rules-section">
+                    <div class="rules-title">🏆 SCORING</div>
+                    <ul class="rules-list">
+                        <li>If Citizens win → all Citizens get +1 point.</li>
+                        <li>If Spy wins → only the Spy gets +1 point.</li>
+                        <li>Scores carry forward across rounds.</li>
+                        <li>Final winner has the highest total score.</li>
+                    </ul>
+                </div>
+
+                <!-- WIN CONDITIONS -->
+                <div class="rules-section">
+                    <div class="rules-title">🏁 WIN CONDITIONS</div>
+                    <ul class="rules-list">
+                        <li>If the accused player is <b>NOT the Spy</b> → Spy wins immediately.</li>
+                        <li>If the accused player <b>IS the Spy</b>:</li>
+                        <li>→ Spy must guess the correct word.</li>
+                        <li>→ If the guess is correct → <b>Spy wins</b>.</li>
+                        <li>→ If the guess is wrong → <b>Citizens win</b>.</li>
+                    </ul>
+                </div>
+
+
+
+                <!-- FINAL TIP -->
+                <div class="rules-section" style="text-align:center">
+                    <div class="highlight-box">
+                        💡 Tip: Stay calm. Overthinking exposes the Spy faster than silence.
+                    </div>
+                    <button onclick="closeInstructions()">Understood. Start Game</button>
+                </div>
+
             </div>
-            <button class="btn-secondary" onclick="addNameInput()" style="width: 40%;">+ Add</button>
-            <button onclick="saveNames()">Next: Choose Mode</button>
         </div>
+    </div>
 
-        <div id="setup-area" class="hidden">
-            <button class="btn-back" onclick="goBack('setup-names-area')">← Back to Names</button>
-            <h1>Choose Mode</h1>
-            <p>Are all players ready?</p>
-            <button onclick="startGame(0)">MODE 1: BLANK CHIT</button>
-            <button onclick="startGame(1)">MODE 2: RELATED WORDS</button>
-            <button onclick="startGame(2)">MODE 3: QUESTIONS</button>
-        </div>
-
-        <div id="game-area" class="hidden">
-            <button class="btn-back" onclick="goBack('setup-area')">← Back to Modes</button>
-            <br><span class="info-label" id="current-var-text"></span>
-            <p>Pass the phone to:</p>
-            <div class="player-tag" id="player-name">---</div>
-            <br />
-            <button id="reveal-btn" onclick="toggleSecret(true)">🔍 REVEAL SECRET</button>
-            <div id="secret-word" class="secret"></div>
-            <button id="next-player-btn" class="hidden" onclick="nextPlayer()">NEXT PLAYER ➡️</button>
-        </div>
-
-        <div id="progress-area" class="hidden">
-            <h1>DISCUSS! 🗣️</h1>
-            <p class="typing" style="font-size: 1.2rem; font-weight: bold;">Game in Progress</p>
-            <p>The secret chits are out. Find the Imposter!</p>
-            <hr>
-            <p>Who won this round?</p>
-            <button style="background: #20e3b2;" onclick="recordWinner('Citizens')">Citizens Caught the Spy!</button>
-            <button style="background: #ff4e50;" onclick="recordWinner('Spy')">The Spy Fooled Everyone!</button>
-        </div>
-
-        <div id="round-end-area" class="hidden">
-            <h1>Round Result</h1>
-            <div id="spy-reveal" style="background:#fff3f3; padding:10px; border-radius:10px; margin-bottom:10px;">
+    <div class="game-container">
+        <div class="card">
+            <div id="setup-screen">
+                <div class="screen-header">
+                    <h1>Spy Party</h1>
+                </div>
+                <button class="btn-outline" onclick="openInstructions()">📖 View Full Rules</button>
+                <div id="name-container" style="margin: 20px 0">
+                    <div class="name-row"><input type="text" class="p-name" placeholder="Player 1" /></div>
+                    <div class="name-row"><input type="text" class="p-name" placeholder="Player 2" /></div>
+                    <div class="name-row"><input type="text" class="p-name" placeholder="Player 3" /></div>
+                </div>
+                <button class="btn-outline" onclick="addNameInput()">+ Add Player</button>
+                <button onclick="saveNames()">Next: Choose Mode</button>
+                <button class="btn-danger" onclick="resetScores()">Reset All Scores</button>
             </div>
-            <h3>Current Scoreboard:</h3>
-            <table class="score-table" id="score-display"></table>
-            <br>
-            <button onclick="repeatMode()">PLAY AGAIN (Same Mode)</button>
-            <button id="next-var-btn" onclick="nextVariation()">NEXT VARIATION ➡️</button>
-            <button class="btn-secondary" onclick="endGame()">FINISH SESSION</button>
+
+            <div id="mode-screen" class="hidden">
+                <div class="screen-header">
+                    <button class="back-nav" onclick="goBack('setup-screen')">←</button>
+                    <h1>Modes</h1>
+                </div>
+                <button onclick="startGame(0)">🕵️ Mode 1: Blank Chit</button>
+                <button onclick="startGame(1)">🎭 Mode 2: Related Words</button>
+                <button onclick="startGame(2)">❓ Mode 3: Questions</button>
+            </div>
+
+            <div id="handover-screen" class="hidden">
+                <p id="mode-label" style="color: var(--primary); font-weight: bold; font-size: 0.8rem"></p>
+                <p>Pass device to:</p>
+                <div id="target-player" style="font-size: 2.5rem; font-weight: 900; margin: 15px 0">---</div>
+                <button id="reveal-btn" onclick="showSecret()">🔍 Reveal My Chit</button>
+                <div id="chit-area" class="chit-container">
+                    <div class="physical-chit">
+                        <div id="secret-text" class="chit-text"></div>
+                    </div>
+                </div>
+                <button id="next-btn" class="hidden" onclick="nextPlayerStep()">Confirm & Next ➡️</button>
+                <button class="btn-exit" onclick="goBack('mode-screen')">Exit Game</button>
+            </div>
+
+            <div id="discuss-screen" class="hidden">
+                <h1 style="font-size: 3.5rem">🗣️</h1>
+                <h2>Discussion</h2>
+                <button style="background: var(--accent)" onclick="finishRound('Citizens')">Citizens Won (+1)</button>
+                <button style="background: var(--primary)" onclick="finishRound('Spy')">Spy Won (+1)</button>
+                <button class="btn-exit" onclick="goBack('mode-screen')">Exit Game</button>
+            </div>
+
+            <div id="result-screen" class="hidden">
+                <h1 id="result-title">Round Over</h1>
+                <div id="reveal-text" style="margin: 15px 0; font-weight: bold"></div>
+                <div id="scoreboard" class="scoreboard-container"></div>
+                <div id="post-round-btns">
+                    <button onclick="replayCurrentMode()">Next Round</button>
+                    <button class="btn-outline" style="width: 100%" onclick="goBack('mode-screen')">Switch Mode</button>
+                    <button class="btn-danger" style="width: 100%" onclick="declareFinalWinner()">End Game & Show Winner
+                        🏆</button>
+                </div>
+                <div id="final-winner-btns" class="hidden">
+                    <button style="background: var(--accent)" onclick="location.reload()">New Game (Full Reset)</button>
+                    <button class="btn-danger" onclick="goBack('mode-screen')">Exit to Modes</button>
+                </div>
+            </div>
         </div>
 
-        <div id="game-over-area" class="hidden">
-            <h1>FINAL SCORE! 👋</h1>
-            <table class="score-table" id="final-stats"></table>
-            <br>
-            <button onclick="location.reload()">RESTART ALL</button>
+        <div id="sequence-panel" class="hidden">
+            <div style="text-align: center; color: white; font-size: 0.75rem; font-weight: bold;">DESCRIPTION ORDER
+            </div>
+            <div id="chip-list" style="text-align: center; margin-top: 10px"></div>
         </div>
     </div>
 
     <script>
-        let players = [];
-        let playerScores = {}; // Now tracks individual scores
+        let players = [], scores = {}, shuffledOrder = [], pIdx = 0, spyName = "", currentMode = 0, citizenWord = "", spyWord = "";
+        const wordPool = [["Pizza", "Burger"], ["Coffee", "Tea"], ["YouTube", "Netflix"], ["iPhone", "Android"], ["Beach", "Mountain"], ["Cricket", "Football"], ["Lion", "Tiger"], ["Apple", "Orange"], ["Guitar", "Piano"], ["Doctor", "Nurse"], ["London", "Paris"], ["Tesla", "BMW"]];
+        const questionPool = [["Favorite Hobby?", "Favorite Sport?"], ["Dream Job?", "Current Job?"], ["Last Movie?", "Best Movie?"], ["Best Vacation?", "Next Vacation?"], ["Favorite Song?", "Favorite Artist?"], ["Morning Person?", "Night Owl?"]];
+        let usedWordsIdx = [], usedQuestionsIdx = [];
 
-        let wordPairs = [
-            ["Coffee", "Tea"], ["Smartphone", "Tablet"], ["Cricket", "Football"],
-            ["Instagram", "YouTube"], ["Doctor", "Nurse"], ["Pizza", "Burger"],
-            ["Shampoo", "Soap"], ["Aeroplane", "Helicopter"], ["Gold", "Silver"],
-            ["Earphones", "Headphones"], ["Beach", "Swimming Pool"], ["Pen", "Pencil"],
-        ];
+        function triggerAlert(msg) {
+            const el = document.getElementById("custom-alert");
+            el.innerText = msg; el.style.top = "20px";
+            setTimeout(() => (el.style.top = "-100px"), 2500);
+        }
 
-        let questionPairs = [
-            ["Favorite fruit?", "Favorite vegetable?"],
-            ["What do you eat for breakfast?", "What do you eat for dinner?"],
-            ["King of the jungle?", "Tallest animal?"],
-            ["Found in a kitchen?", "Found in a bathroom?"],
-            ["A winter fruit?", "A summer fruit?"],
-        ];
+        function openInstructions() { document.getElementById("modal-overlay").style.display = "flex"; }
+        function closeInstructions() { document.getElementById("modal-overlay").style.display = "none"; }
 
-        let currentMode = 0;
-        let playerIndex = 0;
-        let shuffledPlayers = [];
-        let citizenContent = "";
-        let imposterContent = "";
-        let imposterName = "";
-
-        function goBack(targetId) {
-            document.querySelectorAll('.card > div').forEach(div => div.classList.add('hidden'));
-            document.getElementById(targetId).classList.remove('hidden');
+        function goBack(screenId) {
+            document.querySelectorAll(".card > div").forEach((div) => div.classList.add("hidden"));
+            document.getElementById(screenId).classList.remove("hidden");
+            document.getElementById("sequence-panel").classList.add("hidden");
         }
 
         function addNameInput() {
-            const container = document.getElementById("name-inputs");
-            const input = document.createElement("input");
-            input.type = "text";
-            input.className = "p-name";
-            input.placeholder = "Player Name";
-            container.appendChild(input);
+            const container = document.getElementById("name-container");
+            const div = document.createElement("div");
+            div.className = "name-row";
+            div.innerHTML = `
+                <input type="text" class="p-name" placeholder="Player ${container.children.length + 1}" />
+                <button class="del-btn" onclick="this.parentElement.remove()">×</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function resetScores() {
+            Object.keys(scores).forEach((n) => (scores[n] = 0));
+            triggerAlert("Scores Reset! 🔄");
         }
 
         function saveNames() {
-            const inputs = document.querySelectorAll(".p-name");
-            players = Array.from(inputs).map(i => i.value.trim()).filter(v => v !== "");
-            if (players.length < 3) {
-                alert("Please enter at least 3 names!");
-                return;
-            }
-            // Initialize individual scores
-            players.forEach(name => {
-                if (!playerScores[name]) playerScores[name] = 0;
-            });
-            goBack('setup-area');
+            const names = Array.from(document.querySelectorAll(".p-name")).map((i) => i.value.trim()).filter((v) => v !== "");
+            if (names.length < 3) return triggerAlert("Minimum 3 players! ✋");
+            if (new Set(names).size !== names.length) return triggerAlert("Unique names only! ✋");
+            players = names;
+            players.forEach((n) => { if (scores[n] === undefined) scores[n] = 0; });
+            goBack("mode-screen");
         }
 
         function startGame(mode) {
-            currentMode = mode;
-            playerIndex = 0;
-            shuffledPlayers = [...players].sort(() => Math.random() - 0.5);
-            imposterName = players[Math.floor(Math.random() * players.length)];
+            currentMode = mode; pIdx = 0;
+            shuffledOrder = [...players].sort(() => Math.random() - 0.5);
+            if (mode === 0) { do { spyName = players[Math.floor(Math.random() * players.length)]; } while (spyName === shuffledOrder[0]); }
+            else { spyName = players[Math.floor(Math.random() * players.length)]; }
 
-            if (!setupContent()) return;
-            goBack('game-area');
-            showPlayer();
-        }
-
-        function setupContent() {
-            let label = "";
-            const words = [...wordPairs];
-            const quests = [...questionPairs];
-
-            if (currentMode === 0) {
-                label = "Blank Chit Mode";
-                let selection = words[Math.floor(Math.random() * words.length)];
-                citizenContent = selection[0];
-                imposterContent = "YOU ARE THE SPY (Chit is Blank)";
-            } else if (currentMode === 1) {
-                label = "Related Words Mode";
-                let pair = words[Math.floor(Math.random() * words.length)];
-                let shuffledPair = [...pair].sort(() => Math.random() - 0.5);
-                citizenContent = shuffledPair[0];
-                imposterContent = shuffledPair[1];
+            document.getElementById("mode-label").innerText = ["MODE: BLANK CHIT", "MODE: RELATED WORDS", "MODE: QUESTIONS"][mode];
+            let pair;
+            if (mode === 2) {
+                if (usedQuestionsIdx.length >= questionPool.length) usedQuestionsIdx = [];
+                let qIdx; do { qIdx = Math.floor(Math.random() * questionPool.length); } while (usedQuestionsIdx.includes(qIdx));
+                usedQuestionsIdx.push(qIdx); pair = questionPool[qIdx];
             } else {
-                label = "Questions Mode";
-                let qPair = quests[Math.floor(Math.random() * quests.length)];
-                let shuffledQ = [...qPair].sort(() => Math.random() - 0.5);
-                citizenContent = shuffledQ[0];
-                imposterContent = shuffledQ[1];
+                if (usedWordsIdx.length >= wordPool.length) usedWordsIdx = [];
+                let wIdx; do { wIdx = Math.floor(Math.random() * wordPool.length); } while (usedWordsIdx.includes(wIdx));
+                usedWordsIdx.push(wIdx); pair = wordPool[wIdx];
             }
-            document.getElementById("current-var-text").innerText = label;
-            return true;
+            citizenWord = pair[0]; spyWord = mode === 0 ? "BLANK!" : pair[1];
+            goBack("handover-screen"); updateHandover();
         }
 
-        function showPlayer() {
-            document.getElementById("player-name").innerText = shuffledPlayers[playerIndex];
-            toggleSecret(false);
+        function updateHandover() {
+            document.getElementById("target-player").innerText = shuffledOrder[pIdx];
+            document.getElementById("chit-area").style.display = "none";
+            document.getElementById("chit-area").classList.remove("open");
+            document.getElementById("reveal-btn").classList.remove("hidden");
+            document.getElementById("next-btn").classList.add("hidden");
         }
 
-        function toggleSecret(show) {
-            const secretDiv = document.getElementById("secret-word");
-            const revealBtn = document.getElementById("reveal-btn");
-            const nextBtn = document.getElementById("next-player-btn");
-
-            if (show) {
-                secretDiv.innerText = shuffledPlayers[playerIndex] === imposterName ? imposterContent : citizenContent;
-                secretDiv.style.display = "block";
-                revealBtn.classList.add("hidden");
-                nextBtn.classList.remove("hidden");
-            } else {
-                secretDiv.style.display = "none";
-                revealBtn.classList.remove("hidden");
-                nextBtn.classList.add("hidden");
-            }
+        function showSecret() {
+            document.getElementById("secret-text").innerText = shuffledOrder[pIdx] === spyName ? spyWord : citizenWord;
+            document.getElementById("chit-area").style.display = "flex";
+            setTimeout(() => document.getElementById("chit-area").classList.add("open"), 50);
+            document.getElementById("reveal-btn").classList.add("hidden");
+            document.getElementById("next-btn").classList.remove("hidden");
         }
 
-        function nextPlayer() {
-            playerIndex++;
-            if (playerIndex < shuffledPlayers.length) {
-                showPlayer();
-            } else {
-                goBack('progress-area');
-            }
+        function nextPlayerStep() { if (++pIdx < shuffledOrder.length) updateHandover(); else showDiscuss(); }
+
+        function showDiscuss() {
+            goBack("discuss-screen"); document.getElementById("sequence-panel").classList.remove("hidden");
+            const list = document.getElementById("chip-list"); list.innerHTML = "";
+            shuffledOrder.forEach((name, i) => { list.innerHTML += `<div class="order-chip">${i + 1}. ${name}</div>`; });
         }
 
-        function recordWinner(winnerType) {
-            if (winnerType === 'Citizens') {
-                // Everyone except the spy gets a point
-                players.forEach(name => {
-                    if (name !== imposterName) playerScores[name]++;
-                });
-            } else {
-                // Only the spy gets a point
-                playerScores[imposterName]++;
-            }
-
-            updateScoreTable("score-display");
-            document.getElementById("spy-reveal").innerHTML = `The Spy was: <b>${imposterName.toUpperCase()}</b>`;
-            goBack('round-end-area');
-            document.getElementById("next-var-btn").style.display = currentMode >= 2 ? "none" : "inline-block";
+        function finishRound(winner) {
+            if (winner === "Citizens") { players.forEach((n) => { if (n !== spyName) scores[n]++; }); confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); }
+            else { scores[spyName]++; }
+            showScores();
         }
 
-        function updateScoreTable(tableId) {
-            const table = document.getElementById(tableId);
-            table.innerHTML = "";
-            // Sort players by score
-            const sortedPlayers = Object.keys(playerScores).sort((a, b) => playerScores[b] - playerScores[a]);
+        function showScores() {
+            goBack("result-screen");
+            document.getElementById("post-round-btns").classList.remove("hidden");
+            document.getElementById("final-winner-btns").classList.add("hidden");
+            document.getElementById("reveal-text").innerHTML = `🕵️ The Spy was <b>${spyName}</b>`;
+            updateScoreboard();
+        }
 
-            sortedPlayers.forEach(name => {
-                const row = `<tr><td>${name}</td><td class="score-val">${playerScores[name]} pts</td></tr>`;
-                table.innerHTML += row;
+        function updateScoreboard() {
+            const board = document.getElementById("scoreboard"); board.innerHTML = "";
+            const max = Math.max(...Object.values(scores));
+            Object.keys(scores).sort((a, b) => scores[b] - scores[a]).forEach((n) => {
+                const isTop = scores[n] === max && max > 0;
+                board.innerHTML += `<div class="score-row ${isTop ? "winner-highlight" : ""}"><span>${n}</span><span>${scores[n]} pts</span></div>`;
             });
         }
 
-        function repeatMode() { startGame(currentMode); }
-        function nextVariation() { startGame(currentMode + 1); }
-
-        function endGame() {
-            updateScoreTable("final-stats");
-            goBack('game-over-area');
+        function declareFinalWinner() {
+            const maxScore = Math.max(...Object.values(scores));
+            const winners = Object.keys(scores).filter((n) => scores[n] === maxScore);
+            document.getElementById("result-title").innerText = "🏆 Final Winner 🏆";
+            document.getElementById("reveal-text").innerHTML = `Congratulations <b>${winners.join(" & ")}</b>!`;
+            document.getElementById("post-round-btns").classList.add("hidden");
+            document.getElementById("final-winner-btns").classList.remove("hidden");
+            updateScoreboard(); confetti({ particleCount: 400, spread: 100, origin: { y: 0.5 } });
         }
+
+        function replayCurrentMode() { startGame(currentMode); }
     </script>
 </body>
 
