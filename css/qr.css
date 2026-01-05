@@ -43,8 +43,8 @@
 
 /* Scanner Result Container */
 #scanResultContainer {
-  word-wrap: break-word; /* Ensures long text/URLs don't break the layout */
   background-color: var(--bs-light); /* Light background for visibility */
+  width: auto;
 }
 
 /* Dark Theme Adjustments for Scanner Result (Ensures readability in dark mode) */
@@ -54,5 +54,41 @@ html[data-bs-theme="dark"] #scanResultContainer {
 }
 
 #scanResult {
-  font-weight: 500;
+  overflow-wrap: break-word;
+  white-space: pre-wrap; /* Keeps it readable but forces it to stay within the box */
+}
+
+#videoContainer {
+  opacity: 1;
+  max-height: 500px;
+  max-width: 600px; /* Or whatever your desired full width is */
+  margin: 0 auto; /* Keeps it centered */
+  transition: opacity 0.5s ease, max-height 0.5s ease, max-width 0.5s ease;
+  overflow: hidden;
+}
+
+.video-hidden {
+  opacity: 0 !important;
+  max-height: 0 !important;
+  max-width: 0 !important; /* This creates the width "shrink" effect */
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+/* 1. Hide it completely and remove from layout by default */
+.qr-result-area {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* 2. This class will be added via JS to trigger the fade */
+.qr-result-area.active {
+  display: block; /* Takes up space again */
+}
+
+.qr-result-area.show-animation {
+  opacity: 1;
+  transform: translateY(0);
 }

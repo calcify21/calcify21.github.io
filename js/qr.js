@@ -1,41 +1,69 @@
-// * QR Code Generator & Download
+// * QR Code Generator Logic
 
 document.getElementById("generateBtn").addEventListener("click", function () {
-  const qrInput = document.getElementById("qrInput").value;
+  const activeTab = document.querySelector(
+    "#qrGeneratorTabs .nav-link.active"
+  ).id;
+  let finalString = "";
+
+  if (activeTab == "text-tab") {
+    finalString = document.getElementById("textInput").value;
+  } else if (activeTab == "wifi-tab") {
+    // WIFI:S:MyNetwork;T:WPA;P:Password123;;
+    finalString = `WIFI:S:${document.getElementById("ssidInput").value};T:${
+      document.getElementById("encryptionType").value
+    };P:${document.getElementById("wifiPwdInput").value};;`;
+  } else if (activeTab == "whatsapp-tab") {
+    // https://wa.me/001234567890?text=Hello%20World
+    finalString = `https://wa.me/${
+      document.getElementById("waCountryCode").value
+    }${document.getElementById("waNum").value}?text=${encodeURIComponent(
+      document.getElementById("waMsg").value
+    )}`;
+  } else if (activeTab == "vcard-tab") {
+    // BEGIN:VCARD
+    // VERSION:3.0
+    // FN:John Doe
+    // TEL:9876543210
+    // END:VCARD
+    finalString = `BEGIN:VCARD
+VERSION:3.0
+FN:${document.getElementById("conName").value.trim()}
+TEL:${document.getElementById("conNum").value.trim()}
+END:VCARD`;
+  } else if (activeTab == "email-tab") {
+    // mailto:
+    finalString = `mailto:${
+      document.getElementById("emailTo").value
+    }?subject=${encodeURIComponent(
+      document.getElementById("emailSub").value
+    )}&body=${encodeURIComponent(document.getElementById("emailBody").value)}`;
+  }
+
   const qrSize = parseInt(document.getElementById("qrSize").value, 10);
   const qrCodeDiv = document.getElementById("qrcode");
-
-  // Get the new file name input container
+  const resultArea = document.getElementById("qrGenerationResult");
   const fileNameContainer = document.getElementById("fileNameInputContainer");
 
-  // Clear previous QR code
   qrCodeDiv.innerHTML = "";
 
-  const toast = document.getElementById("liveToast");
-  if (qrInput) {
-    // Generate the QR code using qrcode.js
+  if (finalString.trim() !== "") {
     new QRCode(qrCodeDiv, {
-      text: qrInput,
+      text: finalString,
       width: qrSize,
       height: qrSize,
     });
 
-    // Show the download button and QR code container (uses style.display as per existing code)
-    document.getElementById("downloadBtn").style.display = "block";
-    document.getElementById("qrcode").style.display = "block";
-
-    // FIX: Show NEW file name input using classList
+    // --- ANIMATION LOGIC ---
+    resultArea.classList.add("active");
     fileNameContainer.classList.remove("d-none");
+
+    setTimeout(() => {
+      resultArea.classList.add("show-animation");
+    }, 10);
   } else {
-    // Hide all download elements and show the "Please enter text" toast
-    document.getElementById("downloadBtn").style.display = "none";
-    document.getElementById("qrcode").style.display = "none";
-
-    // FIX: Hide NEW file name input using classList
-    fileNameContainer.classList.add("d-none");
-
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
-    toastBootstrap.show();
+    // ... Hide and reset logic ...
+    showToast("Please fill in the fields for the selected tab.");
   }
 });
 
@@ -77,15 +105,7 @@ document.getElementById("downloadBtn").addEventListener("click", function () {
     document.body.removeChild(link);
   } else {
     // Show error toast if QR code is not found
-    const toast = document.getElementById("liveToast");
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
-    document.querySelector(".toast-body").textContent =
-      "Please generate the QR code first.";
-    toastBootstrap.show();
-    setTimeout(() => {
-      document.querySelector(".toast-body").textContent =
-        "Please enter the text or URL to generate QR Code.";
-    }, 3000);
+    showToast("Please generate a QR code first.");
   }
 });
 
@@ -121,51 +141,41 @@ function displayScanResult(content, isError = false) {
   if (isError) {
     scanResultElement.textContent = content;
     scanResultElement.classList.add("text-danger");
-    // FIX: Use classList to add d-none
     openLinkBtn.classList.add("d-none");
     openLinkBtn.removeAttribute("href");
   } else {
     scanResultElement.textContent = content;
     scanResultElement.classList.remove("text-danger");
 
-    // Check if the content is a URL to enable the 'Open Link' button
-    const isUrl =
-      content.startsWith("http://") ||
-      content.startsWith("https://") ||
-      content.startsWith("www.");
+    // 1. Logic to check for URL without using a complex Regex
+    let isUrl = false;
+    let finalUrl = "";
 
-    if (isUrl) {
-      // FIX: Use classList to remove d-none
-      openLinkBtn.classList.remove("d-none");
-      openLinkBtn.href = content.startsWith("http")
+    try {
+      // If it looks like a domain (has a dot) but lacks a protocol, add https://
+      // This handles cases like "google.com" as well as "https://teams.microsoft.com..."
+      const testContent = content.match(/^[a-zA-Z0-9]+:\/\//)
         ? content
         : `https://${content}`;
+
+      const urlObj = new URL(testContent);
+
+      // Ensure it has at least a basic domain structure (e.g., example.com)
+      isUrl = urlObj.hostname.includes(".");
+      finalUrl = testContent;
+    } catch (e) {
+      isUrl = false;
+    }
+
+    // 2. Update UI based on the check
+    if (isUrl) {
+      openLinkBtn.classList.remove("d-none");
+      openLinkBtn.href = finalUrl;
     } else {
-      // FIX: Use classList to add d-none
       openLinkBtn.classList.add("d-none");
       openLinkBtn.removeAttribute("href");
     }
   }
-}
-
-function showScannerToast(message) {
-  const toast = document.getElementById("liveToast");
-  const toastBody = toast.querySelector(".toast-body");
-
-  // Temporarily save and change the body text
-  const originalText = toastBody.textContent;
-  toastBody.textContent = message;
-
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
-  toastBootstrap.show();
-
-  // Reset message after the toast hides
-  setTimeout(() => {
-    // Only reset if the message hasn't been overwritten by a new toast
-    if (toastBody.textContent === message) {
-      toastBody.textContent = originalText;
-    }
-  }, 3000);
 }
 
 // --- Image/File Scanning Logic ---
@@ -183,6 +193,15 @@ function scanImage(file) {
   reader.onload = function (e) {
     const img = new Image();
     img.onload = function () {
+      const qrPreview = document.getElementById("qrPreview");
+      const dropZonePrompt = document.getElementById("dropZonePrompt");
+
+      if (qrPreview && dropZonePrompt) {
+        qrPreview.src = e.target.result; // Set the image source to the file
+        qrPreview.classList.remove("d-none"); // Show the image
+        dropZonePrompt.classList.add("d-none"); // Hide the "Drop here" text
+      }
+
       // Draw image to canvas for jsQR processing
       qrCanvas.width = img.width;
       qrCanvas.height = img.height;
@@ -193,7 +212,6 @@ function scanImage(file) {
 
       if (code) {
         displayScanResult(code.data);
-        showScannerToast("QR Code successfully scanned from image!");
       } else {
         displayScanResult("No QR Code found in the image.", true);
       }
@@ -206,12 +224,14 @@ function scanImage(file) {
 // --- Camera Scanning Logic ---
 
 async function startCameraScan() {
-  // Hide file scan result when starting camera
-  // FIX: Use classList to add d-none
-  scanResultContainer.classList.add("d-none");
+  document.getElementById("qrPreview").classList.add("d-none");
+  document.getElementById("dropZonePrompt").classList.remove("d-none");
+
+  // Show the container and start fade-in
+  videoContainer.classList.remove("video-hidden");
+  videoContainer.classList.remove("d-none");
 
   try {
-    // Request camera access (prefer environment/back camera)
     stream = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: "environment" },
     });
@@ -221,21 +241,16 @@ async function startCameraScan() {
     qrVideo.play();
 
     startScanBtn.textContent = "Stop Camera Scan";
-    // FIX: Change class from btn-info to btn-danger
     startScanBtn.classList.replace("btn-info", "btn-danger");
-    // FIX: Use classList to remove d-none
-    videoContainer.classList.remove("d-none");
+
     scanning = true;
 
     qrVideo.onloadedmetadata = () => {
-      // Start the continuous scanning loop after video is ready
       scanLoop();
     };
   } catch (err) {
     console.error("Error accessing the camera:", err);
-    showScannerToast(
-      "Camera access denied or failed. Please check permissions."
-    );
+    showToast("Camera access denied or failed. Please check permissions.");
     stopCameraScan();
   }
 }
@@ -255,7 +270,6 @@ function scanLoop() {
     if (code) {
       // QR code found!
       displayScanResult(code.data);
-      showScannerToast("QR Code successfully scanned from camera!");
       // stopCameraScan() is called inside displayScanResult
     }
   }
@@ -271,17 +285,24 @@ function stopCameraScan() {
   }
   scanning = false;
 
-  if (stream) {
-    stream.getTracks().forEach((track) => track.stop());
-    stream = null;
-  }
+  // 1. Start the fade-out animation by adding the CSS class
+  videoContainer.classList.add("video-hidden");
+  // Remove d-none if it was there to ensure visibility logic is handled by our new class
+  videoContainer.classList.remove("d-none");
 
-  // Reset UI
-  startScanBtn.textContent = "Scan using Camera";
-  // FIX: Change class from btn-danger back to btn-info
+  // 2. Wait 500ms (the length of your CSS transition) before stopping the hardware
+  setTimeout(() => {
+    if (!scanning && stream) {
+      stream.getTracks().forEach((track) => track.stop());
+      stream = null;
+      qrVideo.srcObject = null;
+    }
+  }, 500);
+
+  // Reset Button UI
+  startScanBtn.innerHTML =
+    '<i class="fa-solid fa-camera"></i> Scan using Camera';
   startScanBtn.classList.replace("btn-danger", "btn-info");
-  // FIX: Use classList to add d-none
-  videoContainer.classList.add("d-none");
 }
 
 // --- Event Listeners ---
@@ -342,3 +363,10 @@ dropZone.addEventListener(
   },
   false
 );
+
+function showToast(message) {
+  const toast = document.getElementById("liveToast");
+  toast.querySelector(".toast-body").textContent = message;
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
+  toastBootstrap.show();
+}

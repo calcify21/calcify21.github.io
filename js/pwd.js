@@ -59,17 +59,18 @@ function increaseLength() {
   }
 }
 
+let typewriterTimeout; // Global variable to track the current animation
 function typewriter(pwd, elementId) {
   let generatedInput = document.getElementById(elementId);
-  generatedInput.value = ""; // Clear existing text
+  clearTimeout(typewriterTimeout); // Stop any previous animation
+  generatedInput.value = "";
   let i = 0;
-  const speed = 40; // Typing speed in ms
 
   function type() {
     if (i < pwd.length) {
       generatedInput.value += pwd[i];
       i++;
-      setTimeout(type, speed);
+      typewriterTimeout = setTimeout(type, 40);
     }
   }
   type();
@@ -219,12 +220,6 @@ function generateMemorablePassword() {
 
   let finalPassword = baseString;
 
-  // Apply capitalization (first letter and random) - applies to both methods
-  // if (options.capitalizeFirst && finalPassword.length > 0) {
-  //   finalPassword =
-  //     finalPassword.charAt(0).toUpperCase() + finalPassword.slice(1);
-  // }
-
   if (options.capitalizeRandomWords && options.numRandomCaps > 0) {
     let chars = finalPassword.split("");
     const charsToCapitalizeIndices = [];
@@ -277,8 +272,6 @@ function generateMemorablePassword() {
       finalPassword += randomChar;
     }
   } else {
-    // --- Original logic for Name/Phrase method (or if not enough symbols are requested for structured) ---
-
     // Add Special Characters - applies to Name/Phrase method or if structured doesn't meet criteria
     if (options.addSpecialChar && options.commonSpecialChars.length > 0) {
       // Adjust loop based on how many symbols were already added in structured mode
@@ -370,29 +363,34 @@ function generateMemorablePassword() {
 }
 
 function clearModal() {
+  // 1. Clear text inputs
   document.getElementById("generatedPwd2").value = "";
   document.getElementById("name1").value = "";
-  document.getElementById("commonWord").value = ""; // Clear common word input too
+  document.getElementById("commonWord").value = "";
 
-  // Reset method selection and trigger change to show/hide relevant inputs
-  document.getElementById("methodNamePhrase").checked = true;
-  document
-    .getElementById("methodNamePhrase")
-    .dispatchEvent(new Event("change")); // Trigger visibility update
-
-  // Reset other memorable options to defaults
-  // document.getElementById("memorableCapitalizeFirst").checked = true;
+  // 2. Reset checkboxes and numeric inputs to defaults
   document.getElementById("memorableCapitalizeRandomWords").checked = true;
   document.getElementById("memorableNumRandomCaps").value = 1;
   document.getElementById("memorableAddSpecialChar").checked = true;
   document.getElementById("memorableNumSpecialChars").value = 1;
-  document.getElementById("memorableSCRandom").checked = true;
   document.getElementById("memorableAddNumber").checked = true;
-  document.getElementById("memorableNumberMin").value = 0;
-  document.getElementById("memorableNumberMax").value = 99;
-  document.getElementById("memorableNumRandom").checked = true;
 
-  // Re-trigger toggles for individual option groups
+  // 3. Reset all radio buttons (Placement and Method)
+  document.getElementById("memorableSCRandom").checked = true;
+  document.getElementById("memorableNumRandom").checked = true;
+  document.getElementById("methodNamePhrase").checked = true;
+
+  // 4. Force all hidden containers/wrappers back to visible for Name/Phrase mode
+  const scPlacement = document.getElementById("scPlacementWrapper");
+  const numPlacement = document.getElementById("numPlacementWrapper");
+  const numOptionsDiv = document.getElementById("memorableNumberOptions");
+
+  if (scPlacement) scPlacement.style.display = "block";
+  if (numPlacement) numPlacement.style.display = "block";
+  if (numOptionsDiv) numOptionsDiv.style.display = "block";
+
+  // 5. Re-trigger change events to sync the UI state
+  // This ensures sub-options (like capitalization) show/hide correctly based on checkboxes
   document
     .getElementById("memorableCapitalizeRandomWords")
     .dispatchEvent(new Event("change"));
@@ -401,6 +399,11 @@ function clearModal() {
     .dispatchEvent(new Event("change"));
   document
     .getElementById("memorableAddNumber")
+    .dispatchEvent(new Event("change"));
+
+  // 6. Final sync: trigger the main method toggle to ensure Name/Phrase view is active
+  document
+    .getElementById("methodNamePhrase")
     .dispatchEvent(new Event("change"));
 }
 
@@ -441,11 +444,22 @@ function setupMemorableOptionToggle(checkboxId, optionsDivId) {
   const optionsDiv = document.getElementById(optionsDivId);
 
   if (checkbox && optionsDiv) {
-    // Ensure elements exist
     checkbox.addEventListener("change", function () {
-      optionsDiv.style.display = this.checked ? "block" : "none";
+      const isStructured = document.getElementById("methodStructured").checked;
+
+      if (this.checked) {
+        optionsDiv.style.display = "block";
+        // If we are in structured mode, immediately hide the placement part
+        if (isStructured && checkboxId === "memorableAddNumber") {
+          optionsDiv.style.display = "none";
+        } else if (isStructured && checkboxId === "memorableAddSpecialChar") {
+          const scPlacement = document.getElementById("scPlacementWrapper");
+          if (scPlacement) scPlacement.style.display = "none";
+        }
+      } else {
+        optionsDiv.style.display = "none";
+      }
     });
-    // Trigger initial state
     checkbox.dispatchEvent(new Event("change"));
   }
 }
@@ -463,7 +477,7 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   setupMemorableOptionToggle("memorableAddNumber", "memorableNumberOptions");
 
-  // New logic for switching between name/phrase and structured pattern inputs
+  // Logic for switching between name/phrase and structured pattern inputs
   const methodNamePhraseRadio = document.getElementById("methodNamePhrase");
   const methodStructuredRadio = document.getElementById("methodStructured");
   const namePhraseInputGroup = document.getElementById("namePhraseInputGroup");
@@ -474,31 +488,53 @@ document.addEventListener("DOMContentLoaded", () => {
   const numberDiv = document.querySelector(".numberDiv");
 
   function toggleInputGroups() {
-    if (methodNamePhraseRadio.checked) {
+    const isStructured = methodStructuredRadio.checked;
+    const scPlacement = document.getElementById("scPlacementWrapper");
+    const numOptionsDiv = document.getElementById("memorableNumberOptions"); // The "blue box"
+
+    if (!isStructured) {
+      // --- Name/Phrase Mode ---
       namePhraseInputGroup.style.display = "block";
       structuredPatternInputGroup.style.display = "none";
-      specialCharsDiv.style.display = "block"; // Show special chars for name/phrase
-      numberDiv.style.display = "block"; // Show number options for name/phrase
+
+      // Show everything
+      if (scPlacement) scPlacement.style.display = "block";
+      if (numOptionsDiv) numOptionsDiv.style.display = "block";
     } else {
+      // Structured Mode active
       namePhraseInputGroup.style.display = "none";
       structuredPatternInputGroup.style.display = "block";
-      specialCharsDiv.style.display = "none"; // Hide special chars for structured
-      numberDiv.style.display = "none"; // Hide number options for structured
+
+      // Show main divs
+      specialCharsDiv.style.display = "block";
+      numberDiv.style.display = "block";
+
+      // HIDE placement for symbols
+      const scPlacement = document.getElementById("scPlacementWrapper");
+      if (scPlacement) scPlacement.style.display = "none";
+
+      // HIDE the entire number options container (the blue box)
+      // because Structured mode uses a fixed number format
+      const numOptionsDiv = document.getElementById("memorableNumberOptions");
+      if (numOptionsDiv) numOptionsDiv.style.display = "none";
     }
   }
 
-  methodNamePhraseRadio.addEventListener("change", toggleInputGroups);
-  methodStructuredRadio.addEventListener("change", toggleInputGroups);
+  // Add listeners to both radio buttons
+  if (methodNamePhraseRadio)
+    methodNamePhraseRadio.addEventListener("change", toggleInputGroups);
+  if (methodStructuredRadio)
+    methodStructuredRadio.addEventListener("change", toggleInputGroups);
 
   // Initial call to set correct visibility on load
   toggleInputGroups();
 });
 
-// Make sure the modal-specific elements are properly initialized when the modal opens
+// Modal initialization logic
 document
   .getElementById("memorablePwdGeneratorModal")
   .addEventListener("shown.bs.modal", function () {
-    // Re-trigger toggles to ensure visibility is correct if user had changed settings
+    // Re-trigger toggles to ensure visibility is correct
     document
       .getElementById("memorableCapitalizeRandomWords")
       .dispatchEvent(new Event("change"));
@@ -508,8 +544,12 @@ document
     document
       .getElementById("memorableAddNumber")
       .dispatchEvent(new Event("change"));
-    // Also ensure the correct input group is shown when modal opens
-    document
-      .querySelector('input[name="memorableGenMethod"]:checked')
-      .dispatchEvent(new Event("change"));
+
+    // Ensure the main method toggle (Name vs Structured) is refreshed
+    const checkedMethod = document.querySelector(
+      'input[name="memorableGenMethod"]:checked'
+    );
+    if (checkedMethod) {
+      checkedMethod.dispatchEvent(new Event("change"));
+    }
   });
