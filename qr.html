@@ -80,12 +80,25 @@
                   type="button" role="tab"><i class="fa-brands fa-whatsapp me-1"></i>WhatsApp</button>
               </li>
               <li class="nav-item" role="presentation">
+              <li class="nav-item" role="presentation">
                 <button class="nav-link" id="vcard-tab" data-bs-toggle="tab" data-bs-target="#vcard-pane" type="button"
                   role="tab"><i class="fa-regular fa-address-book me-1"></i>Contact</button>
               </li>
               <li class="nav-item" role="presentation">
                 <button class="nav-link" id="email-tab" data-bs-toggle="tab" data-bs-target="#email-pane" type="button"
                   role="tab"><i class="fa-regular fa-envelope me-1"></i>Email</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="sms-tab" data-bs-toggle="tab" data-bs-target="#sms-pane" type="button"
+                  role="tab"><i class="fa-regular fa-comment-dots me-1"></i>SMS</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="map-tab" data-bs-toggle="tab" data-bs-target="#map-pane" type="button"
+                  role="tab"><i class="fa-regular fa-map me-1"></i>Location</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="event-tab" data-bs-toggle="tab" data-bs-target="#event-pane" type="button"
+                  role="tab"><i class="fa-regular fa-calendar me-1"></i>Event</button>
               </li>
             </ul>
 
@@ -116,6 +129,21 @@
                 </div>
               </div>
 
+              <div class="tab-pane fade" id="sms-pane" role="tabpanel">
+                <div class="row g-2">
+                  <div class="col-md-3">
+                    <input type="text" id="smsCountryCode" class="form-control mb-3" placeholder="Code (91)"
+                      aria-label="Country Code">
+                  </div>
+                  <div class="col-md-9">
+                    <input type="tel" id="smsNum" class="form-control mb-3" placeholder="Phone Number"
+                      aria-label="SMSNumber" />
+                  </div>
+                </div>
+                <input type="text" id="smsMsg" class="form-control mb-3" placeholder="Pre-filled Message (optional)"
+                  aria-label="SMS Message" />
+              </div>
+
               <div class="tab-pane fade" id="whatsapp-pane" role="tabpanel">
                 <div class="row g-2">
                   <div class="col-md-3">
@@ -140,6 +168,40 @@
                   <div class="col-md-6">
                     <input type="tel" id="conNum" class="form-control mb-3" placeholder="Phone Number"
                       aria-label="Contact Phone Number" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="map-pane" role="tabpanel">
+                <div class="row g-2">
+                  <div class="col">
+                    <input type="text" id="lat" class="form-control mb-3" placeholder="Latitude"
+                      aria-label="Latitude" />
+                  </div>
+                  <div class="col">
+                    <input type="text" id="lng" class="form-control mb-3" placeholder="Longitude"
+                      aria-label="Longitude" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="event-pane" role="tabpanel">
+                <div class="row g-2">
+                  <div class="col-6">
+                    <input type="text" id="eventTitle" class="form-control mb-2"
+                      placeholder="Event Title (e.g. Birthday Party)">
+                  </div>
+                  <div class="col-6">
+                    <input type="text" id="eventLocation" class="form-control mb-2"
+                      placeholder="Location (e.g. Central Park)">
+                  </div>
+                  <div class="col">
+                    <label class="small text-muted">Start Date & Time</label>
+                    <input type="datetime-local" id="eventStart" class="form-control mb-2">
+                  </div>
+                  <div class="col">
+                    <label class="small text-muted">End Date & Time</label>
+                    <input type="datetime-local" id="eventEnd" class="form-control mb-2">
                   </div>
                 </div>
               </div>
@@ -171,11 +233,11 @@
                 <option value="200">200x200</option>
                 <option value="300">300x300</option>
                 <option value="400">400x400</option>
-                <option value="500">500x500</option>
+                <!-- <option value="500">500x500</option>
                 <option value="600">600x600</option>
                 <option value="700">700x700</option>
                 <option value="800">800x800</option>
-                <option value="900">900x900</option>
+                <option value="900">900x900</option> -->
               </select>
             </div>
             <button id="generateBtn" class="btn btn-primary w-100 mb-3">
@@ -212,6 +274,7 @@
 
             <div class="mb-3 text-center video-hidden" id="videoContainer">
               <video id="qrVideo" width="100%" height="auto" class="rounded border" autoplay playsinline></video>
+              <div class="scan-line"></div>
             </div>
 
             <div id="dropZone" class="border border-2 rounded p-4 text-center">
@@ -237,8 +300,8 @@
               <p class="mb-1">Scanned Content:</p>
               <code id="scanResult" class="d-block text-truncate"></code>
 
-              <a id="openLinkBtn" href="#" target="_blank" class="btn btn-primary btn-sm d-none">
-                <i class="fa-solid fa-external-link"></i> Open Link
+              <a id="openLinkBtn" href="#" target="_blank" class="btn btn-primary btn d-none">
+                <i class="fa-solid fa-external-link"></i>Open Link
               </a>
             </div>
           </div>
@@ -255,8 +318,7 @@
 
       <!-- * Toast -->
       <div class="toast-container position-fixed end-0 p-3 toastContainer">
-        <div id="liveToast" class="toast text-bg-warning border-0" role="alert" aria-live="assertive"
-          aria-atomic="true">
+        <div id="liveToast" class="toast border-0" role="alert" aria-live="assertive" aria-atomic="true">
           <div class="d-flex">
             <div class="toast-body">
               Please enter the text or URL to generate QR Code.
@@ -279,10 +341,10 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.min.js"></script> <!-- Scanner Script -->
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> <!-- Generator Script -->
   <script src="js/qr.js"></script>
   <script src="js/common.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.min.js"></script>
 </body>
 
 </html>

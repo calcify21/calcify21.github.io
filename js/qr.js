@@ -4,40 +4,53 @@ document.getElementById("generateBtn").addEventListener("click", function () {
   const activeTab = document.querySelector(
     "#qrGeneratorTabs .nav-link.active"
   ).id;
-  let finalString = "";
+  let finalString = ""; // Helper function to format 2026-01-06T14:30 into 20260106T143000Z
+
+  const formatDate = (str) => str.replace(/[-:]/g, "") + "00Z";
 
   if (activeTab == "text-tab") {
     finalString = document.getElementById("textInput").value;
   } else if (activeTab == "wifi-tab") {
-    // WIFI:S:MyNetwork;T:WPA;P:Password123;;
     finalString = `WIFI:S:${document.getElementById("ssidInput").value};T:${
       document.getElementById("encryptionType").value
     };P:${document.getElementById("wifiPwdInput").value};;`;
   } else if (activeTab == "whatsapp-tab") {
-    // https://wa.me/001234567890?text=Hello%20World
-    finalString = `https://wa.me/${
-      document.getElementById("waCountryCode").value
-    }${document.getElementById("waNum").value}?text=${encodeURIComponent(
-      document.getElementById("waMsg").value
-    )}`;
+    const code = document
+      .getElementById("waCountryCode")
+      .value.replace("+", "");
+    const num = document.getElementById("waNum").value;
+    const msg = encodeURIComponent(document.getElementById("waMsg").value);
+    finalString = `https://wa.me/${code}${num}?text=${msg}`;
   } else if (activeTab == "vcard-tab") {
-    // BEGIN:VCARD
-    // VERSION:3.0
-    // FN:John Doe
-    // TEL:9876543210
-    // END:VCARD
-    finalString = `BEGIN:VCARD
-VERSION:3.0
-FN:${document.getElementById("conName").value.trim()}
-TEL:${document.getElementById("conNum").value.trim()}
-END:VCARD`;
+    finalString = `BEGIN:VCARD\nVERSION:3.0\nFN:${document
+      .getElementById("conName")
+      .value.trim()}\nTEL:${document
+      .getElementById("conNum")
+      .value.trim()}\nEND:VCARD`;
   } else if (activeTab == "email-tab") {
-    // mailto:
     finalString = `mailto:${
       document.getElementById("emailTo").value
     }?subject=${encodeURIComponent(
       document.getElementById("emailSub").value
     )}&body=${encodeURIComponent(document.getElementById("emailBody").value)}`;
+  } else if (activeTab == "sms-tab") {
+    finalString = `SMSTO:${document
+      .getElementById("smsCountryCode")
+      .value.replace("+", "")}${document.getElementById("smsNum").value}:${
+      document.getElementById("smsMsg").value
+    }`;
+  } else if (activeTab == "map-tab") {
+    finalString = `geo:${document.getElementById("lat").value},${
+      document.getElementById("lng").value
+    }`;
+  } else if (activeTab == "event-tab") {
+    const start = formatDate(document.getElementById("eventStart").value);
+    const end = formatDate(document.getElementById("eventEnd").value);
+    finalString = `BEGIN:VEVENT\nSUMMARY:${document
+      .getElementById("eventTitle")
+      .value.trim()}\nDTSTART:${start}\nDTEND:${end}\nLOCATION:${document
+      .getElementById("eventLocation")
+      .value.trim()}\nEND:VEVENT`;
   }
 
   const qrSize = parseInt(document.getElementById("qrSize").value, 10);
@@ -52,9 +65,9 @@ END:VCARD`;
       text: finalString,
       width: qrSize,
       height: qrSize,
-    });
+      correctLevel: QRCode.CorrectLevel.H,
+    }); // --- ANIMATION LOGIC ---
 
-    // --- ANIMATION LOGIC ---
     resultArea.classList.add("active");
     fileNameContainer.classList.remove("d-none");
 
@@ -63,7 +76,10 @@ END:VCARD`;
     }, 10);
   } else {
     // ... Hide and reset logic ...
-    showToast("Please fill in the fields for the selected tab.");
+    showToast(
+      "Please fill in the fields for the selected tab.",
+      "text-bg-danger"
+    );
   }
 });
 
@@ -105,7 +121,7 @@ document.getElementById("downloadBtn").addEventListener("click", function () {
     document.body.removeChild(link);
   } else {
     // Show error toast if QR code is not found
-    showToast("Please generate a QR code first.");
+    showToast("Please generate a QR code first.", "text-bg-danger");
   }
 });
 
@@ -130,50 +146,168 @@ let scanning = false;
 // --- Helper Functions ---
 
 function displayScanResult(content, isError = false) {
-  // Stop camera scan if result is found
   if (!isError && scanning) {
     stopCameraScan();
   }
 
-  // FIX: Use classList to remove d-none
   scanResultContainer.classList.remove("d-none");
 
   if (isError) {
     scanResultElement.textContent = content;
     scanResultElement.classList.add("text-danger");
     openLinkBtn.classList.add("d-none");
-    openLinkBtn.removeAttribute("href");
   } else {
-    scanResultElement.textContent = content;
     scanResultElement.classList.remove("text-danger");
+    openLinkBtn.classList.add("d-none");
+    openLinkBtn.onclick = null;
+    openLinkBtn.target = "_self";
 
-    // 1. Logic to check for URL without using a complex Regex
-    let isUrl = false;
-    let finalUrl = "";
+    // --- SMART DECODER (Clean & Categorized) ---
 
-    try {
-      // If it looks like a domain (has a dot) but lacks a protocol, add https://
-      // This handles cases like "google.com" as well as "https://teams.microsoft.com..."
-      const testContent = content.match(/^[a-zA-Z0-9]+:\/\//)
-        ? content
-        : `https://${content}`;
+    // 1. WIFI
+    if (content.startsWith("WIFI:")) {
+      const ssid = content.match(/S:(.*?);/)?.[1] || "N/A";
+      const type = content.match(/T:(.*?);/)?.[1] || "Default";
+      const pass = content.match(/P:(.*?);/)?.[1] || "";
 
-      const urlObj = new URL(testContent);
+      scanResultElement.innerHTML = `<strong>Type:</strong> Wi-Fi Network<br><strong>SSID:</strong> ${ssid}<br><strong>Security:</strong> ${type}`;
 
-      // Ensure it has at least a basic domain structure (e.g., example.com)
-      isUrl = urlObj.hostname.includes(".");
-      finalUrl = testContent;
-    } catch (e) {
-      isUrl = false;
+      if (pass) {
+        openLinkBtn.classList.remove("d-none");
+        openLinkBtn.innerHTML =
+          '<i class="fa-solid fa-key me-1"></i> Copy WiFi Password';
+        openLinkBtn.onclick = (e) => {
+          e.preventDefault();
+          navigator.clipboard.writeText(pass);
+          showToast("Password copied to clipboard!", "text-bg-success");
+        };
+      }
     }
 
-    // 2. Update UI based on the check
-    if (isUrl) {
+    // 2. WHATSAPP (Separate Category)
+    else if (content.includes("wa.me")) {
+      const num = content.match(/wa.me\/(.*?)(\?|$)/)?.[1] || "Unknown";
+      const msgMatch = content.match(/text=(.*)/);
+      const msg = msgMatch
+        ? decodeURIComponent(msgMatch[1])
+        : "No pre-filled message";
+
+      scanResultElement.innerHTML = `<strong>Type:</strong> WhatsApp Chat<br><strong>Number:</strong> ${num}<br><strong>Message:</strong> ${msg}`;
+
       openLinkBtn.classList.remove("d-none");
-      openLinkBtn.href = finalUrl;
-    } else {
-      openLinkBtn.classList.add("d-none");
-      openLinkBtn.removeAttribute("href");
+      openLinkBtn.href = content;
+      openLinkBtn.target = "_blank";
+      openLinkBtn.innerHTML =
+        '<i class="fa-brands fa-whatsapp me-1"></i> Open WhatsApp';
+    }
+
+    // 3. CONTACT (vCard)
+    else if (content.includes("BEGIN:VCARD")) {
+      const name = content.match(/FN:(.*)/)?.[1] || "Unknown";
+      const tel = content.match(/TEL:(.*)/)?.[1] || "N/A";
+
+      scanResultElement.innerHTML = `<strong>Type:</strong> Contact Card<br><strong>Name:</strong> ${name}<br><strong>Phone:</strong> ${tel}`;
+
+      openLinkBtn.classList.remove("d-none");
+      openLinkBtn.innerHTML =
+        '<i class="fa-solid fa-address-book me-1"></i> Save Contact';
+      openLinkBtn.onclick = (e) => {
+        e.preventDefault();
+        const blob = new Blob([content], { type: "text/vcard" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "contact.vcf";
+        link.click();
+      };
+    }
+
+    // 4. EVENT (vCalendar)
+    else if (content.includes("BEGIN:VEVENT")) {
+      const title = content.match(/SUMMARY:(.*)/)?.[1] || "Untitled Event";
+      const loc = content.match(/LOCATION:(.*)/)?.[1] || "No Location";
+
+      scanResultElement.innerHTML = `<strong>Type:</strong> Calendar Event<br><strong>Event:</strong> ${title}<br><strong>Location:</strong> ${loc}`;
+
+      openLinkBtn.classList.remove("d-none");
+      openLinkBtn.innerHTML =
+        '<i class="fa-solid fa-calendar-plus me-1"></i> Add to Calendar';
+      openLinkBtn.onclick = (e) => {
+        e.preventDefault();
+        const blob = new Blob([content], { type: "text/calendar" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "event.ics";
+        link.click();
+      };
+    }
+
+    // 5. EMAIL
+    else if (content.startsWith("mailto:")) {
+      const email = content.split("?")[0].replace("mailto:", "");
+      const subMatch = content.match(/subject=(.*?)($|&)/);
+      const subject = subMatch ? decodeURIComponent(subMatch[1]) : "No Subject";
+
+      scanResultElement.innerHTML = `<strong>Type:</strong> Email<br><strong>To:</strong> ${email}<br><strong>Subject:</strong> ${subject}`;
+
+      openLinkBtn.classList.remove("d-none");
+      openLinkBtn.href = content;
+      openLinkBtn.innerHTML =
+        '<i class="fa-solid fa-envelope me-1"></i> Send Email';
+    }
+
+    // 6. SMS
+    else if (content.startsWith("SMSTO:")) {
+      const parts = content.split(":");
+      const num = parts[1] || "Unknown";
+      const msg = parts[2] || "No message";
+
+      scanResultElement.innerHTML = `<strong>Type:</strong> SMS Message<br><strong>Number:</strong> ${num}<br><strong>Message:</strong> ${msg}`;
+
+      openLinkBtn.classList.remove("d-none");
+      openLinkBtn.href = content;
+      openLinkBtn.innerHTML =
+        '<i class="fa-solid fa-comment-sms me-1"></i> Open SMS App';
+    }
+
+    // 7. LOCATION
+    else if (content.startsWith("geo:")) {
+      const coords = content.replace("geo:", "");
+      scanResultElement.innerHTML = `<strong>Type:</strong> Location<br><strong>Coordinates:</strong> ${coords}`;
+
+      openLinkBtn.classList.remove("d-none");
+      openLinkBtn.href = `https://www.google.com/maps/search/?api=1&query=${coords}`;
+      openLinkBtn.target = "_blank";
+      openLinkBtn.innerHTML =
+        '<i class="fa-solid fa-map-location-dot me-1"></i> Open in Maps';
+    }
+
+    // 8. DEFAULT (URL or Text)
+    else {
+      let isUrl = content.startsWith("http") || content.includes("www.");
+      scanResultElement.innerHTML = `<strong>Type:</strong> ${
+        isUrl ? "URL Link" : "Plain Text"
+      }<br><span class="text-break"><strong>Content:</strong> ${content}</span>`;
+
+      if (isUrl) {
+        openLinkBtn.classList.remove("d-none");
+        openLinkBtn.href = content.startsWith("http")
+          ? content
+          : `https://${content}`;
+        openLinkBtn.target = "_blank";
+        openLinkBtn.innerHTML =
+          '<i class="fa-solid fa-globe me-1"></i>Open URL';
+      } else {
+        openLinkBtn.classList.remove("d-none");
+        openLinkBtn.innerHTML =
+          '<i class="fa-solid fa-copy me-1"></i> Copy Text';
+        openLinkBtn.onclick = (e) => {
+          e.preventDefault();
+          navigator.clipboard.writeText(content);
+          showToast("Text copied to clipboard!", "text-bg-success");
+        };
+      }
     }
   }
 }
@@ -231,6 +365,9 @@ async function startCameraScan() {
   videoContainer.classList.remove("video-hidden");
   videoContainer.classList.remove("d-none");
 
+  // ADD THIS: Trigger the scanning line animation
+  videoContainer.classList.add("scanning");
+
   try {
     stream = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: "environment" },
@@ -250,7 +387,12 @@ async function startCameraScan() {
     };
   } catch (err) {
     console.error("Error accessing the camera:", err);
-    showToast("Camera access denied or failed. Please check permissions.");
+    // Remove the scanning line if camera fails
+    videoContainer.classList.remove("scanning");
+    showToast(
+      "Camera access denied or failed. Please check permissions.",
+      "text-bg-warning"
+    );
     stopCameraScan();
   }
 }
@@ -259,22 +401,33 @@ function scanLoop() {
   if (!scanning) return;
 
   if (qrVideo.readyState === qrVideo.HAVE_ENOUGH_DATA) {
-    // Draw video frame to canvas
-    qrCanvas.height = qrVideo.videoHeight;
-    qrCanvas.width = qrVideo.videoWidth;
-    ctx.drawImage(qrVideo, 0, 0, qrCanvas.width, qrCanvas.height);
+    try {
+      // Draw video frame to canvas
+      qrCanvas.height = qrVideo.videoHeight;
+      qrCanvas.width = qrVideo.videoWidth;
+      ctx.drawImage(qrVideo, 0, 0, qrCanvas.width, qrCanvas.height);
 
-    const imageData = ctx.getImageData(0, 0, qrCanvas.width, qrCanvas.height);
-    const code = jsQR(imageData.data, imageData.width, imageData.height);
+      const imageData = ctx.getImageData(0, 0, qrCanvas.width, qrCanvas.height);
 
-    if (code) {
-      // QR code found!
-      displayScanResult(code.data);
-      // stopCameraScan() is called inside displayScanResult
+      // Attempt to decode
+      const code = jsQR(imageData.data, imageData.width, imageData.height, {
+        inversionAttempts: "dontInvert", // Speed up scanning
+      });
+
+      if (code) {
+        // QR code found!
+        // We call displayScanResult which will trigger stopCameraScan()
+        displayScanResult(code.data);
+        return; // Exit the loop because we found a result
+      }
+    } catch (err) {
+      // If a single frame fails, we just log it and keep going
+      console.warn("Scanning frame skipped due to error:", err);
     }
   }
 
-  // Schedule the next frame scan
+  // CRITICAL: This must be outside the 'if(code)' block
+  // to ensure the loop keeps searching for a QR code.
   animationFrameId = requestAnimationFrame(scanLoop);
 }
 
@@ -285,12 +438,14 @@ function stopCameraScan() {
   }
   scanning = false;
 
-  // 1. Start the fade-out animation by adding the CSS class
+  // 1. Remove the scanning class to hide the line immediately
+  videoContainer.classList.remove("scanning");
+
+  // 2. Start the fade-out animation
   videoContainer.classList.add("video-hidden");
-  // Remove d-none if it was there to ensure visibility logic is handled by our new class
   videoContainer.classList.remove("d-none");
 
-  // 2. Wait 500ms (the length of your CSS transition) before stopping the hardware
+  // 3. Wait 500ms before stopping hardware
   setTimeout(() => {
     if (!scanning && stream) {
       stream.getTracks().forEach((track) => track.stop());
@@ -364,9 +519,21 @@ dropZone.addEventListener(
   false
 );
 
-function showToast(message) {
+function showToast(message, bgcolor) {
   const toast = document.getElementById("liveToast");
-  toast.querySelector(".toast-body").textContent = message;
+  const toastBody = toast.querySelector(".toast-body");
+
+  // Remove common Bootstrap background classes so they don't stack
+  toast.classList.remove(
+    "text-bg-success",
+    "text-bg-danger",
+    "text-bg-warning",
+    "text-bg-info"
+  );
+
+  toastBody.textContent = message;
+  if (bgcolor) toast.classList.add(bgcolor);
+
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
   toastBootstrap.show();
 }

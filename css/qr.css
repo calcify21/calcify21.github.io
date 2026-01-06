@@ -1,12 +1,10 @@
-.generator {
-  width: max-content;
-}
-
 /* --- Generator Specific Styles --- */
 
 /* QR Code Display Element */
 #qrcode {
-  padding: 10px;
+  background: white; /* Mandatory for contrast */
+  padding: 15px; /* The 'Quiet Zone' */
+  border-radius: 8px; /* Optional aesthetics */
 }
 
 /* Prevent QR Code image overflow and ensure responsiveness */
@@ -20,8 +18,10 @@
 /* Scanner Video Element */
 #qrVideo {
   max-width: 100%;
-  max-height: 400px; /* Limits the max height of the video feed */
+  max-height: 400px;
   object-fit: cover;
+  position: relative; /* Add this */
+  z-index: 1; /* Keep video at the bottom layer */
 }
 
 /* Drop Zone Styles (for Upload/Drop functionality) */
@@ -65,6 +65,37 @@ html[data-bs-theme="dark"] #scanResultContainer {
   margin: 0 auto; /* Keeps it centered */
   transition: opacity 0.5s ease, max-height 0.5s ease, max-width 0.5s ease;
   overflow: hidden;
+  position: relative;
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  /* background: #00ff00; Green laser color */
+  box-shadow: 0 0 15px 5px rgba(255, 0, 0, 0.5);
+  z-index: 10;
+  display: none; /* Hidden by default */
+  animation: scanAnimation 2s linear infinite;
+}
+
+/* The movement logic */
+@keyframes scanAnimation {
+  0% {
+    top: 0%;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: 0%;
+  }
+}
+
+#videoContainer.scanning .scan-line {
+  display: block;
 }
 
 .video-hidden {
@@ -91,4 +122,11 @@ html[data-bs-theme="dark"] #scanResultContainer {
 .qr-result-area.show-animation {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Keeps the generator from stretching across the whole screen */
+.generator {
+  max-width: 500px;
+  min-width: 400px !important;
+  margin: 0 auto; /* Centers it on the page */
 }
