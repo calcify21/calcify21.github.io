@@ -23,6 +23,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Calcify - Smart Online Calculators" />
   <meta name="twitter:image" content="https://calc.aurabyte.in/assets/images/thumbnail.png" />
+  <link rel="manifest" href="/manifest.json">
   <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -78,6 +79,9 @@
               <option value="auto">Auto Mode</option>
             </select>
           </div>
+          <button id="installAppBtn" class="btn btn-primary d-none" style="margin-left: 10px;">
+            <i class="fa-solid fa-download me-1"></i> Install Calcify
+          </button>
         </div>
       </div>
     </nav>
@@ -182,6 +186,17 @@
     crossorigin="anonymous"></script>
   <script src="js/script.js"></script>
   <script src="js/common.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('js/sw.js')
+        .then(function (registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(function (error) {
+          console.log('Service Worker registration failed:', error);
+        });
+    }
+  </script>
 </body>
 
 </html>

@@ -41,3 +41,19 @@ function back() {
   todisp = screen.value.substring(0, screen.value.length - 1);
   screen.value = todisp;
 }
+
+let deferredPrompt;
+const installBtn = document.getElementById("installAppBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show the button now that the browser says it's "installable"
+  installBtn.classList.remove("d-none");
+
+  installBtn.addEventListener("click", () => {
+    installBtn.classList.add("d-none");
+    deferredPrompt.prompt();
+    deferredPrompt = null;
+  });
+});
