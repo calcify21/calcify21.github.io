@@ -1,22 +1,21 @@
 {
   "name": "Calcify - Smart Tools",
   "short_name": "Calcify",
-  "description": "All-in-one calculator and QR toolkit.",
-  "start_url": "/index.html",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0d6efd",
   "icons": [
     {
       "src": "assets/images/favicon-2.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "assets/images/favicon-7.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "_comment": {
-    "src": "assets/images/logo.png",
-    "sizes": "512x512",
-    "type": "image/png",
-    "purpose": "any maskable"
-  }
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d6efd"
 }
