@@ -221,3 +221,24 @@ document.querySelectorAll('input[name="ratingOpt"]').forEach((radio) => {
     form.classList.add("was-validated");
   });
 });
+
+document
+  .getElementById("clear-btn")
+  .addEventListener("click", function (event) {
+    // 1. Prevent the default reset if you want total control,
+    // though type="reset" handles the text fields fine.
+
+    // 2. Remove the Bootstrap 'was-validated' checkmarks/red borders
+    form.classList.remove("was-validated");
+
+    // 3. Reset custom validation messages so they don't pop up immediately on next type
+    document.getElementById("name").setCustomValidity("");
+    document.getElementById("phn").setCustomValidity("");
+
+    // 4. Remove any remaining shake classes
+    form.querySelectorAll(".input-shake").forEach((element) => {
+      element.classList.remove("input-shake");
+    });
+
+    console.log("Form cleared and validation states reset.");
+  });

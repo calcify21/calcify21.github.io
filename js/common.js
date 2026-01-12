@@ -1,5 +1,43 @@
 // common.js
 
+// Install Calcify button
+let deferredPrompt;
+const installBtn = document.getElementById("installAppBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  // Show the button in the DOM
+  installBtn.classList.remove("d-none");
+
+  // Step 1: Pop the button in
+  setTimeout(() => {
+    installBtn.classList.add("animate-install-ready");
+  }, 500);
+
+  // Step 2: Start the light-sweep shimmer after it's visible
+  setTimeout(() => {
+    installBtn.classList.add("shimmer-loop");
+  }, 1200);
+
+  installBtn.addEventListener("click", () => {
+    // Immediate feedback: shrink the button slightly on click
+    installBtn.style.transform = "scale(0.9)";
+
+    deferredPrompt.prompt();
+
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        installBtn.classList.add("d-none");
+      } else {
+        installBtn.style.transform = "scale(1)"; // Reset if they cancel
+      }
+      deferredPrompt = null;
+    });
+  });
+});
+
 // Go to top and bottom buttons
 let topbtn = document.getElementById("topbtn");
 let downbtn = document.getElementById("bottombtn");
@@ -128,49 +166,3 @@ function checkTheme() {
 }
 
 window.onload = checkTheme();
-
-// Navbar Collapse Functionality
-document.addEventListener("DOMContentLoaded", function () {
-  const navbar = document.querySelector(".navbar");
-  const navbarCollapse = document.querySelector("#navbarSupportedContent");
-  const mainElement = document.querySelector("main");
-
-  // When the menu is expanded
-  navbarCollapse.addEventListener("show.bs.collapse", function () {
-    navbar.style.height = "auto"; // Adjust to fit content
-
-    // Check the screen width and apply corresponding margin
-    if (window.innerWidth <= 520) {
-      mainElement.style.marginTop = "220px";
-    } else if (window.innerWidth <= 991) {
-      mainElement.style.marginTop = "150px";
-    } else {
-      mainElement.style.marginTop = "70px"; // Default margin for larger screens
-    }
-  });
-
-  // When the menu is collapsed
-  navbarCollapse.addEventListener("hidden.bs.collapse", function () {
-    navbar.style.height = "70px"; // Default collapsed height
-
-    mainElement.style.marginTop = "70px"; // Reset margin when collapsed
-  });
-
-  window.addEventListener("resize", function () {
-    navbarCollapse.addEventListener("show.bs.collapse", function () {
-      // Check the screen width and apply corresponding margin
-      if (window.innerWidth <= 520) {
-        mainElement.style.marginTop = "220px";
-      } else if (window.innerWidth <= 991) {
-        mainElement.style.marginTop = "150px";
-      } else {
-        mainElement.style.marginTop = "70px"; // Default margin for larger screens
-      }
-    });
-    navbarCollapse.addEventListener("hidden.bs.collapse", function () {
-      navbar.style.height = "70px"; // Default collapsed height
-
-      mainElement.style.marginTop = "70px"; // Reset margin when collapsed
-    });
-  });
-});

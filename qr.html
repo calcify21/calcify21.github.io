@@ -4,15 +4,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="canonical" href="https://calc.aurabyte.in/qr.html" />
-  <title>Calcify | QR Code Generator</title>
-  <link rel="stylesheet" href="css/qr.css" />
-  <link rel="stylesheet" href="css/common.css" />
+  <title>QR Code Generator & Online Scanner | Calcify</title>
+  <meta name="description"
+    content="Create custom QR codes or scan them online instantly. A free, all-in-one QR utility to generate codes from text and scan codes using your camera or files." />
+
+  <link rel="canonical" href="https://calc.aurabyte.in/qr" />
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
   <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/qr.css" />
+
   <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
-  <meta name="description" content="Convert text or links into QR codes instantly with this quick QR code generator." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calc.aurabyte.in/qr" />
+  <meta property="og:title" content="Free QR Generator & Online QR Scanner | Calcify" />
+  <meta property="og:description"
+    content="Generate and scan QR codes in one place. Fast, free, and works directly in your browser without downloads." />
+  <meta property="og:image" content="https://calc.aurabyte.in/assets/images/thumbnail.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="QR Code Toolkit | Calcify" />
+  <meta name="twitter:description" content="One-stop tool for QR generation and scanning." />
+  <meta name="twitter:image" content="https://calc.aurabyte.in/assets/images/thumbnail.png" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "QR Code Generator and Scanner",
+      "operatingSystem": "Any",
+      "applicationCategory": "MultimediaApplication",
+      "description": "An online toolkit that allows users to generate QR codes from text/URLs and scan existing QR codes using a camera or uploaded image files.",
+      "url": "https://calc.aurabyte.in/qr",
+      "image": "https://calc.aurabyte.in/assets/images/thumbnail.png",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Aurabyte",
+        "url": "https://aurabyte.in"
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -20,7 +55,7 @@
     <!-- * Navbar -->
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="/">
           <img src="assets/images/logo.png" class="logo" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -31,19 +66,19 @@
           <span class="me-auto"></span>
           <ul class="navbar-nav nav-underline mb-2 mb-lg-0 me-auto">
             <li class="nav-item">
-              <a href="index.html" class="nav-link" aria-current="page">Home</a>
+              <a href="/" class="nav-link" aria-current="page">Home</a>
             </li>
             <li class="nav-item">
-              <a href="about.html" class="nav-link">About Us</a>
+              <a href="/about" class="nav-link">About Us</a>
             </li>
             <li class="nav-item">
-              <a href="calcs.html" class="nav-link">Our Calculators</a>
+              <a href="/calcs" class="nav-link">Our Calculators</a>
             </li>
             <li class="nav-item">
-              <a href="fav.html" class="nav-link">Favourites</a>
+              <a href="/fav" class="nav-link">Favourites</a>
             </li>
             <li class="nav-item">
-              <a href="contact.html" class="nav-link">Get in Touch</a>
+              <a href="/contact" class="nav-link">Get in Touch</a>
             </li>
           </ul>
           <div>
@@ -53,10 +88,12 @@
               <option value="auto">Auto Mode</option>
             </select>
           </div>
+          <button id="installAppBtn" class="btn btn-primary d-none" style="margin-left: 10px;">
+            <i class="fa-solid fa-download me-1"></i> Install Calcify
+          </button>
         </div>
       </div>
     </nav>
-    <br />
   </header>
   <main>
     <div class="container">
@@ -338,13 +375,10 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.min.js"></script> <!-- Scanner Script -->
   <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> <!-- Generator Script -->
-  <script src="js/qr.js"></script>
   <script src="js/common.js"></script>
+  <script src="js/qr.js"></script>
 </body>
 
 </html>
