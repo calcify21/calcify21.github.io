@@ -1,3 +1,3 @@
 self.addEventListener("fetch", (event) => {
-  // Required for PWA installation
+  // Keeps the app installable
 });
