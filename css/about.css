@@ -1,8 +1,16 @@
+/* ============================================================
+   LINK STYLING
+   Handles the color state of specific anchor tags.
+   ============================================================ */
 .a:link,
 .a:visited {
-  color: #802610;
+  color: #802610; /* Custom brown-tone for visited/standard links */
 }
 
+/* ============================================================
+   TYPOGRAPHY
+   Adjustments for content readability.
+   ============================================================ */
 .paragraphs {
-  font-size: 20px;
+  font-size: 20px; /* Slightly larger text for easier reading of story content */
 }

@@ -38,37 +38,67 @@ window.addEventListener("beforeinstallprompt", (e) => {
   });
 });
 
-// Go to top and bottom buttons
-let topbtn = document.getElementById("topbtn");
-let downbtn = document.getElementById("bottombtn");
+// * Go to top and bottom buttons (improved version)
+const topBtn = document.getElementById("topbtn");
+const bottomBtn = document.getElementById("bottombtn");
+const progressBar = document.getElementById("myBar");
 
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function () {
-  scrollFunction();
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    downbtn.style.display = "none";
-  } else {
-    downbtn.style.display = "block";
+let isScrolling = false;
+
+window.addEventListener("scroll", () => {
+  // This prevents the code from running too often
+  if (!isScrolling) {
+    window.requestAnimationFrame(() => {
+      handleScrollEffects();
+      isScrolling = false;
+    });
+    isScrolling = true;
   }
-};
+});
 
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    topbtn.style.display = "block";
+function handleScrollEffects() {
+  const winScroll = window.pageYOffset || document.documentElement.scrollTop;
+  const totalHeight =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+
+  // Calculate percentage once
+  const scrolled = (winScroll / totalHeight) * 100;
+
+  // 1. Update Progress Bar width smoothly
+  progressBar.style.width = scrolled + "%";
+
+  // 2. Optimized Toggle Logic (Prevents unnecessary DOM updates)
+  if (winScroll > 150) {
+    if (!topBtn.classList.contains("show-btn"))
+      topBtn.classList.add("show-btn");
   } else {
-    topbtn.style.display = "none";
+    if (topBtn.classList.contains("show-btn"))
+      topBtn.classList.remove("show-btn");
+  }
+
+  if (scrolled > 98) {
+    if (bottomBtn.classList.contains("show-btn"))
+      bottomBtn.classList.remove("show-btn");
+  } else {
+    if (!bottomBtn.classList.contains("show-btn"))
+      bottomBtn.classList.add("show-btn");
   }
 }
 
+// Global functions for buttons
 function gototop() {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function gotobottom() {
+  window.scrollTo({
+    top: document.documentElement.scrollHeight,
+    behavior: "smooth",
+  });
 }
 
-function gotobottom() {
-  document.body.scrollTop = document.body.scrollHeight; // For Safari
-  document.documentElement.scrollTop = document.documentElement.scrollHeight; // For Chrome, Firefox, IE and Opera
-}
+// Initial check
+handleScrollEffects();
 
 // Change buttons from light to dark backgrounds and vice versa on theme change
 function setLightTheme() {

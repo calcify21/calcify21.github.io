@@ -1,40 +1,6 @@
 function addField() {
   const newInputCount = document.getElementsByClassName("num-input").length + 1;
   const ordinalNum = utils().getOrdinalSuffixOf(newInputCount);
-  // // * Row
-  // const newInput = document.createElement("div");
-  // newInput.className = "row";
-  // // * Col 1
-  // const newCol1 = document.createElement("div");
-  // newCol1.className = "col";
-  // // * Input Field and Label Div
-  // const newDiv = document.createElement("div");
-  // newDiv.className = "form-floating mb-3";
-  // // * Input Field
-  // const newInputField = document.createElement("input");
-  // newInputField.type = "number";
-  // newInputField.className = "form-control num-input";
-  // newInputField.placeholder = `Enter number ${newInputCount}`;
-  // newInputField.id = `num${newInputCount}`;
-  // // * Input Label
-  // const newInputLabel = document.createElement("label");
-  // newInputLabel.htmlFor = `num${newInputCount}`;
-  // newInputLabel.textContent = `Enter ${ordinalNum} Number`;
-  // // * Col 2
-  // const newCol2 = document.createElement("div");
-  // newCol2.className = "col-1";
-  // // * Remove Button
-  // const newRemoveBtn = document.createElement("button");
-  // newRemoveBtn.className = "fa-solid fa-xmark-circle btn text-danger";
-  // newRemoveBtn.style.fontSize = "30px";
-  // // * Append all new elements
-  // document.getElementById("input-container").appendChild(newInput);
-  // newInput.appendChild(newCol1);
-  // newCol1.appendChild(newDiv);
-  // newDiv.appendChild(newInputField);
-  // newDiv.appendChild(newInputLabel);
-  // newInput.appendChild(newCol2);
-  // newCol2.appendChild(newRemoveBtn);
 
   let newInputCtrlHtml = `<div class="input-group mb-3 input${newInputCount}">
     <div class="form-floating">
@@ -111,12 +77,12 @@ function find(sum, values) {
     }
   }
   if (mode.length === values.length) {
-    mode = "All values appeared just once.";
+    mode = "No mode. All values appeared just once.";
   } else if (mode.length === 1) {
-    mode = `${mode} - appeared ${maxFreq} times.`;
+    mode = `${mode} (appeared ${maxFreq} times.)`;
   } else {
     // mode = mode.join(", ");
-    mode = `${mode.join(", ")} - each appeared ${maxFreq} times.`;
+    mode = `${mode.join(", ")} (each appeared ${maxFreq} times.)`;
   }
 
   // * Sort values in ascending order

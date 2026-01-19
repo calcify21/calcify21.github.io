@@ -1,39 +1,60 @@
+/* ============================================================
+   CALCULATOR CONTAINER & WRAPPER
+   Handles the overall sizing and spacing of the calculator.
+   ============================================================ */
 .calc {
   width: auto;
   padding: 10px;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 0 auto; /* Centers the calculator horizontally */
 }
 
+/* ============================================================
+   DISPLAY SCREEN
+   Styles for the input field where numbers and results appear.
+   ============================================================ */
+#screen {
+  font-size: 25px;
+  text-align: right; /* Aligns text to the right like a standard calculator */
+}
+
+/* ============================================================
+   KEYPAD GRID LAYOUT
+   Sets up the 4-column structure for the calculator buttons.
+   ============================================================ */
+.calc-keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Creates 4 equal columns */
+}
+
+/* ============================================================
+   BUTTON STYLING & INTERACTION
+   Defines the circular shape, shadows, and hover effects.
+   ============================================================ */
 .mybtn {
   width: 60px;
   height: 60px;
   margin: 10px !important;
-  box-shadow: -2px -1px 11px rgba(21, 53, 72, 0.9);
-  border-radius: 50% !important;
-  transition: all 0.3s ease-in-out !important;
+  box-shadow: -2px -1px 11px rgba(21, 53, 72, 0.9); /* Deep shadow for depth */
+  border-radius: 50% !important; /* Forces buttons to be perfectly circular */
+  transition: all 0.3s ease-in-out !important; /* Smooth transition for hover effects */
 }
 
+/* Brightens the button slightly when the user hovers over it */
 .mybtn:hover {
   filter: brightness(110%);
 }
 
-#screen {
-  font-size: 25px;
-  text-align: right;
-}
-
-.calc-keys {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-}
-
+/* Specific styling for operator keys (non-numeric) */
 .calc-operate {
   color: #000 !important;
 }
 
-/* 
-#equal {
+/* ============================================================
+   COMMENTED OUT RULES
+   ============================================================ */
+
+/* #equal {
     background-color: orange;
 } */
 

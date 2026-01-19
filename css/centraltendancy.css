@@ -1,6 +1,40 @@
-#result {
-  display: none;
+/* ============================================================
+   DISPLAY CONTROL
+   ============================================================ */
+
+#result,
+#resultsTable {
+  display: none; /* Initially hidden; shown after valid calculation */
 }
+
+/* ============================================================
+   TABLE STYLING
+   ============================================================ */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Lighter border for modern feel */
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #f8f9fa;
+}
+
+/* ============================================================
+   UI UTILITIES
+   ============================================================ */
 
 i:hover {
   cursor: pointer;
@@ -11,27 +45,6 @@ i:hover {
   width: 200px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-table,
-th,
-td {
-  border: 1px solid black;
-}
-
-th,
-td {
-  padding: 8px;
-  text-align: left;
-}
-
-th {
-  background-color: #f2f2f2;
-}
-
-#resultsTable {
-  display: none;
+.inheritColor {
+  color: inherit;
 }

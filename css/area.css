@@ -1,20 +1,34 @@
+/* ============================================================
+   VISIBILITY CONTROL
+   Logic for toggling shape forms and results.
+   ============================================================ */
+
 .result {
-  display: none;
+  display: none; /* Hidden until calculation is triggered */
 }
+
+.calcs {
+  display: none; /* All forms hidden by default; toggled via JS */
+}
+
+#rect_form {
+  display: block; /* Rectangle is the default visible tool */
+}
+
+/* ============================================================
+   UI COMPONENTS
+   ============================================================ */
 
 .big {
   font-size: 20px;
 }
 
-#rect_form {
-  display: block;
-}
-
-.calcs {
-  display: none;
-}
-
 .toastContainer {
   top: 55px;
   width: 200px;
+}
+
+/* Ensure the 'Calculate' link doesn't change color styles */
+.inheritColor {
+  color: inherit;
 }

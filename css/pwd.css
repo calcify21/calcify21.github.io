@@ -7,7 +7,7 @@
 
 .input-group-icons:hover i {
   transform: translate3d(0, -0.125rem, 0);
-  /* transition: transform 0.2s ease; */ /* Transition coming from common.css * selector */
+  transition: transform 0.2s ease;
 }
 
 .input-container input {

@@ -1,21 +1,30 @@
-body {
-  font-family: "Open Sans", sans-serif;
-  height: 100%;
-}
+/* ============================================================
+   ERROR PAGE COMPONENTS
+   Styles for the illustration, heading, and text.
+   ============================================================ */
 
+/* Main Error Illustration */
 .error img {
   width: 500px;
 }
 
+/* Primary Error Heading */
 .error h1 {
   font-size: 48px;
 }
 
+/* Error Description Paragraph */
 .error p {
   font-size: 22px;
 }
 
+/* ============================================================
+   INTERACTIVE ELEMENTS
+   Hover animations for links and icons.
+   ============================================================ */
+
+/* Animates the arrow icon in the "Go to home" link on hover */
 .icon-link-hover:hover i {
   transform: var(--bs-icon-link-transform, translate3d(0.25em, 0, 0));
-  /* transition: transform 0.2s ease-in-out; */ /* Transition coming from common.css * selector */
+  transition: transform 0.2s ease-in-out;
 }

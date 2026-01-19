@@ -43,13 +43,11 @@ function customValidation() {
           "Phone number cannot start with +91.";
       }
       formOverallValid = false;
-    } else if (!/^[6-9]\d{9}$/.test(phoneValue)) {
-      phoneInput.setCustomValidity(
-        "Please enter a valid 10-digit Indian phone number (starts with 6-9)."
-      );
+    } else if (!/^\d{10}$/.test(phoneValue)) {
+      phoneInput.setCustomValidity("Please enter a valid phone number.");
       if (phoneInvalidFeedback) {
         phoneInvalidFeedback.textContent =
-          "Please enter a valid 10-digit Indian phone number (starts with 6-9).";
+          "Please enter a valid phone number.k";
       }
       formOverallValid = false;
     }

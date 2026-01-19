@@ -98,38 +98,136 @@ window.addEventListener("load", () => {
 
 // List of common words for the structured pattern option
 const commonWords = [
-  "Apple",
-  "River",
-  "Sunny",
-  "Cloud",
-  "Tiger",
-  "Ocean",
-  "Green",
-  "Happy",
-  "Music",
+  // --- Nature & Outdoors ---
+  "Alpine",
+  "Bonsai",
+  "Canyon",
+  "Desert",
+  "Everest",
   "Forest",
-  "Pizza",
-  "Chair",
-  "Dream",
+  "Geyser",
+  "Hollow",
+  "Island",
+  "Jungle",
+  "Kelp",
+  "Lagoon",
+  "Meadow",
+  "Nebula",
+  "Ocean",
+  "Prairie",
+  "Quartz",
+  "River",
+  "Summit",
+  "Tundra",
+  "Valley",
+  "Willow",
+  "Xylem",
+  "Yucca",
+  "Zephyr",
+
+  // --- Animals & Wildlife ---
+  "Falcon",
+  "Grizzly",
+  "Jaguar",
+  "Kestrel",
+  "Lemur",
+  "Magpie",
+  "Narwhal",
+  "Ocelot",
+  "Panther",
+  "Quokka",
+  "Raven",
+  "Stallion",
+  "Tiger",
+  "Urchin",
+  "Viper",
+  "Walrus",
+  "X-ray",
+  "Yak",
+  "Zebra",
+  "Dolphin",
+  "Badger",
+  "Otter",
+  "Phoenix",
+  "Griffin",
+
+  // --- Space & Science ---
+  "Atom",
+  "Binary",
+  "Comet",
+  "Delta",
+  "Eclipse",
+  "Fusion",
+  "Galaxy",
+  "Helix",
+  "Ion",
+  "Jupiter",
+  "Kinetic",
+  "Lunar",
+  "Meteor",
+  "Nova",
+  "Orbit",
+  "Photon",
+  "Quasar",
+  "Radar",
+  "Solar",
+  "Tesla",
+  "Unit",
+  "Vector",
+  "Warp",
+  "Zenith",
+
+  // --- Abstract & Descriptive ---
+  "Ancient",
   "Brave",
-  "Quiet",
-  "Flower",
-  "Spark",
+  "Crimson",
+  "Dream",
+  "Echo",
+  "Frosty",
+  "Golden",
+  "Hidden",
+  "Indigo",
+  "Jolly",
+  "Kindle",
   "Light",
   "Magic",
-  "Journey",
-  "Shadow",
-  "Whisper",
+  "Noble",
+  "Opal",
+  "Placid",
+  "Quiet",
+  "Rustic",
   "Silver",
-  "Golden",
   "Thunder",
-  "Mountain",
-  "Valley",
-  "Crystal",
-  "Willow",
+  "Urban",
+  "Velvet",
+  "Whisper",
+  "Yield",
+
+  // --- Objects & Structures ---
+  "Anchor",
+  "Bridge",
+  "Castle",
+  "Dagger",
+  "Engine",
+  "Forge",
+  "Guitar",
+  "Hammer",
+  "Igloo",
+  "Jacket",
+  "Kite",
   "Lantern",
-  "Echo",
-  "Crimson",
+  "Marble",
+  "Needle",
+  "Outlet",
+  "Pillar",
+  "Quilt",
+  "Rocket",
+  "Saddle",
+  "Temple",
+  "Umber",
+  "Vessel",
+  "Window",
+  "Yacht",
 ];
 
 function generateMemorablePassword() {
@@ -164,7 +262,9 @@ function generateMemorablePassword() {
   };
 
   if (selectedMethod === "namePhrase") {
-    let rawNameInput = document.getElementById("name1").value.trim();
+    let rawNameInput = document
+      .getElementById("name1")
+      .value.replaceAll(" ", "");
     if (!rawNameInput) {
       // alert("Please enter a name or phrase for your memorable password.");
       const toast4 = document.getElementById("noName");
@@ -203,7 +303,9 @@ function generateMemorablePassword() {
     baseString = baseString.toLowerCase(); // Convert to lowercase for consistent capitalization application
   } else {
     // selectedMethod === 'structured'
-    let userWord = document.getElementById("commonWord").value.trim();
+    let userWord = document
+      .getElementById("commonWord")
+      .value.replaceAll(" ", "");
     let wordForPattern = "";
 
     if (userWord) {

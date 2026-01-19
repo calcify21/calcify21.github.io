@@ -1,35 +1,29 @@
+/* ============================================================
+   LAYOUT & FORM STYLING
+   ============================================================ */
+
 .contact {
   max-width: 900px;
 }
 
 textarea {
-  resize: none;
+  resize: none; /* Prevents user from breaking the layout */
 }
 
-.contact-image {
-  animation: planeMovement 4s ease-in-out 1s infinite alternate;
-  position: relative;
-}
+/* ============================================================
+   SUCCESS ANIMATION (SVG)
+   ============================================================ */
 
 .tick-container {
-  display: none;
-  /* Initially hidden */
+  display: none; /* Toggled by js/contact.js upon successful submission */
   text-align: center;
-  margin-top: 20%;
+  margin-top: 15%;
 }
 
 .tick-svg {
   width: 120px;
-  /* Increased size for better visibility */
   height: 120px;
-  stroke: #4caf50;
-  /* Green color similar to GPay */
-  stroke-width: 5;
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
   animation: draw 1s ease forwards;
-  /* Trigger the animation */
 }
 
 #custom-message {
@@ -38,75 +32,52 @@ textarea {
   margin-top: 20px;
 }
 
-.was-validated :invalid ~ .invalid-feedback {
-  display: inline;
-}
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
 
-/* Animations */
+/* Floating Plane animation for the visual asset */
 @keyframes planeMovement {
-  0% {
-    top: 0px;
-  }
-
-  50% {
-    top: -30px;
-  }
-
+  0%,
   100% {
     top: 0px;
   }
+  50% {
+    top: -30px;
+  }
 }
 
+.contact-image {
+  animation: planeMovement 4s ease-in-out 1s infinite alternate;
+  position: relative;
+}
+
+/* Drawing effect for the success tick */
 @keyframes draw {
   0% {
     stroke-dasharray: 0, 100;
   }
-
   100% {
     stroke-dasharray: 100, 0;
   }
 }
 
-/* Keyframes for the shake animation */
+/* Shake animation applied to invalid fields */
 @keyframes shake {
   0%,
   100% {
     transform: translateX(0);
   }
-  10% {
-    transform: translateX(-5px);
-  }
-  20% {
-    transform: translateX(5px);
-  }
-  30% {
-    transform: translateX(-5px);
-  }
-  40% {
-    transform: translateX(5px);
-  }
-  50% {
-    transform: translateX(-5px);
-  }
+  20%,
   60% {
-    transform: translateX(5px);
-  }
-  70% {
     transform: translateX(-5px);
   }
+  40%,
   80% {
     transform: translateX(5px);
   }
-  90% {
-    transform: translateX(-5px);
-  }
 }
 
-/* Class to apply the shake animation to the input itself */
-/* This will make the input and its immediate error message (if a sibling) shake */
 .input-shake {
   animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
 }

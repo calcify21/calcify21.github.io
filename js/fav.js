@@ -25,9 +25,9 @@ function generateCalculatorHtml(id) {
     title = "Percentage Calculator";
     text = "A calculator containing various operations on percentages.";
   } else if (id == "mean") {
-    title = "Mean, Median, Mode, Range Calculator";
+    title = "Central Tendency Calculator";
     text =
-      "A calculator to find the mean, median, mode, and range of a set of numbers.";
+      "A calculator to find the statistical calculations for a set of numbers.";
   } else if (id == "area") {
     title = "Area Calculator";
     text = "A calculator to find the area of various 2D figures.";

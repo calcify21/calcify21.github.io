@@ -51,46 +51,53 @@
 </head>
 
 <body>
+  <div class="progress fixed-top" style="height: 5px;">
+    <div class="progress-bar" id="myBar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
+      aria-valuemax="100"></div>
+  </div>
   <header>
-    <!-- * Navbar -->
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">
           <img src="assets/images/logo.png" class="logo" />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <span class="me-auto"></span>
-          <ul class="navbar-nav nav-underline mb-2 mb-lg-0 me-auto">
-            <li class="nav-item">
-              <a href="/" class="nav-link" aria-current="page">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="/about" class="nav-link">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a href="/calcs" class="nav-link">Our Tools</a>
-            </li>
-            <li class="nav-item">
-              <a href="/fav" class="nav-link">Favourites</a>
-            </li>
-            <li class="nav-item">
-              <a href="/contact" class="nav-link">Get in Touch</a>
-            </li>
-          </ul>
-          <div>
-            <select class="form-select" onchange="toggleTheme()" id="select-menu">
-              <option selected value="light">Light Mode</option>
-              <option value="dark">Dark Mode</option>
-              <option value="auto">Auto Mode</option>
-            </select>
+        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-body">
+            <span class="me-auto"></span>
+
+            <ul class="navbar-nav nav-underline mb-3 mb-lg-0 me-auto">
+              <li class="nav-item">
+                <a href="/" class="nav-link">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="/about" class="nav-link">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a href="/calcs" class="nav-link">Our Tools</a>
+              </li>
+              <li class="nav-item">
+                <a href="/fav" class="nav-link">Favourites</a>
+              </li>
+              <li class="nav-item">
+                <a href="/contact" class="nav-link">Get in Touch</a>
+              </li>
+            </ul>
+            <div class="d-flex justify-content-center align-items-center">
+              <select class="form-select w-auto" onchange="toggleTheme()" id="select-menu">
+                <option selected value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+                <option value="auto">Auto Mode</option>
+              </select>
+              <button id="installAppBtn" class="btn btn-primary d-none ms-2">
+                <i class="fa-solid fa-download me-1"></i> Install Calcify
+              </button>
+            </div>
           </div>
-          <button id="installAppBtn" class="btn btn-primary d-none" style="margin-left: 10px;">
-            <i class="fa-solid fa-download me-1"></i> Install Calcify
-          </button>
         </div>
       </div>
     </nav>
@@ -134,7 +141,7 @@
       <!-- * Rectangle Form -->
       <div id="rect_form" class="calcs">
         <form>
-          <p class="fw-bold">Formula: Area = length x width</p>
+          <p class="fw-bold">Formula: Area = length &times; width</p>
           <div class="row">
             <div class="col">
               <div class="form-floating mb-3">
@@ -163,7 +170,7 @@
 
       <!-- * Square Form -->
       <div id="sq_form" class="calcs">
-        <p class="fw-bold">Formula: Area = side x side</p>
+        <p class="fw-bold">Formula: Area = side &times; side</p>
         <div class="row">
           <div class="col">
             <div class="form-floating mb-3">
@@ -186,7 +193,7 @@
       <div id="quad_form" class="calcs">
         <form>
           <p class="fw-bold">
-            Formula: Area = 1/2 x diagonal x (sum of offsets)
+            Formula: Area = &frac12; &times; diagonal &times; (sum of offsets)
           </p>
           <div class="row">
             <div class="col">
@@ -223,7 +230,7 @@
       <!-- * Parallelogram Form -->
       <div id="para_form" class="calcs">
         <form>
-          <p class="fw-bold">Formula: Area = base x corresponding height</p>
+          <p class="fw-bold">Formula: Area = base &times; corresponding height</p>
           <div class="row">
             <div class="col">
               <div class="form-floating mb-3">
@@ -254,7 +261,7 @@
       <!-- * Triangle Form -->
       <div id="tri_form" class="calcs">
         <!-- * Simple -->
-        <p class="fw-bold">Formula: Area = 1/2 x base x height</p>
+        <p class="fw-bold">Formula: Area = &frac12; &times; base &times; height</p>
         <form>
           <div class="row">
             <div class="col">
@@ -282,19 +289,33 @@
         <div id="result5" class="alert alert-success text-center result" role="alert"></div>
 
         <!-- * Heron's formula -->
-        <p class="fw-bold">
-          Formula: Area =
+        <div style="overflow-x: auto; white-space: nowrap; padding: 10px 0;">
           <math>
             <mstyle mathvariant="bold">
               <msqrt>
-                <mi>
-                  Semi Perimeter x (Semi Perimeter - Side 1) x (Semi Perimeter
-                  - Side 2) x (Semi Perimeter - Side 3)
-                </mi>
+                <mtext>Semi Perimeter</mtext>
+                <mo>&times;</mo>
+                <mo>(</mo>
+                <mtext>Semi Perimeter</mtext>
+                <mo>-</mo>
+                <mtext>Side 1</mtext>
+                <mo>)</mo>
+                <mo>&times;</mo>
+                <mo>(</mo>
+                <mtext>Semi Perimeter</mtext>
+                <mo>-</mo>
+                <mtext>Side 2</mtext>
+                <mo>)</mo>
+                <mo>&times;</mo>
+                <mo>(</mo>
+                <mtext>Semi Perimeter</mtext>
+                <mo>-</mo>
+                <mtext>Side 3</mtext>
+                <mo>)</mo>
               </msqrt>
             </mstyle>
           </math>
-        </p>
+        </div>
         <form>
           <div class="row">
             <div class="col">
@@ -332,7 +353,7 @@
       <!-- * Circle Form -->
       <div id="circle_form" class="calcs">
         <form>
-          <p class="fw-bold">Formula: Area = &pi; x radius x radius</p>
+          <p class="fw-bold">Formula: Area = &pi; &times; radius &times; radius</p>
           <div class="form-floating mb-3">
             <input type="number" class="form-control" id="radius" placeholder="radius" onkeyup="checksolve7(event)" />
             <label for="radius">Radius</label>

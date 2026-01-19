@@ -1,27 +1,46 @@
+/* ============================================================
+   LAYOUT & POSITIONING
+   ============================================================ */
+
 .toastContainer {
   top: 55px;
   width: 200px;
 }
 
 #removeFavoritesBtn {
-  display: block;
+  display: block; /* Ensures visibility for the clear action */
 }
+
+/* ============================================================
+   LIST ITEM INTERACTIVITY
+   ============================================================ */
 
 .list-group-item {
-  /* transition: all 0.3s ease; */ /* Transition coming from common.css * selector */
+  transition: all 0.3s ease;
 }
 
+/* Left-border highlight on hover to match the 'Our Tools' page style */
 .list-group-item:hover {
   border-left: 5px solid #ffc107;
 }
 
+/* ============================================================
+   EMPTY STATE STYLING
+   Styles for the warning box when no favorites are saved.
+   ============================================================ */
+
 .alert-warning {
   border-radius: 12px;
   padding: 30px;
-  border: 2px dashed #ffc107;
+  border: 2px dashed #ffc107; /* Dashed border to indicate empty placeholder */
+  text-align: center;
 }
 
-/* Dark mode tweaks */
+/* ============================================================
+   THEME CUSTOMIZATION (Dark Mode)
+   ============================================================ */
+
 [data-bs-theme="dark"] .list-group-item:hover {
+  /* Subtle highlight for dark backgrounds */
   background-color: rgba(255, 255, 255, 0.05);
 }
