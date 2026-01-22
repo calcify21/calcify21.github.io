@@ -87,7 +87,7 @@ form.addEventListener("submit", function (event) {
             elementToShake.classList.remove("input-shake");
             elementToShake.removeEventListener("animationend", handler);
           },
-          { once: true }
+          { once: true },
         );
       }
     });
@@ -102,7 +102,7 @@ form.addEventListener("submit", function (event) {
   }
 
   const tickContainer = document.querySelector(".tick-container");
-  const contactFormContainer = document.getElementById("contact-form");
+  const contactFormContainer = document.getElementById("contactUsForm");
 
   contactFormContainer.style.display = "none";
   tickContainer.style.display = "block";
@@ -114,7 +114,7 @@ form.addEventListener("submit", function (event) {
   const email = document.getElementById("email").value;
   const phone = document.getElementById("phn").value;
   const ratingElement = document.querySelector(
-    'input[name="ratingOpt"]:checked'
+    'input[name="ratingOpt"]:checked',
   );
   const rating = ratingElement ? ratingElement.value : "";
   const message = document.getElementById("message").value;
@@ -137,7 +137,7 @@ form.addEventListener("submit", function (event) {
 
   fetch(
     "https://script.google.com/macros/s/AKfycbzt0WhneUmhriorz-RC7Xt7aiL4eiSvsLNX_ga3UjeW1ooyAHibHwTkJgHUbUOM8w0a1Q/exec",
-    requestOptions
+    requestOptions,
   )
     .then((response) => response.text())
     .then((result) => console.log(result))
@@ -146,10 +146,10 @@ form.addEventListener("submit", function (event) {
 
 document.querySelector(".returnToForm").addEventListener("click", function () {
   const tickContainer = document.querySelector(".tick-container");
-  const contactFormContainer = document.getElementById("contact-form");
+  const contactFormContainer = document.getElementById("contactUsForm");
 
   tickContainer.style.display = "none";
-  contactFormContainer.style.display = "flex";
+  contactFormContainer.style.display = "block";
 
   const form = document.querySelector(".needs-validation");
   form.reset();

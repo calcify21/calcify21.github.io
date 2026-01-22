@@ -53,53 +53,7 @@
     <div class="progress-bar" id="myBar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
       aria-valuemax="100"></div>
   </div>
-  <header>
-    <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-          <img src="assets/images/logo.png" class="logo" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-body">
-            <span class="me-auto"></span>
-
-            <ul class="navbar-nav nav-underline mb-3 mb-lg-0 me-auto">
-              <li class="nav-item">
-                <a href="/" class="nav-link">Home</a>
-              </li>
-              <li class="nav-item">
-                <a href="/about" class="nav-link">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="/calcs" class="nav-link">Our Tools</a>
-              </li>
-              <li class="nav-item">
-                <a href="/fav" class="nav-link">Favourites</a>
-              </li>
-              <li class="nav-item">
-                <a href="/contact" class="nav-link active">Get in Touch</a>
-              </li>
-            </ul>
-            <div class="d-flex justify-content-center align-items-center">
-              <select class="form-select w-auto" onchange="toggleTheme()" id="select-menu">
-                <option selected value="light">Light Mode</option>
-                <option value="dark">Dark Mode</option>
-                <option value="auto">Auto Mode</option>
-              </select>
-              <button id="installAppBtn" class="btn btn-primary d-none ms-2">
-                <i class="fa-solid fa-download me-1"></i> Install Calcify
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <header data-load="components/navbar.html"></header>
   <main>
     <div class="container">
       <div class="contact mx-auto">
@@ -185,21 +139,28 @@
                 </button>
               </div>
             </form>
+            <div class="tick-container">
+              <svg class="tick-svg" viewBox="0 0 52 52">
+                <!-- Complete circle -->
+                <circle cx="26" cy="26" r="24" fill="none" stroke="#4caf50" stroke-width="4" />
+                <!-- Tick path -->
+                <path d="M14 27 l8 8 l16 -16" stroke="#4caf50" stroke-width="4" fill="none" />
+              </svg>
+              <div id="custom-message" class="fw-bold">Success! Your message is on its way.</div>
+              <p class="text-muted">We usually respond within 24 hours.</p>
+              <hr class="my-4 mx-5">
+              <h6>While you wait, check out our popular tools:</h6>
+              <div class="d-flex justify-content-center gap-2 mt-3">
+                <a href="/calcs" class="btn btn-sm btn-outline-warning">Our Tools</a>
+                <a href="/fav" class="btn btn-sm btn-outline-warning">Your Favorites</a>
+              </div>
+              <button type="button" class="btn btn-link mt-4 returnToForm text-decoration-none">
+                <i class="fa-solid fa-arrow-left me-1"></i> Send another message
+              </button>
+            </div>
           </div>
         </div>
-        <div class="tick-container">
-          <svg class="tick-svg" viewBox="0 0 52 52">
-            <!-- Complete circle -->
-            <circle cx="26" cy="26" r="24" fill="none" stroke="#4caf50" stroke-width="4" />
-            <!-- Tick path -->
-            <path d="M14 27 l8 8 l16 -16" stroke="#4caf50" stroke-width="4" fill="none" />
-          </svg>
-          <div id="custom-message">Thank you for your submission!</div>
-          <br />
-          <button type="button" class="btn btn-success returnToForm">
-            Go Back
-          </button>
-        </div>
+
       </div>
     </div>
     <!-- Go to top and bottom buttons -->
@@ -210,6 +171,7 @@
       <i class="fa-solid fa-arrow-down"></i>
     </button>
   </main>
+  <footer class="footer mt-5 py-5 border-top" data-load="components/footer.html"></footer>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

@@ -3,39 +3,43 @@
 // Install Calcify button
 let deferredPrompt;
 const installBtn = document.getElementById("installAppBtn");
+const apkFallbackBtn = document.getElementById("downloadApkFallback");
+const dropdownApkItem = document.getElementById("dropdownApkItem");
 
+function triggerAnims(el) {
+  el.classList.remove("d-none");
+  // Force a tiny delay so the browser notices the d-none is gone before animating
+  setTimeout(() => el.classList.add("animate-install-ready"), 50);
+  setTimeout(() => el.classList.add("shimmer-loop"), 800);
+}
+
+// Case for Chrome/Edge (PWA Available)
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
 
-  // Show the button in the DOM
-  installBtn.classList.remove("d-none");
+  // Chrome PWA logic
+  apkFallbackBtn.classList.add("d-none");
+  dropdownApkItem.classList.remove("d-none");
+  triggerAnims(installBtn);
+});
 
-  // Step 1: Pop the button in
+window.addEventListener("load", () => {
+  const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  // Wait 1 second to see if Chrome fired the PWA prompt
   setTimeout(() => {
-    installBtn.classList.add("animate-install-ready");
-  }, 500);
+    // If Firefox, Safari, OR Chrome (but app is already installed/not eligible)
+    if (isFirefox || isSafari || installBtn.classList.contains("d-none")) {
+      // Hide the Chrome-specific PWA button and arrow
+      installBtn.classList.add("d-none");
+      if (dropdownApkItem) dropdownApkItem.classList.add("d-none");
 
-  // Step 2: Start the light-sweep shimmer after it's visible
-  setTimeout(() => {
-    installBtn.classList.add("shimmer-loop");
-  }, 1200);
-
-  installBtn.addEventListener("click", () => {
-    // Immediate feedback: shrink the button slightly on click
-    installBtn.style.transform = "scale(0.9)";
-
-    deferredPrompt.prompt();
-
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === "accepted") {
-        installBtn.classList.add("d-none");
-      } else {
-        installBtn.style.transform = "scale(1)"; // Reset if they cancel
-      }
-      deferredPrompt = null;
-    });
-  });
+      // Show the APK button as the main action
+      triggerAnims(apkFallbackBtn);
+    }
+  }, 1000);
 });
 
 // * Go to top and bottom buttons (improved version)
@@ -194,5 +198,43 @@ function checkTheme() {
     }
   }
 }
+
+async function injectComponents() {
+  const components = document.querySelectorAll("[data-load]");
+
+  for (let el of components) {
+    const file = el.getAttribute("data-load");
+    try {
+      const response = await fetch(file);
+      if (response.ok) {
+        el.innerHTML = await response.text();
+
+        // Once Navbar is loaded, set the active class
+        if (file.includes("navbar")) {
+          const currentPath = window.location.pathname;
+          const navLinks = el.querySelectorAll(".nav-link");
+
+          navLinks.forEach((link) => {
+            const href = link.getAttribute("href");
+            // Logic to match /contact or /contact.html
+            if (
+              currentPath === href ||
+              (currentPath.includes(href) && href !== "/")
+            ) {
+              link.classList.add("active");
+            } else if (currentPath === "/" && href === "/") {
+              link.classList.add("active");
+            }
+          });
+        }
+      }
+    } catch (err) {
+      console.error("Error loading component:", err);
+    }
+  }
+}
+
+// Run on page load
+window.addEventListener("DOMContentLoaded", injectComponents);
 
 window.onload = checkTheme();

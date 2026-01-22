@@ -7,15 +7,35 @@
 
 body {
   /* Main application font with comprehensive system fallbacks */
-  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+  font-family:
+    "Poppins",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
     sans-serif !important;
 }
 
 #screen {
   /* Overriding Poppins for the calculator screen for better numerical legibility */
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
 }
 
 /* ============================================================
@@ -24,6 +44,7 @@ body {
    ============================================================ */
 
 main {
+  flex: 1 0 auto;
   /* Offset to prevent content from hiding under a fixed header */
   margin-top: 50px;
 }
@@ -129,7 +150,9 @@ main {
   width: 0;
   opacity: 0;
   height: 2px;
-  transition: width 0.3s ease, opacity 0.3s ease;
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease;
 }
 
 /* Underline visibility for Active and Hover states */
@@ -160,21 +183,57 @@ main {
   }
 }
 
-#installAppBtn {
+/* Apply styles to both potential buttons */
+#installAppBtn,
+#downloadApkFallback {
   position: relative;
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy pop effect */
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   opacity: 0;
-  transform: scale(0.5); /* Starts small */
+  transform: scale(0.5);
   white-space: nowrap;
+  overflow: hidden; /* Important for shimmer */
 }
 
-/* Animation class added by JS when PWA installation is available */
+/* Unified animation class */
 .animate-install-ready {
   opacity: 1 !important;
   transform: scale(1) !important;
 }
 
-/* Trigger the shimmer loop effect */
+/* Ensure shimmer works on both */
 .shimmer-loop::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
   animation: shimmer 2.5s infinite;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+footer a:hover {
+  color: var(--bs-warning) !important;
+  transition: color 0.2s ease-in-out;
+}
+
+footer .social-links .btn {
+  width: 35px;
+  height: 35px;
+}
+
+/* Ensure the footer stays at the bottom on short pages */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }

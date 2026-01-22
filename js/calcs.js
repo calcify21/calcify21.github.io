@@ -114,3 +114,43 @@ if (document.querySelector("#removeFavoritesBtn")) {
 }
 
 window.onload = checkFav();
+
+document.getElementById("toolSearch").addEventListener("input", function () {
+  const searchTerm = this.value.toLowerCase().trim();
+  const toolItems = document.querySelectorAll(".tool-item");
+  const categories = document.querySelectorAll(".category-section");
+  const noResults = document.getElementById("noResults");
+  const serviceTitle = document.querySelector("#exploreTextParent"); // "Explore our services"
+  let totalVisible = 0;
+
+  toolItems.forEach((item) => {
+    // Search in title, description, and the keywords attribute
+    const text = item.innerText.toLowerCase();
+    const keywords = item.getAttribute("data-keywords") || "";
+    const searchable = text + " " + keywords.toLowerCase();
+
+    if (searchable.includes(searchTerm)) {
+      item.classList.remove("d-none");
+      item.classList.add("d-flex");
+      totalVisible++;
+    } else {
+      item.classList.add("d-none");
+      item.classList.remove("d-flex");
+    }
+  });
+
+  // Hide/Show Category Headers
+  categories.forEach((cat) => {
+    const visibleInCat = cat.querySelectorAll(".tool-item:not(.d-none)").length;
+    cat.style.display = visibleInCat > 0 ? "block" : "none";
+  });
+
+  // Handle "No Results" and Main Title visibility
+  if (totalVisible === 0) {
+    noResults.style.display = "block";
+    serviceTitle.classList.replace("d-flex", "d-none"); // Hides title and clear button
+  } else {
+    noResults.style.display = "none";
+    serviceTitle.classList.replace("d-none", "d-flex"); // Shows title and clear button
+  }
+});

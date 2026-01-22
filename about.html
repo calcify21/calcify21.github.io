@@ -54,53 +54,7 @@
     <div class="progress-bar" id="myBar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
       aria-valuemax="100"></div>
   </div>
-  <header>
-    <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-          <img src="assets/images/logo.png" class="logo" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-body">
-            <span class="me-auto"></span>
-
-            <ul class="navbar-nav nav-underline mb-3 mb-lg-0 me-auto">
-              <li class="nav-item">
-                <a href="/" class="nav-link">Home</a>
-              </li>
-              <li class="nav-item">
-                <a href="/about" class="nav-link active">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="/calcs" class="nav-link">Our Tools</a>
-              </li>
-              <li class="nav-item">
-                <a href="/fav" class="nav-link">Favourites</a>
-              </li>
-              <li class="nav-item">
-                <a href="/contact" class="nav-link">Get in Touch</a>
-              </li>
-            </ul>
-            <div class="d-flex justify-content-center align-items-center">
-              <select class="form-select w-auto" onchange="toggleTheme()" id="select-menu">
-                <option selected value="light">Light Mode</option>
-                <option value="dark">Dark Mode</option>
-                <option value="auto">Auto Mode</option>
-              </select>
-              <button id="installAppBtn" class="btn btn-primary d-none ms-2">
-                <i class="fa-solid fa-download me-1"></i> Install Calcify
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <header data-load="components/navbar.html"></header>
   <main>
     <div class="container">
       <h3 class="fw-bold">Making Math Your Ally, One Calculator at a Time</h3>
@@ -146,6 +100,7 @@
       </button>
     </div>
   </main>
+  <footer class="footer mt-5 py-5 border-top" data-load="components/footer.html"></footer>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

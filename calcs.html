@@ -54,57 +54,26 @@
       aria-valuemax="100"></div>
   </div>
 
-  <header>
-    <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-          <img src="assets/images/logo.png" class="logo" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-body">
-            <span class="me-auto"></span>
-
-            <ul class="navbar-nav nav-underline mb-3 mb-lg-0 me-auto">
-              <li class="nav-item">
-                <a href="/" class="nav-link">Home</a>
-              </li>
-              <li class="nav-item">
-                <a href="/about" class="nav-link">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="/calcs" class="nav-link active">Our Tools</a>
-              </li>
-              <li class="nav-item">
-                <a href="/fav" class="nav-link">Favourites</a>
-              </li>
-              <li class="nav-item">
-                <a href="/contact" class="nav-link">Get in Touch</a>
-              </li>
-            </ul>
-            <div class="d-flex justify-content-center align-items-center">
-              <select class="form-select w-auto" onchange="toggleTheme()" id="select-menu">
-                <option selected value="light">Light Mode</option>
-                <option value="dark">Dark Mode</option>
-                <option value="auto">Auto Mode</option>
-              </select>
-              <button id="installAppBtn" class="btn btn-primary d-none ms-2">
-                <i class="fa-solid fa-download me-1"></i> Install Calcify
-              </button>
-            </div>
+  <header data-load="components/navbar.html"></header>
+  <main>
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="input-group input-group-lg shadow-sm">
+            <span class="input-group-text bg-white border-end-0">
+              <i class="fa-solid fa-magnifying-glass text-primary"></i>
+            </span>
+            <input type="text" id="toolSearch" class="form-control border-start-0 ps-0"
+              placeholder="Search for tools (e.g. 'median', 'link', 'math')...">
           </div>
         </div>
       </div>
-    </nav>
-  </header>
-  <main>
-    <div class="container">
-      <div id="output"></div>
-      <div class="d-flex justify-content-between align-items-center mb-3">
+
+      <div id="noResults" class="text-center py-5" style="display: none;">
+        <i class="fa-solid fa-face-frown fa-3x text-secondary mb-3"></i>
+        <p class="h5 text-secondary">No tools found matching your search.</p>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-3" id="exploreTextParent">
         <h5 class="fw-bold">Explore our services:</h5>
         <button class="btn btn-warning" onclick="removeAllFavorites()" id="removeFavoritesBtn">
           <i class="fa-solid fa-trash-can me-2"></i>Clear Favourites
@@ -112,15 +81,12 @@
       </div>
 
       <div class="category-section">
-        <h6 class="category-header">
-          <i class="fa-solid fa-calculator me-2"></i>Mathematical Tools
-        </h6>
+        <h6 class="category-header"><i class="fa-solid fa-calculator me-2"></i>Mathematical Tools</h6>
         <ol class="list-group list-group-numbered mb-4">
-          <li class="list-group-item d-flex justify-content-between align-items-start">
+          <li class="list-group-item d-flex justify-content-between align-items-start tool-item"
+            data-keywords="math factors division numbers composite unique">
             <div class="ms-2 me-auto">
-              <div class="fw-bold">
-                &nbsp; Prime Number Checker
-                <span class="badge text-bg-primary">Popular</span>
+              <div class="fw-bold">&nbsp; Prime Number Checker
                 <button type="button" class="btn starIcon" onclick="toggleFav('prime'); addToFavorites('prime');">
                   <i class="fa-regular fa-star" id="starPrime"></i>
                 </button>
@@ -129,10 +95,11 @@
             </div>
             <a href="/prime" class="btn btn-outline-primary">Open</a>
           </li>
-          <li class="list-group-item d-flex justify-content-between align-items-start">
+
+          <li class="list-group-item d-flex justify-content-between align-items-start tool-item"
+            data-keywords="math percent ratio discount 100 hundred per">
             <div class="ms-2 me-auto">
-              <div class="fw-bold">
-                &nbsp; Percentage Calculator
+              <div class="fw-bold">&nbsp; Percentage Calculator
                 <button type="button" class="btn starIcon"
                   onclick="toggleFav('percentage'); addToFavorites('percentage');">
                   <i class="fa-regular fa-star" id="starPercent"></i>
@@ -142,10 +109,11 @@
             </div>
             <a href="/percentage" class="btn btn-outline-primary">Open</a>
           </li>
-          <li class="list-group-item d-flex justify-content-between align-items-start">
+
+          <li class="list-group-item d-flex justify-content-between align-items-start tool-item"
+            data-keywords="mean median mode statistics average variation range">
             <div class="ms-2 me-auto">
-              <div class="fw-bold">
-                &nbsp; Central Tendency Calculator
+              <div class="fw-bold">&nbsp; Central Tendency Calculator
                 <button type="button" class="btn starIcon" onclick="toggleFav('mean'); addToFavorites('mean');">
                   <i class="fa-regular fa-star" id="starCentralTendancy"></i>
                 </button>
@@ -155,11 +123,11 @@
             </div>
             <a href="/mean" class="btn btn-outline-primary">Open</a>
           </li>
-          <li class="list-group-item d-flex justify-content-between align-items-start">
+
+          <li class="list-group-item d-flex justify-content-between align-items-start tool-item"
+            data-keywords="geometry shapes circle square math perimeter">
             <div class="ms-2 me-auto">
-              <div class="fw-bold">
-                &nbsp; Area Calculator
-                <span class="badge text-bg-primary">Popular</span>
+              <div class="fw-bold">&nbsp; Area Calculator <span class="badge text-bg-primary">Popular</span>
                 <button type="button" class="btn starIcon" onclick="toggleFav('area'); addToFavorites('area');">
                   <i class="fa-regular fa-star" id="starArea"></i>
                 </button>
@@ -172,36 +140,29 @@
       </div>
 
       <div class="category-section">
-        <h6 class="category-header">
-          <i class="fa-solid fa-screwdriver-wrench me-2"></i>Web & Developer
-          Utilities
-        </h6>
+        <h6 class="category-header"><i class="fa-solid fa-screwdriver-wrench me-2"></i>Web & Developer Utilities</h6>
         <ol class="list-group list-group-numbered mb-4">
-          <li class="list-group-item d-flex justify-content-between align-items-start">
+          <li class="list-group-item d-flex justify-content-between align-items-start tool-item"
+            data-keywords="security pass random string credentials">
             <div class="ms-2 me-auto">
-              <div class="fw-bold">
-                &nbsp; Password Generator
-                <span class="badge text-bg-warning">New</span>
+              <div class="fw-bold">&nbsp; Password Generator <span class="badge text-bg-warning">New</span>
                 <button type="button" class="btn starIcon" onclick="toggleFav('pwd'); addToFavorites('pwd');">
                   <i class="fa-regular fa-star" id="starPwd"></i>
                 </button>
               </div>
-              <small class="text-secondary">A simple password generator that generates a secure random password.</small>
+              <small class="text-secondary">A simple password generator.</small>
             </div>
             <a href="/pwd" class="btn btn-outline-primary">Open</a>
           </li>
-          <li class="list-group-item d-flex justify-content-between align-items-start">
+          <li class="list-group-item d-flex justify-content-between align-items-start tool-item"
+            data-keywords="link barcode scan scanner">
             <div class="ms-2 me-auto">
-              <div class="fw-bold">
-                &nbsp; QR Code Generator
-                <span class="badge text-bg-warning">New</span>
-                <span class="badge text-bg-primary">Popular</span>
+              <div class="fw-bold">&nbsp; QR Code Generator <span class="badge text-bg-primary">Popular</span>
                 <button type="button" class="btn starIcon" onclick="toggleFav('qr'); addToFavorites('qr');">
                   <i class="fa-regular fa-star" id="starQR"></i>
                 </button>
               </div>
-              <small class="text-secondary">A QR code generator that allows users to create QR codes for any text or
-                URL.</small>
+              <small class="text-secondary">Create QR codes for any text or URL.</small>
             </div>
             <a href="/qr" class="btn btn-outline-primary">Open</a>
           </li>
@@ -209,20 +170,17 @@
       </div>
 
       <div class="category-section">
-        <h6 class="category-header">
-          <i class="fa-solid fa-utensils me-2"></i>Lifestyle Apps
-        </h6>
+        <h6 class="category-header"><i class="fa-solid fa-utensils me-2"></i>Lifestyle Apps</h6>
         <ol class="list-group list-group-numbered mb-4">
-          <li class="list-group-item d-flex justify-content-between align-items-start">
+          <li class="list-group-item d-flex justify-content-between align-items-start tool-item"
+            data-keywords="food cooking dinner chef meal">
             <div class="ms-2 me-auto">
-              <div class="fw-bold">
-                &nbsp; Recipe APP
+              <div class="fw-bold">&nbsp; Recipe APP
                 <button type="button" class="btn starIcon" onclick="toggleFav('recipe'); addToFavorites('recipe');">
                   <i class="fa-regular fa-star" id="starRecipe"></i>
                 </button>
               </div>
-              <small class="text-secondary">A recipe app that allows users to search for their favourite
-                recipes.</small>
+              <small class="text-secondary">Search for your favourite recipes.</small>
             </div>
             <a href="/recipe" class="btn btn-outline-primary">Open</a>
           </li>
@@ -230,20 +188,17 @@
       </div>
 
       <div class="category-section">
-        <h6 class="category-header">
-          <i class="fa-solid fa-book-open-reader me-2"></i>Educational Resources
-        </h6>
+        <h6 class="category-header"><i class="fa-solid fa-book-open-reader me-2"></i>Educational Resources</h6>
         <ol class="list-group list-group-numbered mb-4">
-          <li class="list-group-item d-flex justify-content-between align-items-start">
+          <li class="list-group-item d-flex justify-content-between align-items-start tool-item"
+            data-keywords="school books study class 9 ">
             <div class="ms-2 me-auto">
-              <div class="fw-bold">
-                &nbsp; NCERT E-book Hub
-                <span class="badge text-bg-danger">Featured</span>
+              <div class="fw-bold">&nbsp; NCERT E-book Hub <span class="badge text-bg-danger">Featured</span>
                 <button type="button" class="btn starIcon" onclick="toggleFav('ncert'); addToFavorites('ncert');">
                   <i class="fa-regular fa-star" id="starNcert"></i>
                 </button>
               </div>
-              <small class="text-secondary">Access all NCERT textbooks of Class 9th in one place.</small>
+              <small class="text-secondary">Access NCERT textbooks.</small>
             </div>
             <a href="/ncert" class="btn btn-outline-primary">Open</a>
           </li>
@@ -271,7 +226,7 @@
       </button>
     </div>
   </main>
-
+  <footer class="footer mt-5 py-5 border-top" data-load="components/footer.html"></footer>
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
