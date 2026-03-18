@@ -1,0 +1,216 @@
+:root {
+    --primary: #FF9800;
+    --primary-light: #FFF3E0;
+    --bg: #FDFCF0;
+    --text: #4A2C00;
+    --shadow: rgba(230, 81, 0, 0.1);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg);
+    margin: 0; 
+    padding: 15px;
+    display: flex; 
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+/* Entrance Animation for the whole app */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.app-card {
+    width: 100%; 
+    max-width: 420px;
+    background: white;
+    border-radius: 35px;
+    padding: 30px 20px;
+    box-shadow: 0 15px 35px var(--shadow);
+    animation: slideUp 0.6s ease-out; /* Smooth entrance */
+}
+
+header { text-align: center; margin-bottom: 30px; }
+.logo { font-size: 50px; display: inline-block; animation: heartBeat 2s infinite; }
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Button Container Grid */
+.button-grid { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 18px; 
+}
+
+/* Individual Button Animation */
+.contact-btn {
+    width: 100%; 
+    background: white;
+    border: 2px solid #FFE0B2; 
+    border-radius: 20px;
+    padding: 20px; 
+    padding-right: 50px !important;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* The "Spring" effect */
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 0px #FFE0B2; /* 3D look */
+}
+
+/* Tap/Click Animation */
+.contact-btn:active {
+    transform: translateY(4px); /* Sinks down */
+    box-shadow: 0 0px 0px #FFE0B2; /* Flattens */
+    background: var(--primary-light);
+}
+
+.btn-content { display: flex; align-items: center; width: 100%; }
+.emoji { 
+    font-size: 28px; 
+    margin-right: 15px; 
+    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.1));
+}
+
+.name { 
+    font-size: 22px; 
+    font-weight: 600; 
+    color: var(--text); 
+}
+
+/* 1. Ensure the wrapper is the "Anchor" */
+.btn-wrapper { 
+    position: relative; 
+    width: 100%; 
+    display: block;
+}
+
+/* 2. Update the del-icon to stay INSIDE the button */
+.del-icon {
+    position: absolute; 
+    right: 10px; /* Moves it inside the button edge */
+    top: 50%; 
+    transform: translateY(-50%); /* Centers it vertically */
+    background: #FF5252; 
+    color: white; 
+    width: 35px; 
+    height: 35px;
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    z-index: 10; /* Keeps it on top of the button */
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 82, 82, 0.3);
+    border: 2px solid white; /* Adds a nice white ring around the X */
+}
+
+
+
+@keyframes popIn {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+
+/* Forms and Settings */
+.admin-panel { margin-top: 40px; text-align: center; }
+.settings-btn { 
+    background: #f0f0f0; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 20px; 
+    color: #888; 
+    font-weight: 600;
+}
+
+.admin-form {
+    margin-top: 20px;
+    background: #fafafa;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid #eee;
+    transition: all 0.5s ease;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(5px); }
+  50% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+/* Install Banner - Making it look like a notification */
+.install-banner {
+    width: 100%;
+    background: linear-gradient(135deg, #333, #000);
+    color: white;
+    padding: 15px;
+    border-radius: 18px;
+    border: none;
+    font-weight: 600;
+    margin-bottom: 25px;
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    font-size: 16px;
+}
+
+/* Form Inputs Styling */
+.input-field {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 12px;
+    border: 2px solid #EEE;
+    border-radius: 12px;
+    font-size: 16px;
+    font-family: inherit;
+    box-sizing: border-box; /* Prevents input from overflowing */
+}
+
+.input-field:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.add-btn {
+    width: 100%;
+    background: #4CAF50;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.add-btn:active {
+    transform: scale(0.95);
+}
+
+.edit-btn {
+    background: none;
+    border: none;
+    color: #FF5252;
+    margin-top: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Smooth Remove Animation */
+.btn-wrapper.removing {
+    animation: slideOut 0.4s ease forwards;
+}
+
+@keyframes slideOut {
+    to { opacity: 0; transform: translateX(100%); }
+}

@@ -1,176 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calcify - Smart Online Tools & Calculators</title>
-  <meta name="description"
-    content="Calcify is your all-in-one hub for free online tools. Calculate percentages, find areas, generate QR codes, and more—fast, free, and instant!" />
-
-  <link rel="canonical" href="https://calc.aurabyte.in" />
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-  <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/common.css" />
-  <link rel="stylesheet" href="css/style.css" />
-
-  <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
-  <link rel="apple-touch-icon" href="assets/images/favicon-2.png" />
-  <link rel="manifest" href="/manifest.json" />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://calc.aurabyte.in" />
-  <meta property="og:title" content="Calcify - Smart Online Tools & Calculators" />
-  <meta property="og:description"
-    content="Access a suite of smart tools for math, web utilities, and daily tasks. No login required, just fast results." />
-  <meta property="og:image" content="https://calc.aurabyte.in/assets/images/thumbnail.png" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Calcify - Smart Online Tools & Calculators" />
-  <meta name="twitter:image" content="https://calc.aurabyte.in/assets/images/thumbnail.png" />
-
-  <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Calcify",
-        "alternateName": "Calcify Tools",
-        "url": "https://calc.aurabyte.in",
-        "image": "https://calc.aurabyte.in/assets/images/thumbnail.png",
-        "description": "An all-in-one online tool hub for mathematical calculations, developer utilities, and lifestyle apps.",
-        "applicationCategory": "Utility",
-        "operatingSystem": "All",
-        "publisher": {
-          "@type": "Organization",
-          "name": "Aurabyte",
-          "url": "https://aurabyte.in"
-        }
-      }
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jai Jinendra 🙏</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF9800">
+<meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
-  <div class="progress fixed-top" style="height: 5px;">
-    <div class="progress-bar" id="myBar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
-      aria-valuemax="100"></div>
-  </div>
-  <header data-load="components/navbar.html"></header>
-  <main>
-    <div class="container">
-      <div class="d-flex justify-content-center">
-        <div class="calc mb-3 rounded border border-black border-1">
-          <input type="text" class="form-control form-control-lg txtInput mb-4" id="screen" onkeyup="checksolve(event)"
-            placeholder="0" />
 
-          <div class="calc-keys">
-            <button type="button" class="mybtn btn calc-operate bg-success-subtle" onclick="clr()">
-              <i class="fa-solid fa-c fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn calc-operate bg-success-subtle" onclick="show('^')">
-              <i class="fa-solid fa-superscript fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn calc-operate bg-success-subtle" onclick="back()">
-              <i class="fa-solid fa-delete-left fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn calc-operate bg-success-subtle" onclick="show('+')">
-              <i class="fa-solid fa-plus fa-xl"></i>
-            </button>
+    <div class="app-card">
+        <header>
+            <div class="logo">🙏</div>
+            <h1>Jai Jinendra</h1>
+            <p>Send daily blessings with one tap</p>
+        </header>
 
-            <button type="button" class="mybtn btn" onclick="show('7')">
-              <i class="fa-solid fa-7 fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn" onclick="show('8')">
-              <i class="fa-solid fa-8 fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn" onclick="show('9')">
-              <i class="fa-solid fa-9 fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn calc-operate bg-success-subtle" onclick="show('*')">
-              <i class="fa-solid fa-xmark fa-xl"></i>
-            </button>
+        <button id="installBtn" class="install-banner" style="display: none;">
+            Install as PWA
+        </button>
 
-            <button type="button" class="mybtn btn" onclick="show('4')">
-              <i class="fa-solid fa-4 fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn" onclick="show('5')">
-              <i class="fa-solid fa-5 fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn" onclick="show('6')">
-              <i class="fa-solid fa-6 fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn calc-operate bg-success-subtle" onclick="show('-')">
-              <i class="fa-solid fa-minus fa-xl"></i>
-            </button>
+        <div id="contactList" class="button-grid">
+            </div>
 
-            <button type="button" class="mybtn btn" onclick="show('1')">
-              <i class="fa-solid fa-1 fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn" onclick="show('2')">
-              <i class="fa-solid fa-2 fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn" onclick="show('3')">
-              <i class="fa-solid fa-3 fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn calc-operate bg-success-subtle" onclick="show('/')">
-              <i class="fa-solid fa-divide fa-xl"></i>
-            </button>
-
-            <button type="button" class="mybtn btn calc-operate bg-success-subtle" onclick="show('.')">
-              <i class="fa-solid fa-circle fa-2xs"></i>
-            </button>
-            <button type="button" class="mybtn btn calc-operate bg-success-subtle" onclick="show('0')">
-              <i class="fa-solid fa-0 fa-xl"></i>
-            </button>
-            <button type="button" class="mybtn btn calc-operate bg-success-subtle" onclick="show('00')">
-              <i class="fa-solid fa-0 fa-lg"></i>&nbsp;<i class="fa-solid fa-0 fa-lg"></i>
-            </button>
-            <button type="button" class="mybtn btn btn-warning" onclick="solve()">
-              <i class="fa-solid fa-equals fa-xl"></i>
-            </button>
-          </div>
+        <div class="admin-panel">
+            <button onclick="toggleAdmin()" class="settings-btn">⚙️ Manage List</button>
+            
+            <div id="adminForm" class="admin-form" style="display: none;">
+                <input type="text" id="newName" placeholder="Name (e.g. Rohit)" class="input-field">
+                <input type="tel" id="newPhone" placeholder="Phone (91...)" class="input-field">
+                <button onclick="addContact()" class="add-btn">➕ Save Person</button>
+                <button onclick="toggleDeleteMode()" id="editBtn" class="edit-btn">🗑️ Delete Mode: OFF</button>
+            </div>
         </div>
-      </div>
-
-      <button onclick="gototop()" id="topbtn" class="btn btn-warning">
-        <i class="fa-solid fa-arrow-up"></i>
-      </button>
-
-      <button onclick="gotobottom()" id="bottombtn" class="btn btn-warning">
-        <i class="fa-solid fa-arrow-down"></i>
-      </button>
     </div>
-  </main>
-  <footer class="footer mt-5 py-5 border-top" data-load="components/footer.html"></footer>
 
-
-
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-    integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
-    crossorigin="anonymous"></script>
-
-  <script src="js/common.js"></script>
-  <script src="js/script.js"></script>
-
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("js/sw.js")
-        .then(function (registration) {
-          console.log(
-            "Service Worker registered with scope:",
-            registration.scope
-          );
-        })
-        .catch(function (error) {
-          console.log("Service Worker registration failed:", error);
-        });
-    }
-  </script>
+    <script src="script.js">
+        
+    </script>
 </body>
-
 </html>
