@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Jai Jinendra 🙏</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#FF8C00" />
+    <!-- Lucide Icons for a Pro look -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+
+  <body>
+    <div class="app-container">
+      <header>
+        <div class="header-main">
+          <h1>Jai Jinendra</h1>
+          <div class="header-actions">
+            <button id="installBtn" class="pwa-install-btn" style="display: none;">
+              <i data-lucide="download-cloud"></i> Install
+            </button>
+            <div id="editIcon" class="icon-btn" onclick="toggleEditMode()">
+              <i data-lucide="edit-3"></i>
+            </div>
+          </div>
+        </div>
+        <p class="header-subtitle">Daily Blessings & Greetings</p>
+      </header>
+
+      <div class="search-bar">
+        <i data-lucide="search" class="search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Search..." />
+      </div>
+
+      <div id="contactList" class="contact-list">
+        <!-- Contacts will be injected here -->
+      </div>
+
+      <div id="addForm" class="add-card" style="display: none;">
+        <div class="add-header">
+          <h3><i data-lucide="user-plus"></i> Add Family Member</h3>
+        </div>
+        <div class="form-grid">
+          <input type="text" id="newName" placeholder="Full Name" class="pro-input" />
+          <input type="text" id="newNotes" placeholder="Notes (e.g. Rohit Beta)" class="pro-input" />
+          <input type="tel" id="newPhone" placeholder="WhatsApp (91...)" class="pro-input" />
+          <button onclick="addContact()" class="pro-save-btn">Save Contact</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="app.js"></script>
+    <script>
+      // Initialize icons
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
