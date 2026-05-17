@@ -1,0 +1,123 @@
+/* ============================================================
+   CONTACT PAGE STYLES
+   ============================================================ */
+
+.contact {
+  max-width: 900px;
+}
+
+textarea {
+  resize: none;
+}
+
+/* Form validation styles */
+.form-control {
+  padding: 10px 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.form-check-input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+/* Validation feedback - hidden by default */
+.valid-feedback,
+.invalid-feedback {
+  display: none;
+}
+
+.was-validated .form-control:valid ~ .valid-feedback {
+  display: block;
+}
+
+.was-validated .form-control:invalid ~ .invalid-feedback {
+  display: block;
+}
+
+.was-validated .form-control:valid {
+  border-color: #22c55e;
+}
+
+.was-validated .form-control:invalid {
+  border-color: #ef4444;
+}
+
+.was-validated .form-check-input:invalid {
+  outline: 2px solid #ef4444;
+}
+
+/* ============================================================
+   SUCCESS ANIMATION (SVG)
+   ============================================================ */
+
+.tick-container {
+  display: none;
+  text-align: center;
+  margin-top: 15%;
+}
+
+.tick-svg {
+  width: 120px;
+  height: 120px;
+  animation: draw 1s ease forwards;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+@keyframes planeMovement {
+  0%,
+  100% {
+    top: 0px;
+  }
+  50% {
+    top: -30px;
+  }
+}
+
+.contact-image {
+  animation: planeMovement 4s ease-in-out 1s infinite alternate;
+  position: relative;
+}
+
+@keyframes draw {
+  0% {
+    stroke-dasharray: 0, 100;
+  }
+  100% {
+    stroke-dasharray: 100, 0;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.input-shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}

@@ -1,0 +1,90 @@
+/* ── Health Gauges & Indicators ── */
+.health-form {
+  transition: all 0.3s ease;
+}
+
+#bmi-marker {
+  transition: left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.result-card-highlight {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+/* Gender Toggle Buttons */
+.gender-toggle {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.gender-btn {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid var(--border-color);
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  font-weight: 700;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gender-btn i {
+  font-size: 1.5rem;
+}
+
+.gender-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+
+/* Calorie Result Grid */
+.calorie-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.calorie-card {
+  padding: 1.25rem;
+  border-radius: 1rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.calorie-card.highlight {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+.calorie-val {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin: 0.25rem 0;
+}
+
+.calorie-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+@media screen and (max-width: 640px) {
+  .calorie-grid {
+    grid-template-columns: 1fr;
+  }
+}

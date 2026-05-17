@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Page Not Found | Calcify</title>
+    <meta
+      name="description"
+      content="Oops! The page you're looking for doesn't exist. Let's get you back to Our Tools."
+    />
+
+    <link rel="canonical" href="https://calc.aurabyte.in/404" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/404.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+
+    <meta property="og:title" content="404 - Page Not Found | Calcify" />
+    <meta
+      property="og:description"
+      content="Oops! We can't find that page. Click here to go back to our tools."
+    />
+    <meta
+      property="og:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+    <meta name="twitter:card" content="summary" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "404 Not Found - Calcify",
+        "description": "The page you are looking for does not exist on Calcify.",
+        "url": "https://calc.aurabyte.in/404"
+      }
+    </script>
+  </head>
+
+  <body>
+    <header data-load="components/navbar.html"></header>
+
+    <main class="min-h-[60vh] flex items-center justify-center">
+      <div class="text-center max-w-lg mx-auto px-4 py-12">
+        <img
+          src="assets/images/404.png"
+          alt="Oops, something lost"
+          class="mx-auto mb-8 w-80 max-w-full"
+        />
+        <h1 class="text-4xl md:text-5xl font-light mb-4">
+          Oops, looks like the page is lost.
+        </h1>
+        <p class="text-lg text-gray-500 dark:text-gray-400 mb-8">
+          This is not a fault, just an accident that was not intentional.
+        </p>
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-green-600 hover:text-green-700 text-lg font-medium underline underline-offset-4 transition-all group"
+        >
+          Go to home
+          <i
+            class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"
+          ></i>
+        </a>
+      </div>
+    </main>
+
+    <footer data-load="components/footer.html"></footer>
+    <script src="js/common.js"></script>
+  </body>
+</html>

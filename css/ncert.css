@@ -1,0 +1,276 @@
+/* Reset font for NCERT specifically so common.css (Poppins) does not override the neat Inter look */
+#app-container,
+#app-container h1,
+#app-container h2,
+#app-container h3,
+#app-container h4,
+#app-container h5,
+#app-container h6,
+#app-container button,
+#app-container a,
+#app-container span,
+#app-container p,
+#app-container div {
+  font-family: "Inter", sans-serif !important;
+}
+
+/* Neat Card Container replacing bloated card-custom */
+.ncert-book-card {
+  background: var(--bg-card);
+  border-radius: 0.75rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-left-width: 4px;
+}
+
+/* Neat Chapter Link replacing bulky buttons */
+.ncert-chapter-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--bg-input);
+  transition: all 0.15s ease;
+  color: var(--text-primary);
+  border: 1px solid transparent;
+}
+
+.ncert-chapter-link:hover {
+  background: var(--bg-card-hover);
+}
+
+.ncert-chapter-link span {
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.15s ease;
+}
+
+.ncert-chapter-link:hover span {
+  color: var(--text-primary);
+}
+
+.ncert-chapter-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  color: #3b82f6;
+}
+
+[data-theme="dark"] .ncert-chapter-icon {
+  color: #60a5fa;
+}
+
+.ncert-important-links-container {
+  margin-top: 1rem;
+  margin-bottom: 1.25rem;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.class-tab {
+  padding: 0.625rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.class-tab-active {
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 4px 15px -1px var(--accent-glow);
+}
+
+.class-tab-inactive {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.class-tab-inactive:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.card-subject {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border: 1px solid var(--glass-border);
+}
+
+.card-subject:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-xl);
+}
+
+.back-button {
+  transition: all 0.2s;
+  color: var(--accent);
+}
+
+.back-button:hover {
+  transform: translateX(-5px);
+  color: var(--accent-hover);
+}
+
+/* Base custom link button for ncert links */
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+/* Blue Link */
+.link-btn-blue {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #2563eb;
+}
+.link-btn-blue:hover {
+  background-color: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+[data-theme="dark"] .link-btn-blue {
+  color: #60a5fa;
+  background-color: rgba(59, 130, 246, 0.2);
+}
+[data-theme="dark"] .link-btn-blue:hover {
+  background-color: rgba(59, 130, 246, 0.3);
+}
+
+/* Gray Link */
+.link-btn-gray {
+  background-color: rgba(107, 114, 128, 0.15);
+  color: #4b5563;
+}
+.link-btn-gray:hover {
+  background-color: rgba(107, 114, 128, 0.25);
+  border-color: rgba(107, 114, 128, 0.3);
+}
+[data-theme="dark"] .link-btn-gray {
+  color: #9ca3af;
+  background-color: rgba(107, 114, 128, 0.2);
+}
+[data-theme="dark"] .link-btn-gray:hover {
+  background-color: rgba(107, 114, 128, 0.3);
+}
+
+/* Red Link */
+.link-btn-red {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
+}
+.link-btn-red:hover {
+  background-color: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+[data-theme="dark"] .link-btn-red {
+  color: #f87171;
+  background-color: rgba(239, 68, 68, 0.2);
+}
+[data-theme="dark"] .link-btn-red:hover {
+  background-color: rgba(239, 68, 68, 0.3);
+}
+
+/* Green Link */
+.link-btn-green {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #16a34a;
+}
+.link-btn-green:hover {
+  background-color: rgba(34, 197, 94, 0.25);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+[data-theme="dark"] .link-btn-green {
+  color: #4ade80;
+  background-color: rgba(34, 197, 94, 0.2);
+}
+[data-theme="dark"] .link-btn-green:hover {
+  background-color: rgba(34, 197, 94, 0.3);
+}
+
+/* Orange Link */
+.link-btn-orange {
+  background-color: rgba(249, 115, 22, 0.15);
+  color: #ea580c;
+}
+.link-btn-orange:hover {
+  background-color: rgba(249, 115, 22, 0.25);
+  border-color: rgba(249, 115, 22, 0.3);
+}
+[data-theme="dark"] .link-btn-orange {
+  color: #fb923c;
+  background-color: rgba(249, 115, 22, 0.2);
+}
+[data-theme="dark"] .link-btn-orange:hover {
+  background-color: rgba(249, 115, 22, 0.3);
+}
+
+/* Amber/Yellow Link */
+.link-btn-amber {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #d97706;
+}
+.link-btn-amber:hover {
+  background-color: rgba(245, 158, 11, 0.25);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+[data-theme="dark"] .link-btn-amber {
+  color: #fbbf24;
+  background-color: rgba(245, 158, 11, 0.2);
+}
+[data-theme="dark"] .link-btn-amber:hover {
+  background-color: rgba(245, 158, 11, 0.3);
+}
+
+/* Floating Top Switcher Styles */
+.glass-switcher {
+  background: rgba(255, 255, 255, 0.75);
+}
+[data-theme="dark"] .glass-switcher {
+  background: rgba(17, 24, 39, 0.75);
+}
+
+.switcher-btn {
+  border: 1px solid transparent; /* Keeps it strictly dimensioned */
+}
+
+.switcher-btn-active {
+  background-color: white;
+  color: #111827 !important;
+  box-shadow: 0 4px 15px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(229, 231, 235, 1);
+}
+[data-theme="dark"] .switcher-btn-active {
+  background-color: #374151;
+  color: #f9fafb !important;
+  box-shadow: 0 4px 15px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(75, 85, 99, 1);
+}
+
+.switcher-btn-inactive {
+  color: var(--text-muted);
+}
+.switcher-btn-inactive:hover {
+  color: var(--text-primary);
+}
+
+/* Specific to hide tabs safely */
+button.hidden {
+  display: none !important;
+}

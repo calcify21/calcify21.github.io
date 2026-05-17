@@ -1,0 +1,219 @@
+/* ============================================================
+   CALCULATOR — style.css (PHASE 2: FRESH LOOK)
+   Premium calculator with an ultra-smooth, floating deck aesthetic.
+   ============================================================ */
+
+/* ── Calculator Card ── */
+.calc-card {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* ── Display Screen ── */
+.calc-screen {
+  width: 100%;
+  padding: 1.5rem 1.25rem;
+  font-size: 2.25rem;
+  font-family: "Poppins", system-ui, monospace;
+  font-weight: 700;
+  text-align: right;
+  background: var(--bg-input);
+  border: 2px solid var(--border-color);
+  border-radius: 1.25rem;
+  color: var(--text-primary);
+  outline: none;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.05),
+    0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.calc-screen:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+.calc-screen::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+/* ── Keypad Grid ── */
+.calc-keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.calc-keys-sci {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+/* ── Base Button ── */
+.calc-btn {
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 80px;
+  max-height: 80px;
+  margin: 0 auto;
+  border: 1px solid var(--border-color);
+  border-radius: 1.25rem; /* Squircle feel */
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.calc-btn:active {
+  transform: scale(0.9);
+}
+
+/* ── Number Keys ── */
+.calc-num {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.calc-num:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Operator Keys ── */
+.calc-operate {
+  background: var(--bg-input);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.calc-operate:hover {
+  background: var(--accent-glow);
+  color: var(--accent-hover);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Equals Button ── */
+.calc-equals {
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 20px -4px var(--accent-glow);
+  font-size: 1.5rem;
+}
+
+.calc-equals:hover {
+  background: var(--accent-gradient-hover);
+  box-shadow: 0 12px 28px -4px var(--accent-glow);
+  transform: translateY(-4px) scale(1.05);
+}
+
+.calc-equals::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: 0.6s;
+}
+
+.calc-equals:hover::after {
+  left: 100%;
+}
+
+/* ── Light theme specific refinements ── */
+[data-theme="light"] .calc-num {
+  background: white;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .calc-keys {
+    gap: 10px;
+  }
+
+  .calc-keys-sci {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .calc-btn {
+    border-radius: 1rem;
+    font-size: 1.125rem;
+  }
+
+  .calc-screen {
+    font-size: 1.75rem;
+    padding: 1.25rem 1rem;
+  }
+}
+
+/* History Feature */
+.calc-history {
+  max-height: 150px;
+  overflow-y: auto;
+  border-top: 1px solid var(--border-color);
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.calc-history-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0;
+}
+
+/* ── Toggle Switch UI ── */
+.toggle-container {
+  display: inline-flex;
+  background-color: var(--bg-card);
+  padding: 0.35rem;
+  border-radius: 1.5rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  height: 3.5rem;
+}
+.toggle-btn {
+  height: 100%;
+  padding: 0 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 1.15rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.toggle-btn.active {
+  background-color: var(--accent);
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+.toggle-btn:not(.active):hover {
+  color: var(--text-primary);
+}

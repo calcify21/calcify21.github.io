@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programmer Calculator | Calcify</title>
+    <meta
+      name="description"
+      content="Advanced Programmer Calculator supporting Binary, Octal, Decimal, and Hexadecimal conversions. Includes bitwise operations for developers."
+    />
+    <link rel="canonical" href="https://calc.aurabyte.in/programmer" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/tool-page.css" />
+    <link rel="stylesheet" href="css/programmer.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+  </head>
+
+  <body>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="myBar"></div>
+    </div>
+    <header data-load="components/navbar.html"></header>
+
+    <main>
+      <div class="max-w-4xl mx-auto px-4 py-10">
+        <!-- Hero -->
+        <div class="text-center mb-8 animate-fade-in-up">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-4"
+            style="background: var(--accent-glow); color: var(--accent)"
+          >
+            <i class="fa-solid fa-code"></i> Developer Mode
+          </div>
+          <h1
+            class="text-2xl sm:text-3xl font-black mb-2"
+            style="color: var(--text-primary)"
+          >
+            Programmer Calculator
+          </h1>
+          <p class="text-sm" style="color: var(--text-muted)">
+            Perform base conversions and bitwise operations with precision.
+          </p>
+        </div>
+
+        <!-- Tool Container -->
+        <div class="card-fresh p-6 sm:p-8 mb-4 animate-fade-in-up stagger-1">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Input & Base Switching -->
+            <div class="space-y-6">
+              <div
+                class="p-6 rounded-2xl"
+                style="
+                  background: var(--bg-card-hover);
+                  border: 2px solid var(--border-color);
+                "
+              >
+                <div class="flex items-center justify-between mb-3">
+                  <label
+                    class="block text-xs font-bold uppercase tracking-wider"
+                    style="color: var(--text-muted)"
+                    >Main Input</label
+                  >
+                  <span
+                    id="opIndicator"
+                    class="text-xs font-black px-3 py-1 rounded-full"
+                    style="
+                      background: var(--accent-glow);
+                      color: var(--accent);
+                      display: none;
+                    "
+                  ></span>
+                </div>
+                <input
+                  type="text"
+                  id="mainInput"
+                  class="form-control text-3xl font-black font-mono p-4 mb-4"
+                  value="0"
+                  oninput="handleInput()"
+                />
+
+                <div class="grid grid-cols-2 gap-2">
+                  <button
+                    onclick="setBase('HEX')"
+                    id="btnBtnHEX"
+                    class="base-btn active"
+                  >
+                    HEX
+                  </button>
+                  <button
+                    onclick="setBase('DEC')"
+                    id="btnBtnDEC"
+                    class="base-btn"
+                  >
+                    DEC
+                  </button>
+                  <button
+                    onclick="setBase('OCT')"
+                    id="btnBtnOCT"
+                    class="base-btn"
+                  >
+                    OCT
+                  </button>
+                  <button
+                    onclick="setBase('BIN')"
+                    id="btnBtnBIN"
+                    class="base-btn"
+                  >
+                    BIN
+                  </button>
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <div
+                  class="flex items-center justify-between p-3 rounded-xl border border-[var(--border-color)]"
+                >
+                  <span
+                    class="text-xs font-bold uppercase"
+                    style="color: var(--text-muted)"
+                    >Hexadecimal</span
+                  >
+                  <span id="labelHEX" class="font-mono font-bold">0</span>
+                </div>
+                <div
+                  class="flex items-center justify-between p-3 rounded-xl border border-[var(--border-color)]"
+                >
+                  <span
+                    class="text-xs font-bold uppercase"
+                    style="color: var(--text-muted)"
+                    >Decimal</span
+                  >
+                  <span id="labelDEC" class="font-mono font-bold">0</span>
+                </div>
+                <div
+                  class="flex items-center justify-between p-3 rounded-xl border border-[var(--border-color)]"
+                >
+                  <span
+                    class="text-xs font-bold uppercase"
+                    style="color: var(--text-muted)"
+                    >Octal</span
+                  >
+                  <span id="labelOCT" class="font-mono font-bold">0</span>
+                </div>
+                <div
+                  class="flex items-center justify-between p-3 rounded-xl border border-[var(--border-color)]"
+                >
+                  <span
+                    class="text-xs font-bold uppercase"
+                    style="color: var(--text-muted)"
+                    >Binary</span
+                  >
+                  <span id="labelBIN" class="font-mono font-bold">0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bitwise Operations & Keypad -->
+            <div
+              class="bg-slate-50 dark:bg-slate-900/40 p-6 rounded-2xl border border-[var(--border-color)]"
+            >
+              <div class="grid grid-cols-4 gap-2">
+                <!-- Bitwise -->
+                <button onclick="bitwise('AND')" class="key-btn op">AND</button>
+                <button onclick="bitwise('OR')" class="key-btn op">OR</button>
+                <button onclick="bitwise('XOR')" class="key-btn op">XOR</button>
+                <button onclick="bitwise('NOT')" class="key-btn op">NOT</button>
+
+                <button onclick="bitwise('LSH')" class="key-btn op">LSH</button>
+                <button onclick="bitwise('RSH')" class="key-btn op">RSH</button>
+                <button onclick="clearAll()" class="key-btn danger col-span-2">
+                  CLEAR
+                </button>
+
+                <!-- HEX Keys -->
+                <button onclick="press('A')" class="key-btn hex">A</button>
+                <button onclick="press('B')" class="key-btn hex">B</button>
+                <button onclick="press('C')" class="key-btn hex">C</button>
+                <button onclick="press('D')" class="key-btn hex">D</button>
+                <button onclick="press('E')" class="key-btn hex">E</button>
+                <button onclick="press('F')" class="key-btn hex">F</button>
+
+                <!-- Num Keys -->
+                <button onclick="press('7')" class="key-btn">7</button>
+                <button onclick="press('8')" class="key-btn">8</button>
+                <button onclick="press('9')" class="key-btn">9</button>
+                <button onclick="press('4')" class="key-btn">4</button>
+                <button onclick="press('5')" class="key-btn">5</button>
+                <button onclick="press('6')" class="key-btn">6</button>
+                <button onclick="press('1')" class="key-btn">1</button>
+                <button onclick="press('2')" class="key-btn">2</button>
+                <button onclick="press('3')" class="key-btn">3</button>
+                <button onclick="press('0')" class="key-btn">0</button>
+                <button
+                  onclick="equalsPressed()"
+                  class="key-btn equals"
+                  style="
+                    background: var(--accent);
+                    color: white;
+                    font-weight: 900;
+                  "
+                >
+                  =
+                </button>
+                <button onclick="backspace()" class="key-btn">
+                  <i class="fa-solid fa-delete-left"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mt-8 text-center bg-indigo-50 dark:bg-indigo-900/10 p-4 rounded-xl border border-indigo-100 dark:border-indigo-900/30"
+          >
+            <i class="fa-solid fa-microchip text-indigo-500 mb-1"></i>
+            <p
+              class="text-xs font-semibold"
+              style="color: var(--text-secondary)"
+            >
+              Supports 64-bit integer operations and real-time base mirroring.
+            </p>
+          </div>
+        </div>
+
+        <!-- Scroll Buttons -->
+        <button onclick="gototop()" id="topbtn" aria-label="Scroll to top">
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
+      </div>
+    </main>
+
+    <footer
+      class="footer-custom mt-8"
+      data-load="components/footer.html"
+    ></footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/programmer.js"></script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+# --- Error Pages ---
+ErrorDocument 404 /404.html
+
+# --- URL Rewriting ---
+RewriteEngine On
+
+# Remove .html extension from URLs (301 redirect)
+# Example: /game.html → /game
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [L,R=301]
+
+# Internally serve .html files for clean URLs
+# Example: /game → serves game.html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]

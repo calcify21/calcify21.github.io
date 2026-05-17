@@ -1,0 +1,12 @@
+/* =======================================================
+   COLOR.CSS — Custom styles for Color Converter
+   ======================================================= */
+
+/* Specific overrides for design tool appearance */
+#colorPicker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+#colorPicker::-webkit-color-swatch {
+  border: none;
+  border-radius: 0.5rem;
+}

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Percentage Calculator | Calculate Increase &amp; Decrease | Calcify
+    </title>
+    <meta
+      name="description"
+      content="Easily calculate percentage increase, decrease, differences, and more. A fast, free, and accurate tool for everyday math and financial calculations."
+    />
+    <link rel="canonical" href="https://calc.aurabyte.in/percentage" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/custom-components.css" />
+    <link rel="stylesheet" href="css/tool-page.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calc.aurabyte.in/percentage" />
+    <meta
+      property="og:title"
+      content="Percentage Calculator - Fast &amp; Accurate | Calcify"
+    />
+    <meta
+      property="og:description"
+      content="Calculate percentage change, find values, and more with our simple online tool."
+    />
+    <meta
+      property="og:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Percentage Calculator | Calcify" />
+    <meta
+      name="twitter:description"
+      content="Quickly calculate percentages for math or finance."
+    />
+    <meta
+      name="twitter:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Percentage Calculator",
+        "operatingSystem": "Any",
+        "applicationCategory": "EducationalApplication",
+        "description": "A versatile online calculator to solve percentage-based math problems, including increases, decreases, and percentage of a value.",
+        "url": "https://calc.aurabyte.in/percentage",
+        "image": "https://calc.aurabyte.in/assets/images/thumbnail.png",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Aurabyte",
+          "url": "https://aurabyte.in"
+        }
+      }
+    </script>
+
+    <style>
+      #result1,
+      #result2 {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="myBar"></div>
+    </div>
+    <header data-load="components/navbar.html"></header>
+
+    <main>
+      <div class="max-w-2xl mx-auto px-4 py-10">
+        <!-- Hero -->
+        <div class="text-center mb-8 animate-fade-in-up">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-4"
+            style="background: var(--accent-glow); color: var(--accent)"
+          >
+            <i class="fa-solid fa-percent"></i> Mathematical Tool
+          </div>
+          <h1
+            class="text-2xl sm:text-3xl font-black mb-2"
+            style="color: var(--text-primary)"
+          >
+            Percentage Calculator
+          </h1>
+          <p class="text-sm max-w-md mx-auto" style="color: var(--text-muted)">
+            In mathematics, a percentage is a number or ratio that represents a
+            fraction of 100. Percentages are often denoted by the symbol "%"
+            written after the number.
+          </p>
+        </div>
+
+        <!-- Section 1: Percentage of a number -->
+        <div class="card-fresh p-6 sm:p-8 mb-6 animate-fade-in-up stagger-1">
+          <h3
+            class="text-base font-bold mb-4"
+            style="color: var(--text-primary)"
+          >
+            <i
+              class="fa-solid fa-calculator mr-2"
+              style="color: var(--accent)"
+            ></i>
+            Calculate the percentage of a number
+          </h3>
+          <form>
+            <div class="row mb-4">
+              <div class="col">
+                <input
+                  type="number"
+                  class="form-control placeholder1"
+                  id="val1"
+                  placeholder="%"
+                  onkeyup="checksolve1(event)"
+                />
+              </div>
+              <div class="col-1 uf">of</div>
+              <div class="col">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="val2"
+                  placeholder="Number"
+                  onkeyup="checksolve1(event)"
+                />
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <button
+                type="button"
+                class="btn-calc btn-calc-primary"
+                onclick="percentof()"
+              >
+                <a href="#result1" class="inheritColor">Calculate</a>
+              </button>
+              <button
+                class="btn-calc btn-calc-secondary"
+                type="reset"
+                onclick="resetbtn1()"
+                id="reset1"
+              >
+                Reset
+              </button>
+            </div>
+          </form>
+          <div class="mt-4">
+            <div id="result1" class="alert alert-success" role="alert"></div>
+          </div>
+        </div>
+
+        <!-- Section 2: Increase / Decrease -->
+        <div class="card-fresh p-6 sm:p-8 animate-fade-in-up stagger-2">
+          <h3
+            class="text-base font-bold mb-4"
+            style="color: var(--text-primary)"
+          >
+            <i
+              class="fa-solid fa-arrow-up-right-dots mr-2"
+              style="color: var(--accent)"
+            ></i>
+            Calculate the increased or decreased amount
+          </h3>
+          <form>
+            <div class="row mb-4">
+              <div class="col">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="val3"
+                  placeholder="Number"
+                  onkeyup="checksolve2(event)"
+                />
+              </div>
+              <div class="col-1">
+                <select
+                  class="form-select"
+                  id="select-operator"
+                  style="width: 60px; text-align: center"
+                >
+                  <option value="+" selected>+</option>
+                  <option value="-">−</option>
+                </select>
+              </div>
+              <div class="col">
+                <input
+                  type="number"
+                  class="form-control placeholder1"
+                  id="val4"
+                  placeholder="%"
+                  onkeyup="checksolve2(event)"
+                />
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <button
+                type="button"
+                class="btn-calc btn-calc-primary"
+                onclick="check()"
+              >
+                <a href="#result2" class="inheritColor">Calculate</a>
+              </button>
+              <button
+                class="btn-calc btn-calc-secondary"
+                type="reset"
+                onclick="resetbtn2()"
+                id="reset2"
+              >
+                Reset
+              </button>
+            </div>
+          </form>
+          <div class="mt-4">
+            <div id="result2" class="alert alert-success" role="alert"></div>
+          </div>
+        </div>
+
+        <!-- Scroll Buttons -->
+        <button onclick="gototop()" id="topbtn" aria-label="Scroll to top">
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
+        <button
+          onclick="gotobottom()"
+          id="bottombtn"
+          aria-label="Scroll to bottom"
+        >
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+    </main>
+
+    <footer
+      class="footer-custom mt-8"
+      data-load="components/footer.html"
+    ></footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/custom-components.js"></script>
+    <script src="js/percent.js"></script>
+  </body>
+</html>

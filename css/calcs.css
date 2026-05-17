@@ -1,0 +1,189 @@
+/* ============================================================
+   CALCS (Tool Directory) — calcs.css (PHASE 2: FRESH LOOK)
+   Bento Grid layout for a premium SaaS feel.
+   ============================================================ */
+
+/* ── Category Headers ── */
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.category-header i {
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+/* ── Bento Grid ── */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ── Tool Card ── */
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.75rem;
+  box-shadow: 
+    inset 0 1px 1px var(--inner-glow),
+    var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.tool-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    inset 0 1px 1px var(--inner-glow),
+    var(--shadow-xl);
+  border-color: var(--accent);
+}
+
+.tool-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  background: var(--bg-input);
+  color: var(--accent);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.tool-card:hover .tool-icon-wrapper {
+  background: var(--accent);
+  color: white;
+  transform: rotate(10deg);
+}
+
+/* ── Tool Info ── */
+.tool-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.tool-name {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  line-height: 1.2;
+}
+
+.tool-desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+/* ── Star Button ── */
+.star-btn {
+  background: var(--bg-input);
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.star-btn:hover {
+  background: var(--accent-glow);
+  color: var(--accent);
+  transform: scale(1.1);
+}
+
+.star-btn.active {
+  color: var(--accent);
+}
+
+/* ── Open Button ── */
+.tool-open-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border-radius: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.tool-card:hover .tool-open-link {
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+
+
+
+/* ── Badges ── */
+.tool-badge {
+  position: absolute;
+  top: 1.25rem;
+  right: -2rem;
+  padding: 0.25rem 2.5rem;
+  font-size: 0.625rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.badge-popular { background: #3b82f6; color: white; }
+.badge-new { background: #f59e0b; color: white; }
+.badge-featured { background: #ef4444; color: white; }
+
+/* ── Responsive ── */
+@media screen and (max-width: 480px) {
+  .tool-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .tool-card {
+    padding: 1.5rem;
+  }
+}
+

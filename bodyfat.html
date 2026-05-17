@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Body Fat Calculator | Fitness % | Calcify</title>
+    <meta
+      name="description"
+      content="Estimate your body fat percentage using the US Navy formula. Accurate results based on height, neck, waist, and hip measurements."
+    />
+
+    <link rel="canonical" href="https://calc.aurabyte.in/bodyfat" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/tool-page.css" />
+    <link rel="stylesheet" href="css/health.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+  </head>
+
+  <body>
+    <header data-load="components/navbar.html"></header>
+
+    <main>
+      <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- Page Header -->
+        <div class="text-center mb-8">
+          <span
+            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-3"
+            style="background: var(--accent-glow); color: var(--accent)"
+          >
+            <i class="fa-solid fa-child-reaching"></i> Fitness Tool
+          </span>
+          <h1 class="text-3xl font-bold mb-2">Body Fat Calculator</h1>
+          <p class="text-gray-500 dark:text-gray-400">
+            Estimate your body fat percentage using the US Navy Fitness Formula.
+          </p>
+        </div>
+
+        <!-- Calculator Card -->
+        <div class="card-fresh p-6 sm:p-8">
+          <!-- Gender Selection -->
+          <div class="gender-toggle">
+            <button
+              class="gender-btn active"
+              id="gender-male"
+              onclick="setGender('male')"
+            >
+              <i class="fa-solid fa-mars"></i>
+              <span>Male</span>
+            </button>
+            <button
+              class="gender-btn"
+              id="gender-female"
+              onclick="setGender('female')"
+            >
+              <i class="fa-solid fa-venus"></i>
+              <span>Female</span>
+            </button>
+          </div>
+
+          <!-- Input Form -->
+          <div class="space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label
+                  class="block text-sm font-semibold mb-2 ml-1 text-secondary"
+                  >Height (cm)</label
+                >
+                <input
+                  type="number"
+                  id="height"
+                  class="form-control"
+                  placeholder="e.g. 180"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-sm font-semibold mb-2 ml-1 text-secondary"
+                  >Neck (cm)</label
+                >
+                <input
+                  type="number"
+                  id="neck"
+                  class="form-control"
+                  placeholder="e.g. 40"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-sm font-semibold mb-2 ml-1 text-secondary"
+                  >Waist (cm)</label
+                >
+                <input
+                  type="number"
+                  id="waist"
+                  class="form-control"
+                  placeholder="e.g. 85"
+                />
+              </div>
+              <div id="hip-container" class="hidden">
+                <label
+                  class="block text-sm font-semibold mb-2 ml-1 text-secondary"
+                  >Hip (cm)</label
+                >
+                <input
+                  type="number"
+                  id="hip"
+                  class="form-control"
+                  placeholder="e.g. 90"
+                />
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <div class="pt-4">
+              <button
+                class="btn-calc btn-calc-primary w-full"
+                onclick="calculateBodyFat()"
+              >
+                <i class="fa-solid fa-calculator mr-2"></i> Calculate Body Fat
+              </button>
+            </div>
+
+            <!-- Error Message -->
+            <div id="error-msg" class="alert alert-danger hidden mt-4"></div>
+          </div>
+
+          <!-- Result Panel -->
+          <div
+            id="result-panel"
+            class="mt-8 pt-8 border-t border-gray-100 dark:border-gray-800 hidden"
+          >
+            <div class="text-center">
+              <p
+                class="text-sm font-semibold text-muted uppercase tracking-wider mb-1"
+              >
+                Estimated Body Fat
+              </p>
+              <div
+                id="bf-value"
+                class="text-5xl font-black mb-4"
+                style="color: var(--accent)"
+              >
+                15.4%
+              </div>
+
+              <div
+                id="bf-category-badge"
+                class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold mb-4"
+              >
+                Fitness
+              </div>
+
+              <div class="max-w-md mx-auto">
+                <p id="bf-desc" class="text-muted text-sm px-4"></p>
+              </div>
+            </div>
+
+            <!-- Category Reference Table -->
+            <div class="mt-8">
+              <h3
+                class="text-sm font-bold text-secondary uppercase tracking-widest mb-4 text-center"
+              >
+                Category Reference
+              </h3>
+              <div
+                class="overflow-hidden rounded-xl border border-gray-100 dark:border-gray-800"
+              >
+                <table class="w-full text-sm text-left">
+                  <thead class="bg-gray-50 dark:bg-gray-800/50">
+                    <tr>
+                      <th class="px-4 py-2 font-bold text-secondary">
+                        Category
+                      </th>
+                      <th class="px-4 py-2 font-bold text-secondary text-right">
+                        Range
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    id="ref-table-body"
+                    class="divide-y divide-gray-100 dark:divide-gray-800"
+                  >
+                    <!-- Dynamic Rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer data-load="components/footer.html"></footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/bodyfat.js"></script>
+  </body>
+</html>

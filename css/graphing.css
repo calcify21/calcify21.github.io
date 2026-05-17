@@ -1,0 +1,8 @@
+/* =======================================================
+   GRAPHING.CSS — Custom styles for Graphing Calculator
+   ======================================================= */
+
+/* Any future graphing specific overrides go here */
+#plotlyCanvas {
+  border-radius: 1rem;
+}

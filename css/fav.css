@@ -1,0 +1,131 @@
+/* ============================================================
+   FAVORITES PAGE STYLES
+   ============================================================ */
+
+/* List items */
+.fav-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  transition: all 0.3s ease;
+}
+
+.fav-item:hover {
+  border-left: 5px solid #f59e0b;
+  background: var(--bg-secondary);
+}
+
+.fav-item .fav-title {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fav-item .fav-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.fav-item .fav-open {
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.fav-item .fav-open:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Premium Empty State */
+.fav-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.75rem;
+  box-shadow: 
+    inset 0 1px 1px var(--inner-glow),
+    var(--shadow-md);
+  max-width: 500px;
+  margin: 2rem auto;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.fav-empty-icon-wrapper {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--bg-input);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 24px var(--accent-glow);
+  border: 1px solid var(--glass-border);
+  animation: float 4s ease-in-out infinite;
+}
+
+.fav-empty-title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.fav-empty-subtitle {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+  max-width: 380px;
+}
+
+.fav-empty-state .btn-primary-custom {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  background: var(--accent-gradient);
+  color: white !important;
+  border-radius: 1rem;
+  text-decoration: none !important;
+  box-shadow: 0 4px 12px var(--accent-glow);
+  transition: all 0.3s ease;
+}
+
+.fav-empty-state .btn-primary-custom:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px var(--accent-glow);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Dark mode */
+[data-theme="dark"] .fav-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}

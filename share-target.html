@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Share to Calcify</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="assets/images/favicon-2.png" />
+
+    <style>
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--bg-primary);
+      }
+
+      .share-card {
+        max-width: 480px;
+        width: 100%;
+        text-align: center;
+        border-radius: 16px;
+        overflow: hidden;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      }
+
+      .share-btn {
+        display: block;
+        width: 100%;
+        padding: 14px 20px;
+        margin-bottom: 12px;
+        font-weight: 500;
+        border: 1px solid var(--text-secondary);
+        border-radius: 10px;
+        background: transparent;
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .share-btn:hover {
+        background-color: rgba(165, 42, 42, 0.2);
+        transform: scale(1.02);
+      }
+
+      .share-btn i {
+        margin-right: 8px;
+      }
+
+      .data-preview-container {
+        border-radius: 12px;
+        padding: 15px;
+        margin: 20px 0;
+        background: var(--bg-secondary);
+        border: 1px solid var(--glass-border);
+      }
+
+      .data-preview {
+        word-break: break-all;
+        font-size: 0.95rem;
+        max-height: 100px;
+        overflow-y: auto;
+        color: var(--text-primary);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="share-card">
+      <img src="/assets/images/card-image.png" class="w-full" alt="Hi!" />
+      <div class="p-5">
+        <div class="text-center mb-4">
+          <h5
+            class="text-xl font-semibold mb-1"
+            style="color: var(--text-primary)"
+          >
+            Calcify Share
+          </h5>
+          <p class="text-sm" style="color: var(--text-secondary)">
+            What should we do with this info?
+          </p>
+        </div>
+        <div class="data-preview-container text-left">
+          <div class="flex justify-between items-center mb-1">
+            <small
+              class="uppercase font-bold text-xs tracking-widest"
+              style="color: var(--text-secondary)"
+              >Input Data</small
+            >
+            <button
+              onclick="copyData()"
+              class="text-sm p-0 hover:opacity-70"
+              style="color: var(--text-secondary)"
+              title="Copy to clipboard"
+            >
+              <i class="fa-regular fa-copy"></i>
+            </button>
+          </div>
+          <div id="display-data" class="data-preview">Waiting for data...</div>
+        </div>
+        <div class="mt-6">
+          <button class="share-btn" onclick="redirect('prime')">
+            <i class="fa-solid fa-arrow-up-1-9"></i>
+            Check Primality
+          </button>
+          <button class="share-btn" onclick="redirect('qr')">
+            <i class="fa-solid fa-qrcode"></i>
+            Generate QR Code
+          </button>
+          <button class="share-btn" onclick="redirect('mean')">
+            <i class="fa-solid fa-calculator"></i>
+            Find Mean, Median and others..
+          </button>
+          <button class="share-btn" onclick="redirect('recipe')">
+            <i class="fa-solid fa-utensils"></i>
+            Search Recipes
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const sharedData =
+        urlParams.get("data") ||
+        urlParams.get("text") ||
+        urlParams.get("title") ||
+        urlParams.get("url");
+
+      if (sharedData) {
+        document.getElementById("display-data").innerText = sharedData;
+      }
+
+      function redirect(tool) {
+        if (!sharedData) return;
+        let paramName = tool === "recipe" ? "query" : "input";
+        window.location.href = `/${tool}?${paramName}=${encodeURIComponent(sharedData)}`;
+      }
+
+      function copyData() {
+        if (!sharedData) return;
+        navigator.clipboard.writeText(sharedData);
+        alert("Copied to clipboard!");
+      }
+    </script>
+  </body>
+</html>

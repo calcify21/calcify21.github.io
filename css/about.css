@@ -1,0 +1,66 @@
+/* ============================================================
+   ABOUT PAGE — about.css
+   Premium section layout with icon circles
+   ============================================================ */
+
+/* ── Section Layout ── */
+.about-section {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.about-icon-circle {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-glow);
+  color: var(--accent);
+  font-size: 1rem;
+  margin-top: 2px;
+}
+
+/* ── Typography ── */
+.about-heading {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem;
+}
+
+.about-text {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.about-link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.about-link:hover {
+  color: var(--accent-hover);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .about-section {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .about-icon-circle {
+    width: 36px;
+    height: 36px;
+    font-size: 0.875rem;
+  }
+}

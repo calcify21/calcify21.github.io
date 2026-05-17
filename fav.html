@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Favorites | Calcify</title>
+    <meta
+      name="description"
+      content="Access your saved tools and favorite calculators in one place for quick and easy use."
+    />
+
+    <link rel="canonical" href="https://calc.aurabyte.in/fav" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/fav.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calc.aurabyte.in/fav" />
+    <meta property="og:title" content="My Favorite Tools | Calcify" />
+    <meta
+      property="og:description"
+      content="Quick access to my most used calculators and utilities on Calcify."
+    />
+    <meta
+      property="og:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="My Favorites | Calcify" />
+    <meta
+      name="twitter:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Your Favorites - Calcify",
+        "description": "A personalized dashboard for your most-used tools on Calcify.",
+        "url": "https://calc.aurabyte.in/fav",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Aurabyte",
+          "url": "https://aurabyte.in"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <header data-load="components/navbar.html"></header>
+    <main>
+      <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <span
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700 mb-2"
+            >
+              <i class="fa-solid fa-star"></i> Your Collection
+            </span>
+            <h1 class="text-3xl font-bold">Favourites</h1>
+          </div>
+          <button
+            class="btn-calc"
+            onclick="removeAllFavorites()"
+            id="removeFavoritesBtn"
+          >
+            <i class="fa-solid fa-trash-can mr-2"></i>Clear
+          </button>
+        </div>
+
+        <!-- Favorites List -->
+        <ol id="favorites-container" class="space-y-3"></ol>
+      </div>
+    </main>
+    <footer data-load="components/footer.html"></footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/fav.js"></script>
+  </body>
+</html>

@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Generator & Scanner | Create and Read QRs | Calcify</title>
+    <meta
+      name="description"
+      content="Generate custom QR codes for text, WiFi, WhatsApp, and more. Scan QR codes using your camera or by uploading images with Calcify's versatile QR tool."
+    />
+
+    <link rel="canonical" href="https://calc.aurabyte.in/qr" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/custom-components.css" />
+    <link rel="stylesheet" href="css/tool-page.css" />
+    <link rel="stylesheet" href="css/qr.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calc.aurabyte.in/qr" />
+    <meta property="og:title" content="QR Code Tool | Calcify" />
+    <meta
+      property="og:description"
+      content="A powerful QR code tool to generate custom QRs and scan existing ones instantly."
+    />
+    <meta
+      property="og:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "QR Code Generator & Scanner - Calcify",
+        "description": "Create and scan QR codes for various data types like URLs, WiFi, and contacts.",
+        "url": "https://calc.aurabyte.in/qr",
+        "applicationCategory": "UtilityApplication",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Aurabyte",
+          "url": "https://aurabyte.in"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <header data-load="components/navbar.html"></header>
+    <main>
+      <div class="max-w-5xl mx-auto px-4 py-8">
+        <!-- Page Header -->
+        <div class="text-center mb-8">
+          <span
+            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-3"
+            style="background: var(--accent-glow); color: var(--accent)"
+          >
+            <i class="fa-solid fa-qrcode"></i> Multi-Tool
+          </span>
+          <h1 class="text-3xl font-bold mb-2">QR Code Generator & Scanner</h1>
+          <p class="text-gray-500 dark:text-gray-400">
+            The Ultimate Hub to Generate or Scan your QR Codes.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Left: Generator -->
+          <div class="card-fresh p-6">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i>
+              Generator
+            </h2>
+
+            <!-- Generator Tabs -->
+            <div class="qr-tabs flex flex-wrap gap-2 mb-6">
+              <button class="qr-tab active" data-tab="text-tab">
+                Text/URL
+              </button>
+              <button class="qr-tab" data-tab="wifi-tab">Wi-Fi</button>
+              <button class="qr-tab" data-tab="whatsapp-tab">WhatsApp</button>
+              <button class="qr-tab" data-tab="vcard-tab">vCard</button>
+              <button class="qr-tab" data-tab="email-tab">Email</button>
+              <button class="qr-tab" data-tab="sms-tab">SMS</button>
+              <button class="qr-tab" data-tab="map-tab">Map</button>
+              <button class="qr-tab" data-tab="event-tab">Event</button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div id="qr-tab-contents">
+              <!-- Text Tab -->
+              <div id="text-tab" class="qr-tab-pane active">
+                <textarea
+                  id="textInput"
+                  class="form-control"
+                  rows="3"
+                  placeholder="Enter text or URL to encode..."
+                ></textarea>
+              </div>
+
+              <!-- Wi-Fi Tab -->
+              <div id="wifi-tab" class="qr-tab-pane">
+                <div class="space-y-4">
+                  <input
+                    type="text"
+                    id="ssidInput"
+                    class="form-control"
+                    placeholder="Network Name (SSID)"
+                  />
+                  <select id="encryptionType" class="form-select">
+                    <option value="WPA">WPA/WPA2</option>
+                    <option value="WEP">WEP</option>
+                    <option value="nopass">No Encryption</option>
+                  </select>
+                  <input
+                    type="password"
+                    id="wifiPwdInput"
+                    class="form-control"
+                    placeholder="Password"
+                  />
+                  <label class="flex items-center gap-2 text-sm cursor-pointer">
+                    <input
+                      type="checkbox"
+                      id="hiddenSSID"
+                      class="form-check-input"
+                    />
+                    <span>Hidden Network?</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- WhatsApp Tab -->
+              <div id="whatsapp-tab" class="qr-tab-pane">
+                <div class="space-y-4">
+                  <input
+                    type="tel"
+                    id="waPhoneInput"
+                    class="form-control"
+                    placeholder="Phone Number (e.g., 919876543210)"
+                  />
+                  <textarea
+                    id="waMsgInput"
+                    class="form-control"
+                    rows="2"
+                    placeholder="Pre-filled Message"
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- vCard Tab -->
+              <div id="vcard-tab" class="qr-tab-pane">
+                <div class="grid grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    id="vcFirst"
+                    class="form-control"
+                    placeholder="First Name"
+                  />
+                  <input
+                    type="text"
+                    id="vcLast"
+                    class="form-control"
+                    placeholder="Last Name"
+                  />
+                  <input
+                    type="tel"
+                    id="vcPhone"
+                    class="form-control"
+                    placeholder="Phone"
+                  />
+                  <input
+                    type="email"
+                    id="vcEmail"
+                    class="form-control"
+                    placeholder="Email"
+                  />
+                  <input
+                    type="text"
+                    id="vcOrg"
+                    class="form-control col-span-2"
+                    placeholder="Organization"
+                  />
+                  <input
+                    type="text"
+                    id="vcUrl"
+                    class="form-control col-span-2"
+                    placeholder="Website URL"
+                  />
+                </div>
+              </div>
+
+              <!-- Email Tab -->
+              <div id="email-tab" class="qr-tab-pane">
+                <div class="space-y-4">
+                  <input
+                    type="email"
+                    id="emailTo"
+                    class="form-control"
+                    placeholder="To: email@example.com"
+                  />
+                  <input
+                    type="text"
+                    id="emailSub"
+                    class="form-control"
+                    placeholder="Subject"
+                  />
+                  <textarea
+                    id="emailBody"
+                    class="form-control"
+                    rows="2"
+                    placeholder="Email Content"
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- SMS Tab -->
+              <div id="sms-tab" class="qr-tab-pane">
+                <div class="space-y-4">
+                  <input
+                    type="tel"
+                    id="smsPhone"
+                    class="form-control"
+                    placeholder="Phone Number"
+                  />
+                  <textarea
+                    id="smsMsg"
+                    class="form-control"
+                    rows="2"
+                    placeholder="SMS Text"
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- Map Tab -->
+              <div id="map-tab" class="qr-tab-pane">
+                <div class="grid grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    id="mapLat"
+                    class="form-control"
+                    placeholder="Latitude (e.g., 28.6139)"
+                  />
+                  <input
+                    type="text"
+                    id="mapLong"
+                    class="form-control"
+                    placeholder="Longitude (e.g., 77.2090)"
+                  />
+                </div>
+              </div>
+
+              <!-- Event Tab -->
+              <div id="event-tab" class="qr-tab-pane">
+                <div class="space-y-4">
+                  <input
+                    type="text"
+                    id="eventTitle"
+                    class="form-control"
+                    placeholder="Event Title"
+                  />
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label class="text-xs text-gray-400 block mb-1 ml-1"
+                        >Starts At</label
+                      >
+                      <input
+                        type="datetime-local"
+                        id="eventStart"
+                        class="form-control"
+                      />
+                    </div>
+                    <div>
+                      <label class="text-xs text-gray-400 block mb-1 ml-1"
+                        >Ends At</label
+                      >
+                      <input
+                        type="datetime-local"
+                        id="eventEnd"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    id="eventLoc"
+                    class="form-control"
+                    placeholder="Location"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Generate Action -->
+            <div
+              class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800 flex flex-wrap gap-3 items-center justify-between"
+            >
+              <button
+                class="btn-calc btn-calc-primary px-8"
+                onclick="generateQR()"
+              >
+                <i class="fa-solid fa-rotate mr-1"></i> Generate QR
+              </button>
+              <div id="qr-action-btns" class="flex gap-2 hidden">
+                <button
+                  id="downloadBtn"
+                  class="btn-calc btn-calc-secondary p-3 h-10 w-10 flex items-center justify-center rounded-full"
+                  title="Download QR"
+                  disabled
+                >
+                  <i class="fa-solid fa-download"></i>
+                </button>
+                <button
+                  id="shareBtn"
+                  class="btn-calc btn-calc-secondary p-3 h-10 w-10 flex items-center justify-center rounded-full"
+                  title="Share QR"
+                  disabled
+                >
+                  <i class="fa-solid fa-share-nodes"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Display QR -->
+            <div
+              id="qr-result-container"
+              class="mt-8 flex flex-col items-center justify-center p-6 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-700 hidden"
+            >
+              <div id="qrcode" class="p-4 bg-white rounded-lg"></div>
+              <p
+                id="qr-info"
+                class="mt-4 text-sm font-semibold text-amber-500 uppercase tracking-wider"
+              ></p>
+            </div>
+          </div>
+
+          <!-- Right: Scanner -->
+          <div class="card-fresh p-6 flex flex-col">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+              <i class="fa-solid fa-camera text-amber-500"></i> Scanner
+            </h2>
+
+            <!-- Scanner Switch -->
+            <div
+              class="flex p-1 rounded-xl mb-6"
+              style="
+                background: var(--bg-input);
+                border: 1px solid var(--border-color);
+              "
+            >
+              <button
+                id="toVideo"
+                class="flex-1 py-2 text-sm font-semibold rounded-lg shadow-sm transition-all"
+                style="
+                  background: var(--bg-secondary);
+                  color: var(--text-primary);
+                "
+              >
+                Camera
+              </button>
+              <button
+                id="toImage"
+                class="flex-1 py-2 text-sm font-semibold rounded-lg transition-all"
+                style="color: var(--text-muted)"
+              >
+                Upload
+              </button>
+            </div>
+
+            <!-- Video Mode -->
+            <div
+              id="videoContainer"
+              class="relative rounded-2xl overflow-hidden aspect-square bg-black border-4 border-amber-500/20"
+            >
+              <video id="video" class="w-full h-full object-cover"></video>
+              <canvas id="canvas" class="hidden"></canvas>
+
+              <!-- Scanning Overlay -->
+              <div
+                class="qr-scanner-overlay absolute inset-0 pointer-events-none flex items-center justify-center"
+              >
+                <div
+                  class="w-2/3 h-2/3 border-2 border-white/50 rounded-3xl relative"
+                >
+                  <div
+                    class="qr-scan-line absolute top-0 left-0 right-0 h-0.5 bg-amber-500 shadow-[0_0_10px_2px_var(--accent-glow)]"
+                  ></div>
+                  <!-- Corners -->
+                  <div
+                    class="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-amber-500 rounded-tl-lg"
+                  ></div>
+                  <div
+                    class="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-amber-500 rounded-tr-lg"
+                  ></div>
+                  <div
+                    class="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 border-amber-500 rounded-bl-lg"
+                  ></div>
+                  <div
+                    class="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 border-amber-500 rounded-br-lg"
+                  ></div>
+                </div>
+              </div>
+
+              <div
+                id="waitingForCamera"
+                class="absolute inset-0 flex flex-col items-center justify-center text-white bg-black/60 p-6 text-center"
+              >
+                <i class="fa-solid fa-video-slash text-4xl mb-4 opacity-50"></i>
+                <p class="font-medium text-lg">Waiting for Camera...</p>
+                <button
+                  id="start-camera"
+                  class="btn-calc mt-4 bg-amber-500 text-white border-none py-2 px-6"
+                >
+                  Access Camera
+                </button>
+              </div>
+            </div>
+
+            <!-- Image Mode -->
+            <div id="imageContainer" class="hidden flex-1 flex flex-col">
+              <div
+                id="drop-area"
+                class="flex-1 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-2xl flex flex-col items-center justify-center p-8 transition-colors hover:border-amber-500 hover:bg-amber-500/5 cursor-pointer relative overflow-hidden"
+              >
+                <div
+                  id="file-preview-container"
+                  class="absolute inset-0 hidden"
+                >
+                  <img
+                    id="file-preview"
+                    class="w-full h-full object-contain bg-black/5"
+                  />
+                  <button
+                    onclick="clearQRImage(event)"
+                    class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 dark:bg-gray-800/90 shadow-lg flex items-center justify-center text-red-500 hover:bg-red-50"
+                  >
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+
+                <div
+                  id="drop-area-content"
+                  class="flex flex-col items-center justify-center"
+                >
+                  <i
+                    class="fa-solid fa-cloud-arrow-up text-5xl text-gray-300 mb-4 transition-colors"
+                  ></i>
+                  <p class="text-center text-gray-500 mb-4">
+                    Drag and drop your QR image here or click to browse
+                  </p>
+                  <input
+                    type="file"
+                    id="fileInput"
+                    accept="image/*"
+                    class="hidden"
+                  />
+                  <button
+                    class="btn-calc btn-calc-secondary py-2"
+                    onclick="document.getElementById('fileInput').click()"
+                  >
+                    Select Image
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scan Result -->
+            <div
+              id="scan-result"
+              class="mt-6 p-4 bg-green-500/5 border border-green-500/20 rounded-xl hidden"
+            >
+              <div class="flex items-center justify-between mb-2">
+                <span
+                  class="text-xs uppercase font-bold text-green-600 tracking-wider"
+                  >Scan Result:</span
+                >
+                <button
+                  onclick="copyScanResult()"
+                  class="text-xs flex items-center gap-1 text-green-600 font-bold hover:underline"
+                >
+                  <i class="fa-regular fa-copy"></i> Copy
+                </button>
+              </div>
+              <div
+                id="result-text"
+                class="text-lg font-mono break-all line-clamp-4"
+              ></div>
+              <a
+                id="result-link"
+                href="#"
+                target="_blank"
+                class="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-blue-500 hover:underline hidden"
+              >
+                Open Link
+                <i class="fa-solid fa-up-right-from-square text-xs"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer data-load="components/footer.html"></footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/custom-components.js"></script>
+    <script src="js/qr.js"></script>
+    <!-- QR Libraries -->
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+  </body>
+</html>

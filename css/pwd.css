@@ -1,0 +1,97 @@
+/* ============================================================
+   PWD PAGE STYLES
+   ============================================================ */
+
+/* Glass card for generator settings */
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+/* Password icon buttons (copy, refresh) */
+.pwd-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 56px;
+  border: 1px solid var(--glass-border);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pwd-icon-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 15px 2px var(--accent-glow);
+}
+
+.pwd-icon-btn:hover i {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+/* Range slider */
+.pwd-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  outline: none;
+  margin: 15px 0;
+}
+
+.pwd-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.pwd-range::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Checkbox styling */
+.form-check-input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+
+/* Option Group (sub-options in modal) */
+.option-group {
+  border-left: 3px solid var(--accent);
+  background: var(--bg-secondary);
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+
+/* Media query for small screens */
+@media screen and (max-width: 450px) {
+  .pwd-icon-btn {
+    width: 44px;
+    height: 50px;
+  }
+}

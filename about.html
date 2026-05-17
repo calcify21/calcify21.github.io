@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | Calcify</title>
+    <meta
+      name="description"
+      content="Learn about Calcify, a student-built calculator suite offering fast, free tools for math, logic, and daily utility."
+    />
+    <link rel="canonical" href="https://calc.aurabyte.in/about" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/about.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="assets/images/favicon-2.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calc.aurabyte.in/about" />
+    <meta property="og:title" content="About Us | Calcify" />
+    <meta
+      property="og:description"
+      content="Discover the story behind Calcify—a clean, fast, and student-built online calculator suite."
+    />
+    <meta
+      property="og:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="About Us | Calcify" />
+    <meta
+      name="twitter:description"
+      content="Discover the story behind Calcify—a clean, fast, and student-built online calculator suite."
+    />
+    <meta
+      name="twitter:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About Calcify",
+        "description": "Learn about Calcify, a student-built calculator suite offering fast, free tools for math, logic, and daily utility.",
+        "url": "https://calc.aurabyte.in/about",
+        "image": "https://calc.aurabyte.in/assets/images/thumbnail.png",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Aurabyte",
+          "url": "https://aurabyte.in"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Progress Bar -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="myBar"></div>
+    </div>
+
+    <header data-load="components/navbar.html"></header>
+
+    <main>
+      <div class="max-w-3xl mx-auto px-4 py-10">
+        <!-- Hero Section -->
+        <div class="text-center mb-12 animate-fade-in-up">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-4"
+            style="background: var(--accent-glow); color: var(--accent)"
+          >
+            <i class="fa-solid fa-heart"></i> Built with passion
+          </div>
+          <h1
+            class="text-3xl sm:text-4xl font-black leading-tight mb-3"
+            style="color: var(--text-primary)"
+          >
+            Making Math Your Ally, One Calculator at a Time
+          </h1>
+          <p class="text-base" style="color: var(--text-muted)">
+            The story behind Calcify — fast, free, forever.
+          </p>
+        </div>
+
+        <!-- Content Card -->
+        <div class="card-fresh p-6 sm:p-8 animate-fade-in-up stagger-1">
+          <!-- Section: Intro -->
+          <div class="about-section">
+            <div class="about-icon-circle">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div>
+              <h3 class="about-heading">Hello, I'm Shaurya Jain</h3>
+              <p class="about-text">
+                I'm the developer behind Calcify. I'm passionate about making
+                math accessible and useful for everyone, which is why I'm
+                creating a website overflowing with calculators for all sorts of
+                situations.
+              </p>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Section: Universe -->
+          <div class="about-section">
+            <div class="about-icon-circle">
+              <i class="fa-solid fa-rocket"></i>
+            </div>
+            <div>
+              <h3 class="about-heading">A Universe of Calculations</h3>
+              <p class="about-text">
+                Need to tackle a complex equation for your physics project?
+                Done. Budgeting for a home renovation? We've got a calculator
+                for that. From everyday arithmetic to niche industry
+                calculations, I'm constantly adding new tools to my collection.
+              </p>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Section: Design -->
+          <div class="about-section">
+            <div class="about-icon-circle">
+              <i class="fa-solid fa-palette"></i>
+            </div>
+            <div>
+              <h3 class="about-heading">Focus on User-Friendly Design</h3>
+              <p class="about-text">
+                I believe powerful calculations shouldn't require complicated
+                interfaces. Each calculator is designed for clarity, with
+                intuitive instructions and easy-to-understand outputs.
+              </p>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Section: Solo Dev -->
+          <div class="about-section">
+            <div class="about-icon-circle">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <div>
+              <h3 class="about-heading">A One-Person Mission</h3>
+              <p class="about-text">
+                This website is a labour of love, entirely built and maintained
+                by me. While I may be a solo developer, I'm dedicated to
+                providing you with accurate and reliable tools.
+              </p>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Section: Feedback -->
+          <div class="about-section">
+            <div class="about-icon-circle">
+              <i class="fa-solid fa-comments"></i>
+            </div>
+            <div>
+              <h3 class="about-heading">Your Feedback Matters</h3>
+              <p class="about-text">
+                I'm always looking for ways to improve and expand my calculator
+                library. If you have any feedback or suggestions,
+                <a href="/contact" class="about-link">get in touch!</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll Buttons -->
+        <button onclick="gototop()" id="topbtn" aria-label="Scroll to top">
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
+        <button
+          onclick="gotobottom()"
+          id="bottombtn"
+          aria-label="Scroll to bottom"
+        >
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+    </main>
+
+    <footer
+      class="footer-custom mt-8"
+      data-load="components/footer.html"
+    ></footer>
+
+    <script src="js/common.js"></script>
+  </body>
+</html>

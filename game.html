@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Family Spy Party | Calcify</title>
+    <meta
+      name="description"
+      content="Find out who the spy is in this thrilling family party game. Play now instantly on your device!"
+    />
+    <link rel="canonical" href="https://calc.aurabyte.in/game" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/tool-page.css" />
+    <link rel="stylesheet" href="css/game.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calc.aurabyte.in/game" />
+    <meta property="og:title" content="Family Spy Party | Calcify" />
+    <meta
+      property="og:description"
+      content="Find out who the spy is in this thrilling family party game. Play now instantly on your device!"
+    />
+  </head>
+
+  <body>
+    <header data-load="components/navbar.html"></header>
+    <main>
+      <div id="custom-alert">Alert!</div>
+
+      <div id="modal-overlay">
+        <div class="modal-content">
+          <div class="rules-container">
+            <!-- TITLE -->
+            <div class="rules-section" style="text-align: center">
+              <h1 style="font-size: 1.6rem">🕵️ Spy Game Rules</h1>
+              <p
+                style="
+                  font-size: 0.9rem;
+                  color: var(--modal-text);
+                  opacity: 0.8;
+                "
+              >
+                Read once. Play smart. No arguments later 😄
+              </p>
+            </div>
+
+            <!-- OBJECTIVE -->
+            <div class="rules-section">
+              <div class="rules-title">🎯 OBJECTIVE</div>
+              <ul class="rules-list">
+                <li>There is <b>ONE SPY</b> hidden among the players.</li>
+                <li>All other players are <b>CITIZENS</b>.</li>
+                <li>Citizens win by <b>correctly identifying the Spy</b>.</li>
+                <li>
+                  The Spy wins by <b>blending in and avoiding suspicion</b>.
+                </li>
+                <li>
+                  The phone acts as the <b>HOST</b>. No human knows all secrets.
+                </li>
+              </ul>
+            </div>
+
+            <!-- GENERAL FLOW -->
+            <div class="rules-section">
+              <div class="rules-title">🔁 GAME FLOW</div>
+              <ul class="rules-list">
+                <li>Players enter names and choose a game mode.</li>
+                <li>The phone is passed one-by-one for secret chits.</li>
+                <li>Each player silently reads their chit.</li>
+                <li>After all chits are seen, discussion begins.</li>
+                <li>Everyone gives <b>ONE short description</b> in order.</li>
+                <li>After discussion, decide who won the round.</li>
+              </ul>
+            </div>
+
+            <!-- MODE 1 -->
+            <div class="rules-section">
+              <div class="rules-title">🕵️ MODE 1: BLANK CHIT (CLASSIC)</div>
+              <ul class="rules-list">
+                <li>All Citizens receive the <b>SAME WORD</b>.</li>
+                <li>The Spy receives a <b>BLANK chit</b>.</li>
+                <li>
+                  <b>Important Rule:</b> The first speaker is NEVER the Spy.
+                </li>
+                <li>Citizens describe the word without saying it.</li>
+                <li>The Spy must guess the word from others’ hints.</li>
+                <li>Spy should stay vague and avoid details.</li>
+              </ul>
+              <div class="highlight-box">
+                Example: Word = "Pizza"<br />
+                Citizens: "Cheesy, usually round"<br />
+                Spy: "Something people enjoy together"
+              </div>
+            </div>
+
+            <!-- MODE 2 -->
+            <div class="rules-section">
+              <div class="rules-title">🎭 MODE 2: RELATED WORDS</div>
+              <ul class="rules-list">
+                <li>Two <b>similar but different</b> words are used.</li>
+                <li>Citizens get Word A (e.g. Pizza).</li>
+                <li>Spy gets Word B (e.g. Burger).</li>
+                <li>Everyone thinks they are safe — including the Spy.</li>
+                <li>Small detail mismatches expose the Spy.</li>
+                <li>Over-specific answers are dangerous.</li>
+              </ul>
+              <div class="highlight-box">
+                Pizza vs Burger<br />
+                "Has slices" ❌ suspicious<br />
+                "Fast food people love" ✅ safer
+              </div>
+            </div>
+
+            <!-- MODE 3 -->
+            <div class="rules-section">
+              <div class="rules-title">❓ MODE 3: QUESTIONS</div>
+              <ul class="rules-list">
+                <li>Two similar questions are used.</li>
+                <li>Citizens answer Question A.</li>
+                <li>Spy answers Question B.</li>
+                <li>Answers must be <b>natural and honest</b>.</li>
+                <li>No fixed word exists in this mode.</li>
+                <li>Listen for answers that feel “off-topic”.</li>
+              </ul>
+              <div class="highlight-box">
+                Question A: Favorite Hobby?<br />
+                Question B: Favorite Sport?<br />
+                Spy may mention cricket while others mention painting.
+              </div>
+            </div>
+
+            <!-- DESCRIPTION RULES -->
+            <div class="rules-section">
+              <div class="rules-title">🗣️ DESCRIPTION RULES</div>
+              <ul class="rules-list">
+                <li>Each player speaks <b>ONCE</b> per round.</li>
+                <li>
+                  If players feel unsure, they may agree to play
+                  <b>another description round</b> before voting.
+                </li>
+                <li>Maximum: <b>1-2 words or ONE short phrase</b>.</li>
+                <li>Speak in the order shown on screen.</li>
+                <li>No interruptions or side comments.</li>
+              </ul>
+            </div>
+
+            <!-- VOTING & REVEAL -->
+            <div class="rules-section">
+              <div class="rules-title">🗳️ VOTING & REVEAL</div>
+              <ul class="rules-list">
+                <li>
+                  After discussion rounds are complete, players move to voting.
+                </li>
+                <li>Each player votes for <b>ONE suspected Spy</b>.</li>
+                <li>Votes are counted openly.</li>
+                <li>
+                  The player with the <b>most votes</b> is accused as the Spy.
+                </li>
+                <li>If there is a tie, description giving rounds continue.</li>
+              </ul>
+            </div>
+
+            <!-- STRICTLY NOT ALLOWED -->
+            <div class="rules-section">
+              <div class="rules-title">🚫 STRICTLY NOT ALLOWED</div>
+              <ul class="rules-list">
+                <li>❌ Saying the exact word or spelling it.</li>
+                <li>❌ Using actions, sounds, or gestures.</li>
+                <li>❌ Copying another player's description.</li>
+                <li>❌ Changing your answer after hearing others.</li>
+              </ul>
+            </div>
+
+            <!-- SCORING -->
+            <div class="rules-section">
+              <div class="rules-title">🏆 SCORING</div>
+              <ul class="rules-list">
+                <li>If Citizens win → all Citizens get <b>+1 point</b>.</li>
+                <li>If Spy wins → the Spy gets <b>+2 points</b>.</li>
+                <li>Scores carry forward across rounds.</li>
+                <li>Final winner has the highest total score.</li>
+              </ul>
+            </div>
+
+            <!-- WIN CONDITIONS -->
+            <div class="rules-section">
+              <div class="rules-title">🏁 WIN CONDITIONS</div>
+              <ul class="rules-list">
+                <li>
+                  If the accused player is <b>NOT the Spy</b> → Spy wins
+                  immediately.
+                </li>
+                <li>
+                  If the accused player <b>IS the Spy</b> → Citizens win
+                  immediately.
+                </li>
+              </ul>
+            </div>
+
+            <!-- FINAL TIP -->
+            <div class="rules-section" style="text-align: center">
+              <div class="highlight-box">
+                💡 Tip: Stay calm. Overthinking exposes the Spy faster than
+                silence.
+              </div>
+              <button onclick="closeInstructions()">
+                Understood. Start Game
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-container">
+        <div class="card">
+          <div id="setup-screen">
+            <div class="text-center mb-6">
+              <h1
+                class="text-4xl font-extrabold text-gray-900 drop-shadow-sm mb-2"
+                style="color: var(--primary)"
+              >
+                Spy Party
+              </h1>
+            </div>
+            <button class="btn-outline" onclick="openInstructions()">
+              📖 View Rules
+            </button>
+            <div id="name-container" style="margin: 20px 0">
+              <div class="name-row">
+                <input type="text" class="p-name" placeholder="Player 1" />
+              </div>
+              <div class="name-row">
+                <input type="text" class="p-name" placeholder="Player 2" />
+              </div>
+              <div class="name-row">
+                <input type="text" class="p-name" placeholder="Player 3" />
+              </div>
+            </div>
+            <button class="btn-outline" onclick="addNameInput()">
+              + Add Player
+            </button>
+            <button onclick="saveNames()">Next: Choose Mode</button>
+            <button class="btn-danger" onclick="resetScores()">
+              Reset All Scores
+            </button>
+          </div>
+
+          <div id="mode-screen" class="hidden">
+            <div class="flex items-center justify-between mb-6">
+              <button class="nav-back-btn" onclick="goBack('setup-screen')">
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+              <h1
+                class="text-4xl font-extrabold text-gray-900 drop-shadow-sm mb-0 flex-1 text-center pr-11"
+                style="color: var(--primary)"
+              >
+                Modes
+              </h1>
+            </div>
+            <button onclick="startGame(0)">🕵️ Mode 1: Blank Chit</button>
+            <button onclick="startGame(1)">🎭 Mode 2: Related Words</button>
+            <button onclick="startGame(2)">❓ Mode 3: Questions</button>
+          </div>
+
+          <div id="handover-screen" class="hidden">
+            <p
+              id="mode-label"
+              style="
+                color: var(--primary);
+                font-weight: bold;
+                font-size: 0.8rem;
+              "
+            ></p>
+            <p>Pass device to:</p>
+            <div
+              id="target-player"
+              style="font-size: 2.5rem; font-weight: 900; margin: 15px 0"
+            >
+              ---
+            </div>
+            <button id="reveal-btn" onclick="showSecret()">
+              🔍 Reveal My Chit
+            </button>
+            <div id="chit-area" class="chit-container">
+              <div class="physical-chit">
+                <div id="secret-text" class="chit-text"></div>
+              </div>
+            </div>
+            <button id="next-btn" class="hidden" onclick="nextPlayerStep()">
+              Confirm & Next ➡️
+            </button>
+            <button class="btn-exit" onclick="goBack('mode-screen')">
+              Exit Game
+            </button>
+          </div>
+
+          <div id="discuss-screen" class="hidden">
+            <h1 style="font-size: 3.5rem">🗣️</h1>
+            <h2>Discussion</h2>
+            <button
+              class="btn-outline"
+              onclick="openReminderMenu()"
+              style="margin-bottom: 20px; font-size: 0.9rem"
+            >
+              🤔 Forgot your secret?
+            </button>
+            <button
+              style="background: var(--accent)"
+              onclick="finishRound('Citizens')"
+            >
+              Citizens Won (+1)
+            </button>
+            <button
+              style="background: var(--primary)"
+              onclick="finishRound('Spy')"
+            >
+              Spy Won (+1)
+            </button>
+            <button class="btn-exit" onclick="goBack('mode-screen')">
+              Exit Game
+            </button>
+          </div>
+
+          <div id="result-screen" class="hidden">
+            <h1 id="result-title">Round Over</h1>
+            <div
+              id="reveal-text"
+              style="margin: 15px 0; font-weight: bold"
+            ></div>
+            <div id="scoreboard" class="scoreboard-container"></div>
+            <div id="post-round-btns">
+              <button onclick="replayCurrentMode()">Next Round</button>
+              <button
+                class="btn-outline"
+                style="width: 100%"
+                onclick="goBack('mode-screen')"
+              >
+                Switch Mode
+              </button>
+              <button
+                class="btn-danger"
+                style="width: 100%"
+                onclick="declareFinalWinner()"
+              >
+                End Game & Show Winner 🏆
+              </button>
+            </div>
+            <div id="final-winner-btns" class="hidden">
+              <button
+                style="background: var(--accent)"
+                onclick="location.reload()"
+              >
+                New Game (Full Reset)
+              </button>
+              <button class="btn-danger" onclick="goBack('mode-screen')">
+                Exit to Modes
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="sequence-panel" class="hidden">
+          <div
+            style="
+              text-align: center;
+              color: white;
+              font-size: 0.75rem;
+              font-weight: bold;
+            "
+          >
+            DESCRIPTION ORDER
+          </div>
+          <div
+            id="chip-list"
+            style="text-align: center; margin-top: 10px"
+          ></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/game.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

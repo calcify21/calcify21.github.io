@@ -1,0 +1,202 @@
+<nav class="navbar-custom">
+  <div
+    class="w-full max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between"
+  >
+    <!-- Logo -->
+    <a href="/" class="flex items-center shrink-0">
+      <img src="assets/images/logo.png" alt="Calcify" class="h-8" />
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <div class="hidden md:flex items-center gap-1">
+      <a href="/" class="nav-link-custom">Home</a>
+      <a href="/about" class="nav-link-custom">About Us</a>
+      <a href="/calcs" class="nav-link-custom">Our Tools</a>
+      <a href="/fav" class="nav-link-custom">Favourites</a>
+      <a href="/contact" class="nav-link-custom">Get in Touch</a>
+    </div>
+
+    <!-- Right Section: Theme + Install + Hamburger -->
+    <div class="flex items-center gap-3">
+      <!-- Premium Theme Segmented Toggle (Desktop) -->
+      <div
+        class="theme-switch-segmented hidden sm:inline-flex"
+        id="theme-switch-desktop"
+      >
+        <button
+          onclick="setThemeOption('light')"
+          id="theme-desktop-light"
+          class="theme-switch-btn"
+          title="Light Mode"
+        >
+          <i class="fa-solid fa-sun"></i>
+          <span>Light</span>
+        </button>
+        <button
+          onclick="setThemeOption('dark')"
+          id="theme-desktop-dark"
+          class="theme-switch-btn"
+          title="Dark Mode"
+        >
+          <i class="fa-solid fa-moon"></i>
+          <span>Dark</span>
+        </button>
+        <button
+          onclick="setThemeOption('auto')"
+          id="theme-desktop-auto"
+          class="theme-switch-btn"
+          title="Auto Mode"
+        >
+          <i class="fa-solid fa-circle-half-stroke"></i>
+          <span>Auto</span>
+        </button>
+      </div>
+
+      <!-- Install Button Group -->
+      <div class="flex items-center gap-1">
+        <button id="installAppBtn" class="btn-primary-custom text-xs hidden">
+          <i class="fa-solid fa-download"></i>
+          <span class="hidden sm:inline">Install</span>
+        </button>
+
+        <a
+          id="downloadApkFallback"
+          class="btn-primary-custom text-xs hidden"
+          href="https://calc.aurabyte.in/assets/apks/calcify.apk"
+        >
+          <i class="fa-brands fa-android"></i>
+          <span class="hidden sm:inline">Get APK</span>
+        </a>
+
+        <button
+          id="dropdownApkItem"
+          class="btn-outline-custom text-xs hidden"
+          onclick="
+            window.open(
+              'https://calc.aurabyte.in/assets/apks/calcify.apk',
+              '_blank',
+            )
+          "
+        >
+          <i class="fa-brands fa-android"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button
+        onclick="toggleMobileNav()"
+        class="btn-ghost md:hidden"
+        aria-label="Open menu"
+      >
+        <i class="fa-solid fa-bars text-lg"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav Overlay -->
+<div
+  id="mobileNavOverlay"
+  class="mobile-nav-overlay"
+  onclick="closeMobileNav()"
+></div>
+
+<!-- Mobile Nav Drawer -->
+<div id="mobileNavDrawer" class="mobile-nav-drawer">
+  <div class="p-6 flex flex-col h-full">
+    <!-- Drawer Header -->
+    <div class="flex items-center justify-between mb-8">
+      <img src="assets/images/logo.png" alt="Calcify" class="h-7" />
+      <button onclick="closeMobileNav()" class="btn-ghost">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Links -->
+    <div class="flex flex-col gap-1 flex-1">
+      <a
+        href="/"
+        class="nav-link-custom text-base py-3 px-4 flex items-center gap-3"
+        onclick="closeMobileNav()"
+      >
+        <i class="fa-solid fa-house w-5 text-center opacity-60"></i>
+        <span>Home</span>
+      </a>
+
+      <!-- Category nav items rendered dynamically from CATEGORIES config in js/common.js -->
+      <div id="drawer-categories"></div>
+
+      <div
+        class="my-2 border-t opacity-10"
+        style="border-color: var(--text-primary)"
+      ></div>
+
+      <a
+        href="/about"
+        class="nav-link-custom text-base py-3 px-4 flex items-center gap-3"
+        onclick="closeMobileNav()"
+      >
+        <i class="fa-solid fa-circle-info w-5 text-center opacity-60"></i>
+        <span>About Us</span>
+      </a>
+      <a
+        href="/fav"
+        class="nav-link-custom text-base py-3 px-4 flex items-center gap-3"
+        onclick="closeMobileNav()"
+      >
+        <i class="fa-solid fa-star w-5 text-center opacity-60"></i>
+        <span>Favourites</span>
+      </a>
+      <a
+        href="/contact"
+        class="nav-link-custom text-base py-3 px-4 flex items-center gap-3"
+        onclick="closeMobileNav()"
+      >
+        <i class="fa-solid fa-envelope w-5 text-center opacity-60"></i>
+        <span>Get in Touch</span>
+      </a>
+    </div>
+
+    <!-- Drawer Footer: Theme Toggle -->
+    <div
+      class="mt-auto pt-6 border-t"
+      style="border-color: var(--border-color)"
+    >
+      <label
+        class="text-xs font-semibold uppercase tracking-wider mb-3 block"
+        style="color: var(--text-muted)"
+        >Theme Mode</label
+      >
+      <!-- Premium Theme Segmented Toggle (Mobile) -->
+      <div class="theme-switch-segmented flex w-full" id="theme-switch-mobile">
+        <button
+          onclick="setThemeOption('light')"
+          id="theme-mobile-light"
+          class="theme-switch-btn flex-1 justify-center"
+          title="Light Mode"
+        >
+          <i class="fa-solid fa-sun"></i>
+          <span>Light</span>
+        </button>
+        <button
+          onclick="setThemeOption('dark')"
+          id="theme-mobile-dark"
+          class="theme-switch-btn flex-1 justify-center"
+          title="Dark Mode"
+        >
+          <i class="fa-solid fa-moon"></i>
+          <span>Dark</span>
+        </button>
+        <button
+          onclick="setThemeOption('auto')"
+          id="theme-mobile-auto"
+          class="theme-switch-btn flex-1 justify-center"
+          title="Auto Mode"
+        >
+          <i class="fa-solid fa-circle-half-stroke"></i>
+          <span>Auto</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

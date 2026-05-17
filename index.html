@@ -1,61 +1,673 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Jai Jinendra 🙏</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#FF8C00" />
-    <!-- Lucide Icons for a Pro look -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calcify - Smart Online Tools & Calculators</title>
+    <meta
+      name="description"
+      content="Calcify is your all-in-one hub for free online tools. Calculate percentages, find areas, generate QR codes, and more—fast, free, and instant!"
+    />
+
+    <link rel="canonical" href="https://calc.aurabyte.in" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/custom-components.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="assets/images/favicon-2.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calc.aurabyte.in" />
+    <meta
+      property="og:title"
+      content="Calcify - Smart Online Tools & Calculators"
+    />
+    <meta
+      property="og:description"
+      content="Access a suite of smart tools for math, web utilities, and daily tasks. No login required, just fast results."
+    />
+    <meta
+      property="og:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Calcify - Smart Online Tools & Calculators"
+    />
+    <meta
+      name="twitter:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calcify",
+        "alternateName": "Calcify Tools",
+        "url": "https://calc.aurabyte.in",
+        "image": "https://calc.aurabyte.in/assets/images/thumbnail.png",
+        "description": "An all-in-one online tool hub for mathematical calculations, developer utilities, and lifestyle apps.",
+        "applicationCategory": "Utility",
+        "operatingSystem": "All",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Aurabyte",
+          "url": "https://aurabyte.in"
+        }
+      }
+    </script>
   </head>
 
   <body>
-    <div class="app-container">
-      <header>
-        <div class="header-main">
-          <h1>Jai Jinendra</h1>
-          <div class="header-actions">
-            <button id="installBtn" class="pwa-install-btn" style="display: none;">
-              <i data-lucide="download-cloud"></i> Install
-            </button>
-            <div id="editIcon" class="icon-btn" onclick="toggleEditMode()">
-              <i data-lucide="edit-3"></i>
-            </div>
-          </div>
-        </div>
-        <p class="header-subtitle">Daily Blessings & Greetings</p>
-      </header>
-
-      <div class="search-bar">
-        <i data-lucide="search" class="search-icon"></i>
-        <input type="text" id="searchInput" placeholder="Search..." />
-      </div>
-
-      <div id="contactList" class="contact-list">
-        <!-- Contacts will be injected here -->
-      </div>
-
-      <div id="addForm" class="add-card" style="display: none;">
-        <div class="add-header">
-          <h3><i data-lucide="user-plus"></i> Add Family Member</h3>
-        </div>
-        <div class="form-grid">
-          <input type="text" id="newName" placeholder="Full Name" class="pro-input" />
-          <input type="text" id="newNotes" placeholder="Notes (e.g. Rohit Beta)" class="pro-input" />
-          <input type="tel" id="newPhone" placeholder="WhatsApp (91...)" class="pro-input" />
-          <button onclick="addContact()" class="pro-save-btn">Save Contact</button>
-        </div>
-      </div>
+    <!-- Progress Bar -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="myBar"></div>
     </div>
 
-    <div id="toast-container"></div>
+    <header data-load="components/navbar.html"></header>
 
-    <script src="app.js"></script>
+    <main>
+      <div class="max-w-2xl mx-auto px-4 py-8 animate-fade-in-up">
+        <!-- Toggle -->
+        <div class="flex justify-center mb-6">
+          <div class="toggle-container">
+            <button
+              id="btn-basic"
+              class="toggle-btn active"
+              onclick="switchCalc('basic')"
+            >
+              Basic
+            </button>
+            <button id="btn-sci" class="toggle-btn" onclick="switchCalc('sci')">
+              Scientific
+            </button>
+          </div>
+        </div>
+
+        <!-- Calculator Card -->
+        <div id="basic-calculator" class="calc-card card-glass p-6 sm:p-8">
+          <!-- Screen -->
+          <input type="text" class="calc-screen" id="screen" placeholder="0" />
+
+          <!-- Keypad -->
+          <div class="calc-keys">
+            <!-- Row 1: C, ^, ⌫, + -->
+            <button type="button" class="calc-btn calc-operate" onclick="clr()">
+              <i class="fa-solid fa-c fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate"
+              onclick="show('^')"
+            >
+              <i class="fa-solid fa-superscript fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate"
+              onclick="back()"
+            >
+              <i class="fa-solid fa-delete-left fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate"
+              onclick="show('+')"
+            >
+              <i class="fa-solid fa-plus fa-lg"></i>
+            </button>
+
+            <!-- Row 2: 7, 8, 9, × -->
+            <button type="button" class="calc-btn calc-num" onclick="show('7')">
+              <i class="fa-solid fa-7 fa-lg"></i>
+            </button>
+            <button type="button" class="calc-btn calc-num" onclick="show('8')">
+              <i class="fa-solid fa-8 fa-lg"></i>
+            </button>
+            <button type="button" class="calc-btn calc-num" onclick="show('9')">
+              <i class="fa-solid fa-9 fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate"
+              onclick="show('*')"
+            >
+              <i class="fa-solid fa-xmark fa-lg"></i>
+            </button>
+
+            <!-- Row 3: 4, 5, 6, − -->
+            <button type="button" class="calc-btn calc-num" onclick="show('4')">
+              <i class="fa-solid fa-4 fa-lg"></i>
+            </button>
+            <button type="button" class="calc-btn calc-num" onclick="show('5')">
+              <i class="fa-solid fa-5 fa-lg"></i>
+            </button>
+            <button type="button" class="calc-btn calc-num" onclick="show('6')">
+              <i class="fa-solid fa-6 fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate"
+              onclick="show('-')"
+            >
+              <i class="fa-solid fa-minus fa-lg"></i>
+            </button>
+
+            <!-- Row 4: 1, 2, 3, ÷ -->
+            <button type="button" class="calc-btn calc-num" onclick="show('1')">
+              <i class="fa-solid fa-1 fa-lg"></i>
+            </button>
+            <button type="button" class="calc-btn calc-num" onclick="show('2')">
+              <i class="fa-solid fa-2 fa-lg"></i>
+            </button>
+            <button type="button" class="calc-btn calc-num" onclick="show('3')">
+              <i class="fa-solid fa-3 fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate"
+              onclick="show('/')"
+            >
+              <i class="fa-solid fa-divide fa-lg"></i>
+            </button>
+
+            <!-- Row 5: ., 0, 00, = -->
+            <button
+              type="button"
+              class="calc-btn calc-operate"
+              onclick="show('.')"
+            >
+              <i class="fa-solid fa-circle fa-2xs"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate"
+              onclick="show('0')"
+            >
+              <i class="fa-solid fa-0 fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate"
+              onclick="show('00')"
+            >
+              <i class="fa-solid fa-0 fa-lg mr-1"></i
+              ><i class="fa-solid fa-0 fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-equals"
+              onclick="solve()"
+            >
+              <i class="fa-solid fa-equals fa-lg"></i>
+            </button>
+          </div>
+          <!-- Basic History -->
+          <div id="basic-history" class="calc-history hidden"></div>
+        </div>
+
+        <!-- Scientific Calculator Card -->
+        <div
+          id="sci-calculator"
+          class="calc-card card-glass p-6 sm:p-8 hidden"
+          style="max-width: 500px"
+        >
+          <input
+            type="text"
+            class="calc-screen"
+            id="sci-screen"
+            onkeyup="checksolveSci(event)"
+            placeholder="0"
+          />
+          <div class="flex justify-between items-center mb-4 px-2">
+            <div
+              class="flex items-center space-x-2 bg-[var(--bg-input)] rounded-lg p-1 border border-[var(--border-color)] shadow-inner"
+            >
+              <span
+                class="text-xs font-semibold px-2 text-[var(--accent)]"
+                id="lbl-deg"
+                >DEG</span
+              >
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  id="deg-rad-toggle"
+                  class="sr-only peer"
+                  checked
+                  onchange="
+                    document
+                      .getElementById('lbl-deg')
+                      .classList.toggle('text-[var(--text-muted)]');
+                    document
+                      .getElementById('lbl-deg')
+                      .classList.toggle('text-[var(--accent)]');
+                    document
+                      .getElementById('lbl-rad')
+                      .classList.toggle('text-[var(--accent)]');
+                    document
+                      .getElementById('lbl-rad')
+                      .classList.toggle('text-[var(--text-muted)]');
+                  "
+                />
+                <div
+                  class="w-9 h-5 bg-[var(--border-color)] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[var(--border-color)] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[var(--accent)]"
+                ></div>
+              </label>
+              <span
+                class="text-xs font-semibold px-2 text-[var(--text-muted)]"
+                id="lbl-rad"
+                >RAD</span
+              >
+            </div>
+
+            <span
+              class="text-xs text-[var(--text-muted)] font-semibold"
+              id="sci-error"
+            ></span>
+          </div>
+
+          <div class="calc-keys-sci">
+            <!-- Row 1 -->
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[1]"
+              onclick="showSci('asin(')"
+            >
+              asin
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[2]"
+              onclick="showSci('acos(')"
+            >
+              acos
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[3]"
+              onclick="showSci('atan(')"
+            >
+              atan
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-[18px] max-[480px]:order-[4]"
+              onclick="showSci('pi')"
+            >
+              π
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-[18px] max-[480px]:order-[8]"
+              onclick="showSci('e')"
+            >
+              e
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-[18px] max-[480px]:order-[23]"
+              onclick="clrSci()"
+            >
+              <i class="fa-solid fa-c"></i>
+            </button>
+
+            <!-- Row 2 -->
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[5]"
+              onclick="showSci('sin(')"
+            >
+              sin
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[6]"
+              onclick="showSci('cos(')"
+            >
+              cos
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[7]"
+              onclick="showSci('tan(')"
+            >
+              tan
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[16]"
+              onclick="showSci('^3')"
+            >
+              x<sup class="text-[10px]">3</sup>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[15]"
+              onclick="showSci('^2')"
+            >
+              x<sup class="text-[10px]">2</sup>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-[18px] max-[480px]:order-[24]"
+              onclick="backSci()"
+            >
+              <i class="fa-solid fa-delete-left"></i>
+            </button>
+
+            <!-- Row 3 -->
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[9]"
+              onclick="showSci('log10(')"
+            >
+              log<sub>10</sub>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[10]"
+              onclick="showSci('log(')"
+            >
+              ln
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[11]"
+              onclick="showSci('10^')"
+            >
+              10<sup class="text-[10px]">x</sup>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-num max-[480px]:order-[25]"
+              onclick="showSci('7')"
+            >
+              <i class="fa-solid fa-7 fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-num max-[480px]:order-[26]"
+              onclick="showSci('8')"
+            >
+              <i class="fa-solid fa-8 fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-num max-[480px]:order-[27]"
+              onclick="showSci('9')"
+            >
+              <i class="fa-solid fa-9 fa-lg"></i>
+            </button>
+
+            <!-- Row 4 -->
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[13]"
+              onclick="showSci('sqrt(')"
+            >
+              <i class="fa-solid fa-square-root-variable fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[14]"
+              onclick="showSci('cbrt(')"
+            >
+              <!-- Cube Root Icon Implementation -->
+              <div
+                class="cube-root-container"
+                style="
+                  position: relative;
+                  display: inline-block;
+                  font-family: sans-serif;
+                "
+              >
+                <!-- The index (3) -->
+                <span
+                  style="
+                    position: absolute;
+                    top: 1px;
+                    left: 7px;
+                    font-size: 0.55em;
+                    color: #f39c12;
+                  "
+                  >3</span
+                >
+
+                <!-- The radical icon from Font Awesome -->
+                <i
+                  class="fa-solid fa-square-root-variable"
+                  style="font-size: 2em; color: #f39c12"
+                ></i>
+              </div>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[12]"
+              onclick="showSci('e^')"
+            >
+              e<sup class="text-[10px]">x</sup>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-num max-[480px]:order-[29]"
+              onclick="showSci('4')"
+            >
+              <i class="fa-solid fa-4 fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-num max-[480px]:order-[30]"
+              onclick="showSci('5')"
+            >
+              <i class="fa-solid fa-5 fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-num max-[480px]:order-[31]"
+              onclick="showSci('6')"
+            >
+              <i class="fa-solid fa-6 fa-lg"></i>
+            </button>
+
+            <!-- Row 5 -->
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[17]"
+              onclick="showSci('abs(')"
+            >
+              |x|
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[21]"
+              onclick="showSci('(')"
+            >
+              (
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[22]"
+              onclick="showSci(')')"
+            >
+              )
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-num max-[480px]:order-[33]"
+              onclick="showSci('1')"
+            >
+              <i class="fa-solid fa-1 fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-num max-[480px]:order-[34]"
+              onclick="showSci('2')"
+            >
+              <i class="fa-solid fa-2 fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-num max-[480px]:order-[35]"
+              onclick="showSci('3')"
+            >
+              <i class="fa-solid fa-3 fa-lg"></i>
+            </button>
+
+            <!-- Row 6 -->
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[20]"
+              onclick="showSci('!')"
+            >
+              <i class="fa-solid fa-exclamation fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[18]"
+              onclick="showSci('1/')"
+            >
+              <span class="fa-stack fa-1x">
+                <i
+                  class="fa-solid fa-1 fa-stack-1x"
+                  style="margin-top: -10px"
+                ></i>
+                <i class="fa-solid fa-minus fa-stack-1x"></i>
+                <i
+                  class="fa-solid fa-xmark fa-stack-1x"
+                  style="margin-top: 10px"
+                ></i>
+              </span>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-sm max-[480px]:order-[19]"
+              onclick="showSci('^')"
+            >
+              <i class="fa-solid fa-superscript fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-[18px] max-[480px]:order-[37]"
+              onclick="showSci('.')"
+            >
+              <i class="fa-solid fa-circle fa-2xs"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-num max-[480px]:order-[38]"
+              onclick="showSci('0')"
+            >
+              <i class="fa-solid fa-0 fa-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-equals text-[18px] max-[480px]:order-[40]"
+              onclick="solveSci()"
+            >
+              <i class="fa-solid fa-equals"></i>
+            </button>
+
+            <!-- Row 7 Operators -->
+            <div
+              class="hidden sm:block col-span-1 pointer-events-none border-none bg-transparent shadow-none"
+            ></div>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-[18px] max-[480px]:order-[39]"
+              onclick="showSci('+')"
+            >
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-[18px] max-[480px]:order-[36]"
+              onclick="showSci('-')"
+            >
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-[18px] max-[480px]:order-[32]"
+              onclick="showSci('*')"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <button
+              type="button"
+              class="calc-btn calc-operate text-[18px] max-[480px]:order-[28]"
+              onclick="showSci('/')"
+            >
+              <i class="fa-solid fa-divide"></i>
+            </button>
+            <div
+              class="hidden sm:block col-span-1 pointer-events-none border-none bg-transparent shadow-none"
+            ></div>
+          </div>
+          <!-- Scientific History -->
+          <div id="sci-history" class="calc-history hidden"></div>
+        </div>
+      </div>
+
+      <!-- Scroll Buttons -->
+      <button onclick="gototop()" id="topbtn" aria-label="Scroll to top">
+        <i class="fa-solid fa-arrow-up"></i>
+      </button>
+      <button
+        onclick="gotobottom()"
+        id="bottombtn"
+        aria-label="Scroll to bottom"
+      >
+        <i class="fa-solid fa-arrow-down"></i>
+      </button>
+    </main>
+
+    <footer
+      class="footer-custom mt-8"
+      data-load="components/footer.html"
+    ></footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/custom-components.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+    <script src="js/script.js"></script>
+
     <script>
-      // Initialize icons
-      lucide.createIcons();
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("sw.js")
+          .then(function (registration) {
+            console.log(
+              "Service Worker registered with scope:",
+              registration.scope,
+            );
+          })
+          .catch(function (error) {
+            console.log("Service Worker registration failed:", error);
+          });
+      }
     </script>
   </body>
 </html>

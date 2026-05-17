@@ -1,0 +1,512 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+
+:root {
+    --primary: #FF3366;
+    /* Neon Red */
+    --primary-glow: rgba(255, 51, 102, 0.4);
+    --secondary: #00DDEB;
+    /* Cyan */
+    --bg-grad: linear-gradient(135deg, #0F2027 0%, #203A43 50%, #2C5364 100%);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    /* Dark mode glass */
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.7);
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --input-bg: rgba(0, 0, 0, 0.2);
+    --btn-outline-border: rgba(255, 255, 255, 0.2);
+    --btn-outline-hover: rgba(255, 255, 255, 0.05);
+    --modal-bg: #1e1e1e;
+    --modal-text: #eee;
+}
+
+[data-theme="light"] {
+    /* Light Mode Overrides */
+    --primary: #FF3366;
+    --primary-glow: rgba(255, 51, 102, 0.2);
+    --secondary: #0099A8;
+    --bg-grad: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    /* Clean Light */
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    /* White glass */
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --text-main: #1a1a1a;
+    --text-muted: #555555;
+    --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    /* Soft shadow */
+    --input-bg: rgba(0, 0, 0, 0.05);
+    --btn-outline-border: rgba(0, 0, 0, 0.15);
+    --btn-outline-hover: rgba(0, 0, 0, 0.05);
+    --modal-bg: #ffffff;
+    --modal-text: #444;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background: var(--bg-grad);
+    min-height: 100vh;
+    color: var(--text-main);
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 72px);
+    width: 100%;
+}
+
+/* --- Glassmorphic Containers --- */
+.game-container {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add subtle top shine to card */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin: 0 0 10px 0;
+    color: var(--primary);
+    /* Solid Neon Color */
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    padding-bottom: 5px;
+    text-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
+    /* Neon Glow */
+}
+
+h2 {
+    margin: 0;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* --- Inputs & Interactive --- */
+main input {
+    width: 100%;
+    padding: 16px;
+    background: var(--input-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 1rem;
+    text-align: center;
+    transition: 0.3s;
+}
+
+main input:focus {
+    outline: none;
+    border-color: var(--secondary);
+    background: rgba(var(--primary), 0.1);
+    /* Subtle tint */
+}
+
+main input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+/* --- Buttons --- */
+main button, .modal-content button {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(45deg, var(--primary), #ff6b6b);
+    color: white;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin: 8px 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+main button:active, .modal-content button:active {
+    transform: scale(0.98);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--btn-outline-border);
+    box-shadow: none;
+    color: var(--text-muted);
+}
+
+.btn-outline:hover {
+    border-color: var(--text-main);
+    color: var(--text-main);
+    background: var(--btn-outline-hover);
+}
+
+.btn-danger {
+    background: rgba(255, 51, 102, 0.1);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    box-shadow: none;
+}
+
+.btn-exit {
+    margin-top: 20px !important;
+    background: #2d3436 !important;
+    box-shadow: none;
+}
+
+.del-btn {
+    background: rgba(255, 51, 102, 0.2);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    width: 50px;
+    /* matched height with input */
+    height: 52px;
+    min-width: 50px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-back-btn {
+    position: relative;
+    left: auto;
+    top: auto;
+    background: var(--glass-border);
+    border-radius: 14px;
+    /* Squircle */
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    /* Larger arrow */
+    color: var(--text-main);
+    cursor: pointer;
+    border: 1px solid var(--glass-border);
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-back-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px var(--primary-glow);
+    border-color: var(--primary);
+}
+
+/* --- Header & Navigation --- */
+.screen-header {
+    display: grid;
+    grid-template-columns: 48px 1fr 48px;
+    /* Balanced 3-column layout */
+    align-items: center;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.screen-header h1 {
+    margin: 0;
+    /* Remove bottom margin to align perfectly */
+    font-size: 2rem;
+    /* Slightly smaller for better fit */
+    line-height: 1;
+}
+
+/* --- Player List --- */
+.name-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+/* --- Secret Chit --- */
+.chit-container {
+    perspective: 1000px;
+    margin: 30px auto;
+    display: none;
+    justify-content: center;
+    width: 100%;
+}
+
+.physical-chit {
+    background: #fffcf0;
+    color: #2d3436;
+    width: 280px;
+    height: 180px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transform-origin: top;
+    transform: rotateX(-90deg);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Paper texture line */
+.physical-chit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 0;
+    bottom: 0;
+    border-left: 2px solid rgba(255, 0, 0, 0.1);
+}
+
+.chit-container.open .physical-chit {
+    transform: rotateX(0deg);
+}
+
+.chit-text {
+    font-size: 2rem;
+    font-weight: 900;
+    opacity: 0;
+    transition: 0.3s 0.3s;
+}
+
+.chit-container.open .chit-text {
+    opacity: 1;
+}
+
+/* --- Scoring & Results --- */
+.scoreboard-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.score-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--glass-border);
+    /* Changed from rgba(255,255,255,0.05) */
+    color: var(--text-main);
+}
+
+.score-row:last-child {
+    border-bottom: none;
+}
+
+.winner-highlight {
+    background: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+    font-weight: bold;
+}
+
+/* --- Sequence Panel --- */
+#sequence-panel {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid var(--glass-border);
+}
+
+.order-chip {
+    background: var(--input-bg);
+    /* Changed from rgba(255,255,255,0.1) */
+    color: var(--text-main);
+    /* Changed from white */
+    padding: 8px 16px;
+    border-radius: 50px;
+    margin: 4px;
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid var(--glass-border);
+}
+
+:root {
+    /* ... existing variables ... */
+    --modal-bg: #1e1e1e;
+    --modal-text: #eee;
+}
+
+[data-theme="light"] {
+    /* ... existing variables ... */
+    --modal-bg: #ffffff;
+    --modal-text: #444;
+}
+
+/* --- Modal/Overlay (Restored Original Style) --- */
+#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    z-index: 5000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: var(--modal-bg);
+    padding: 25px;
+    border-radius: 28px;
+    max-width: 450px;
+    width: 92%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    color: var(--modal-text);
+    /* Force dark text for visibility on white */
+}
+
+/* Scrollbar styles */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 10px;
+}
+
+.rules-container {
+    text-align: left;
+    color: var(--modal-text);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.rules-section {
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--glass-border);
+    padding-bottom: 15px;
+}
+
+.rules-section:last-child {
+    border-bottom: none;
+}
+
+.rules-title {
+    color: var(--primary);
+    /* Uses Neon Red now, which works well */
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+.rules-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.rules-list li {
+    margin-bottom: 6px;
+    padding-left: 18px;
+    position: relative;
+    font-size: 0.9rem;
+}
+
+.rules-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.highlight-box {
+    background: #fff5f5;
+    border-left: 4px solid var(--primary);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+
+/* Helpers */
+/* Removed hardcoded .hidden class to prevent Tailwind conflicts */
+
+/* Toast Alert - Kept your redesign but adjusted for dark mode */
+#custom-alert {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(16px);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 50px;
+    z-index: 9999;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 4px solid var(--primary);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+}

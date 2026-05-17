@@ -1,0 +1,80 @@
+/* ============================================================
+   QR CODE TOOL STYLES
+   ============================================================ */
+
+/* Generator Tabs */
+.qr-tab {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.qr-tab:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.qr-tab.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  box-shadow: 0 0 15px 2px var(--accent-glow);
+}
+
+/* Tab Content Visibility */
+.qr-tab-pane {
+  display: none;
+}
+
+.qr-tab-pane.active {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Glass Card */
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* QR Scanner Line Animation */
+.qr-scan-line {
+  animation: scanMove 2s infinite linear;
+}
+
+@keyframes scanMove {
+  0% { top: 0%; opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.qr-scanner-overlay {
+  background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+#qrcode img {
+  border: 10px solid white;
+  border-radius: 8px;
+}
+
+/* Dark mode overrides for QR scanner corners */
+[data-theme="dark"] #qrcode {
+  padding: 10px;
+  background: white;
+  border-radius: 12px;
+}

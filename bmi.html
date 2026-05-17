@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BMI Calculator | Body Mass Index | Calcify</title>
+    <meta
+      name="description"
+      content="Calculate your Body Mass Index (BMI) instantly. Supports both metric and imperial units with clear health category results."
+    />
+
+    <link rel="canonical" href="https://calc.aurabyte.in/bmi" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/tool-page.css" />
+    <link rel="stylesheet" href="css/health.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "BMI Calculator - Calcify",
+        "url": "https://calc.aurabyte.in/bmi",
+        "applicationCategory": "HealthApplication"
+      }
+    </script>
+  </head>
+
+  <body>
+    <header data-load="components/navbar.html"></header>
+
+    <main>
+      <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- Page Header -->
+        <div class="text-center mb-8">
+          <span
+            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-3"
+            style="background: var(--accent-glow); color: var(--accent)"
+          >
+            <i class="fa-solid fa-heart-pulse"></i> Health Tool
+          </span>
+          <h1 class="text-3xl font-bold mb-2">BMI Calculator</h1>
+          <p class="text-gray-500 dark:text-gray-400">
+            Calculate your Body Mass Index to see if you are at a healthy
+            weight.
+          </p>
+        </div>
+
+        <!-- Calculator Card -->
+        <div class="card-fresh p-6 sm:p-8">
+          <!-- Unit Toggle -->
+          <div class="shape-tabs mb-8 mx-auto">
+            <button
+              class="shape-tab active"
+              id="tab-metric"
+              onclick="setUnits('metric')"
+            >
+              Metric (kg/cm)
+            </button>
+            <button
+              class="shape-tab"
+              id="tab-imperial"
+              onclick="setUnits('imperial')"
+            >
+              Imperial (lb/ft)
+            </button>
+          </div>
+
+          <!-- Input Form -->
+          <div class="space-y-6">
+            <!-- Metric Form -->
+            <div id="form-metric" class="health-form">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    class="block text-sm font-semibold mb-2 ml-1 text-secondary"
+                    >Weight (kg)</label
+                  >
+                  <input
+                    type="number"
+                    id="weight-kg"
+                    class="form-control"
+                    placeholder="e.g. 70"
+                    step="0.1"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-sm font-semibold mb-2 ml-1 text-secondary"
+                    >Height (cm)</label
+                  >
+                  <input
+                    type="number"
+                    id="height-cm"
+                    class="form-control"
+                    placeholder="e.g. 175"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Imperial Form -->
+            <div id="form-imperial" class="health-form hidden">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="col-span-1">
+                  <label
+                    class="block text-sm font-semibold mb-2 ml-1 text-secondary"
+                    >Weight (lb)</label
+                  >
+                  <input
+                    type="number"
+                    id="weight-lb"
+                    class="form-control"
+                    placeholder="e.g. 154"
+                  />
+                </div>
+                <div class="col-span-1">
+                  <label
+                    class="block text-sm font-semibold mb-2 ml-1 text-secondary"
+                    >Height (ft)</label
+                  >
+                  <input
+                    type="number"
+                    id="height-ft"
+                    class="form-control"
+                    placeholder="5"
+                  />
+                </div>
+                <div class="col-span-1">
+                  <label
+                    class="block text-sm font-semibold mb-2 ml-1 text-secondary"
+                    >Height (in)</label
+                  >
+                  <input
+                    type="number"
+                    id="height-in"
+                    class="form-control"
+                    placeholder="9"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <div class="pt-4">
+              <button
+                class="btn-calc btn-calc-primary w-full"
+                onclick="calculateBMI()"
+              >
+                <i class="fa-solid fa-calculator mr-2"></i> Calculate BMI
+              </button>
+            </div>
+
+            <!-- Error Message -->
+            <div id="error-msg" class="alert alert-danger hidden mt-4"></div>
+          </div>
+
+          <!-- Result Panel -->
+          <div
+            id="result-panel"
+            class="mt-8 pt-8 border-t border-gray-100 dark:border-gray-800 hidden"
+          >
+            <div class="text-center">
+              <p
+                class="text-sm font-semibold text-muted uppercase tracking-wider mb-1"
+              >
+                Your BMI is
+              </p>
+              <div
+                id="bmi-value"
+                class="text-5xl font-black mb-4"
+                style="color: var(--accent)"
+              >
+                22.9
+              </div>
+
+              <div
+                id="bmi-category-badge"
+                class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold mb-6"
+              >
+                Normal Weight
+              </div>
+
+              <!-- BMI Gauge/Indicator -->
+              <div
+                class="relative w-full h-4 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden mb-6"
+              >
+                <div class="absolute inset-0 flex">
+                  <div class="h-full bg-blue-400" style="width: 18.5%"></div>
+                  <div class="h-full bg-green-500" style="width: 6.5%"></div>
+                  <div class="h-full bg-yellow-500" style="width: 5%"></div>
+                  <div class="h-full bg-red-500" style="width: 70%"></div>
+                </div>
+                <!-- Marker -->
+                <div
+                  id="bmi-marker"
+                  class="absolute top-0 w-1 h-full bg-white shadow-lg transition-all duration-700"
+                  style="left: 22.9%"
+                ></div>
+              </div>
+
+              <p id="bmi-desc" class="text-muted text-sm px-4"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer data-load="components/footer.html"></footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/bmi.js"></script>
+  </body>
+</html>

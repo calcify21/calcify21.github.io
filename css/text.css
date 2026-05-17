@@ -1,0 +1,38 @@
+/* =======================================================
+   TEXT.CSS — Custom styles for Text Utilities
+   ======================================================= */
+
+.tool-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tool-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+}
+
+.tool-btn:active {
+  transform: translateY(0);
+}
+
+#mainText {
+  resize: vertical;
+  min-height: 200px;
+  background: var(--bg-input);
+}
+
+#mainText:focus {
+  background: var(--bg-card);
+}

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Central Tendency Calculator | Mean, Median, Mode | Calcify</title>
+    <meta
+      name="description"
+      content="Calculate mean (average), median, and mode instantly with our statistical calculator. Fast and accurate central tendency tool for students and teachers."
+    />
+    <link rel="canonical" href="https://calc.aurabyte.in/mean" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/tool-page.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calc.aurabyte.in/mean" />
+    <meta
+      property="og:title"
+      content="Mean, Median, Mode Calculator | Calcify"
+    />
+    <meta
+      property="og:description"
+      content="Calculate statistical averages effortlessly. Perfect for homework or data analysis."
+    />
+    <meta
+      property="og:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Central Tendency Calculator | Calcify"
+    />
+    <meta
+      name="twitter:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Central Tendency Calculator",
+        "operatingSystem": "Any",
+        "applicationCategory": "EducationalApplication",
+        "description": "An online tool to calculate mean, median, and mode for a given set of numbers.",
+        "url": "https://calc.aurabyte.in/mean",
+        "image": "https://calc.aurabyte.in/assets/images/thumbnail.png",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Aurabyte",
+          "url": "https://aurabyte.in"
+        }
+      }
+    </script>
+
+    <style>
+      #result,
+      #resultsTable {
+        display: none;
+      }
+      i:hover {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="myBar"></div>
+    </div>
+    <header data-load="components/navbar.html"></header>
+
+    <main>
+      <div class="max-w-2xl mx-auto px-4 py-10">
+        <!-- Hero -->
+        <div class="text-center mb-8 animate-fade-in-up">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-4"
+            style="background: var(--accent-glow); color: var(--accent)"
+          >
+            <i class="fa-solid fa-chart-bar"></i> Statistics Tool
+          </div>
+          <h1
+            class="text-2xl sm:text-3xl font-black mb-2"
+            style="color: var(--text-primary)"
+          >
+            Central Tendency &amp; Variation Calculator
+          </h1>
+          <p class="text-sm" style="color: var(--text-muted)">
+            Calculate mean, median, mode, range, and more from your data set.
+          </p>
+        </div>
+
+        <!-- Card -->
+        <div class="card-fresh p-6 sm:p-8 animate-fade-in-up stagger-1">
+          <form>
+            <div class="form-floating mb-3">
+              <input
+                type="number"
+                class="form-control num-input"
+                placeholder="Enter number 1"
+                id="num1"
+              />
+              <label for="num1">Enter 1st Number</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="number"
+                class="form-control num-input"
+                placeholder="Enter number 2"
+                id="num2"
+              />
+              <label for="num2">Enter 2nd Number</label>
+            </div>
+            <div id="input-container"></div>
+            <div class="flex flex-wrap gap-3 mt-2">
+              <button
+                class="btn-calc btn-calc-primary"
+                onclick="check()"
+                type="button"
+              >
+                <a href="#result" class="inheritColor" type="button"
+                  >Calculate</a
+                >
+              </button>
+              <button
+                class="btn-calc btn-calc-add"
+                onclick="addField()"
+                type="button"
+              >
+                <i class="fa-solid fa-plus"></i> Add Field
+              </button>
+              <button
+                class="btn-calc btn-calc-secondary"
+                id="reset1"
+                type="reset"
+                onclick="resetFields()"
+              >
+                Reset
+              </button>
+            </div>
+            <div class="mt-4">
+              <div id="result" class="alert alert-danger" role="alert"></div>
+            </div>
+            <div class="mt-4">
+              <table class="table table-hover" id="resultsTable">
+                <thead class="table-light" id="thead">
+                  <tr>
+                    <th scope="col">Measure</th>
+                    <th scope="col">Value</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider"></tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+
+        <!-- Scroll Buttons -->
+        <button onclick="gototop()" id="topbtn" aria-label="Scroll to top">
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
+        <button
+          onclick="gotobottom()"
+          id="bottombtn"
+          aria-label="Scroll to bottom"
+        >
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+    </main>
+
+    <footer
+      class="footer-custom mt-8"
+      data-load="components/footer.html"
+    ></footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/centraltendancy.js"></script>
+    <script src="js/utils.js"></script>
+  </body>
+</html>

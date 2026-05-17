@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Tools | Calcify</title>
+    <meta
+      name="description"
+      content="Explore Calcify's collection of free online tools, including math calculators, QR generators, and developer utilities."
+    />
+
+    <link rel="canonical" href="https://calc.aurabyte.in/calcs" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/calcs.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calc.aurabyte.in/calcs" />
+    <meta
+      property="og:title"
+      content="Smart Online Tools & Utilities | Calcify"
+    />
+    <meta
+      property="og:description"
+      content="Access our library of fast, free, and easy-to-use tools for math, web development, and daily tasks."
+    />
+    <meta
+      property="og:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Our Tools | Calcify" />
+    <meta
+      name="twitter:description"
+      content="Explore our suite of math and utility tools."
+    />
+    <meta
+      name="twitter:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Calcify Tool Directory",
+        "description": "A comprehensive collection of math, web, and lifestyle tools provided by Calcify.",
+        "url": "https://calc.aurabyte.in/calcs",
+        "image": "https://calc.aurabyte.in/assets/images/thumbnail.png",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Aurabyte",
+          "url": "https://aurabyte.in"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Progress Bar -->
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="myBar"></div>
+    </div>
+
+    <header data-load="components/navbar.html"></header>
+
+    <main>
+      <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- Search Bar & Clear Favourites -->
+        <div
+          class="flex flex-col sm:flex-row gap-3 mb-8"
+          id="exploreTextParent"
+        >
+          <div class="relative flex-1">
+            <i
+              class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2"
+              style="color: var(--accent)"
+            ></i>
+            <input
+              type="search"
+              id="toolSearch"
+              class="input-custom pl-11 text-base"
+              placeholder="Search and explore our services..."
+            />
+          </div>
+          <button
+            class="btn-outline-custom whitespace-nowrap text-sm"
+            onclick="removeAllFavorites()"
+            id="removeFavoritesBtn"
+          >
+            <i class="fa-solid fa-trash-can"></i>
+            <span>Clear Favourites</span>
+          </button>
+        </div>
+
+        <!-- No Results -->
+        <div id="noResults" class="text-center py-20 hidden">
+          <div
+            class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-input mb-6"
+          >
+            <i class="fa-solid fa-magnifying-glass fa-2x text-muted"></i>
+          </div>
+          <p class="text-xl font-bold text-secondary">
+            No tools found matching your search.
+          </p>
+          <p class="text-muted mt-2">
+            Try different keywords or clear the search to browse all tools.
+          </p>
+        </div>
+
+        <!-- Category sections rendered dynamically from CATEGORIES config in js/common.js -->
+        <div id="tool-categories"></div>
+
+        <!-- Scroll Buttons -->
+        <button onclick="gototop()" id="topbtn" aria-label="Scroll to top">
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
+        <button
+          onclick="gotobottom()"
+          id="bottombtn"
+          aria-label="Scroll to bottom"
+        >
+          <i class="fa-solid fa-arrow-down"></i>
+        </button>
+      </div>
+    </main>
+
+    <footer
+      class="footer-custom mt-8"
+      data-load="components/footer.html"
+    ></footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/calcs.js"></script>
+  </body>
+</html>

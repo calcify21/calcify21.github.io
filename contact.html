@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme") || "auto";
+        if (
+          theme === "dark" ||
+          (theme === "auto" &&
+            (new Date().getHours() >= 19 || new Date().getHours() < 7))
+        ) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | Calcify</title>
+    <meta
+      name="description"
+      content="Have questions, feedback, or collaboration ideas? Contact the Calcify team here. We would love to hear from you!"
+    />
+
+    <link rel="canonical" href="https://calc.aurabyte.in/contact" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/contact.css" />
+
+    <link rel="icon" href="assets/images/favicon-2.ico" type="image/x-icon" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calc.aurabyte.in/contact" />
+    <meta property="og:title" content="Get in Touch with Calcify" />
+    <meta
+      property="og:description"
+      content="Reach out to us for feedback, tool requests, or partnership opportunities."
+    />
+    <meta
+      property="og:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Contact Us | Calcify" />
+    <meta
+      name="twitter:description"
+      content="Have feedback or questions? Contact the Calcify team."
+    />
+    <meta
+      name="twitter:image"
+      content="https://calc.aurabyte.in/assets/images/thumbnail.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact Calcify",
+        "description": "The official contact page for Calcify users to send feedback or inquiries.",
+        "url": "https://calc.aurabyte.in/contact",
+        "image": "https://calc.aurabyte.in/assets/images/thumbnail.png",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Aurabyte",
+          "url": "https://aurabyte.in"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <header data-load="components/navbar.html"></header>
+    <main>
+      <div class="max-w-4xl mx-auto px-4 py-12">
+        <div class="card-fresh p-8 md:p-12 overflow-hidden" id="contact-form">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Left Column -->
+            <div class="text-center flex flex-col justify-center items-center">
+              <h2 class="text-4xl font-extrabold mb-8">Get in Touch</h2>
+              <img
+                src="assets/images/plane.png"
+                alt="image"
+                class="hidden md:block contact-image max-w-[280px]"
+              />
+            </div>
+
+            <!-- Right Column: Form -->
+            <div>
+              <form class="needs-validation" id="contactUsForm" novalidate>
+                <div class="mb-5">
+                  <label for="name" class="block text-sm font-semibold mb-2"
+                    >Your Name:</label
+                  >
+                  <span class="text-xs text-muted mb-2 block">
+                    (Required)
+                  </span>
+                  <input type="text" id="name" class="input-custom" required />
+                  <div class="valid-feedback text-green-500 text-xs mt-1">
+                    Looks good!
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+                  <div>
+                    <label for="email" class="block text-sm font-semibold mb-2"
+                      >Your Email:</label
+                    >
+                    <input type="email" id="email" class="input-custom" />
+                    <div class="text-[10px] text-muted mt-2">
+                      We'll never share your email with anyone else.
+                    </div>
+                  </div>
+                  <div>
+                    <label for="phn" class="block text-sm font-semibold mb-2"
+                      >Your Mobile Number:</label
+                    >
+                    <input type="tel" id="phn" class="input-custom" />
+                    <div class="text-[10px] text-muted mt-2">
+                      Please don't use 0 or + code in the beginning.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-6">
+                  <label for="rating" class="block text-sm font-semibold mb-4"
+                    >How much would you rate Calcify?</label
+                  >
+                  <div id="rating" class="flex gap-4 justify-center py-2">
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="ratingOpt"
+                        id="opt1"
+                        value="1"
+                        required
+                      />
+                      <span class="group-hover:text-accent transition-colors"
+                        >1</span
+                      >
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="ratingOpt"
+                        id="opt2"
+                        value="2"
+                      />
+                      <span class="group-hover:text-accent transition-colors"
+                        >2</span
+                      >
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="ratingOpt"
+                        id="opt3"
+                        value="3"
+                      />
+                      <span class="group-hover:text-accent transition-colors"
+                        >3</span
+                      >
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="ratingOpt"
+                        id="opt4"
+                        value="4"
+                      />
+                      <span class="group-hover:text-accent transition-colors"
+                        >4</span
+                      >
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="ratingOpt"
+                        id="opt5"
+                        value="5"
+                      />
+                      <span class="group-hover:text-accent transition-colors"
+                        >5</span
+                      >
+                    </label>
+                  </div>
+                </div>
+
+                <div class="mb-8">
+                  <label for="message" class="block text-sm font-semibold mb-2"
+                    >Your Message:</label
+                  >
+                  <span class="text-xs text-muted mb-2 block">
+                    (Required)
+                  </span>
+                  <textarea
+                    id="message"
+                    class="input-custom"
+                    rows="4"
+                    required
+                  ></textarea>
+                </div>
+
+                <div class="mt-8 flex gap-4">
+                  <button
+                    type="submit"
+                    class="btn-primary-custom flex-1"
+                    id="submit-btn"
+                  >
+                    Send Message
+                  </button>
+                  <button
+                    type="reset"
+                    class="btn-outline-custom flex-1"
+                    id="clear-btn"
+                  >
+                    Clear Form
+                  </button>
+                </div>
+              </form>
+
+              <div class="tick-container">
+                <svg class="tick-svg mx-auto" viewBox="0 0 52 52">
+                  <circle
+                    cx="26"
+                    cy="26"
+                    r="24"
+                    fill="none"
+                    stroke="#4caf50"
+                    stroke-width="4"
+                  />
+                  <path
+                    d="M14 27 l8 8 l16 -16"
+                    stroke="#4caf50"
+                    stroke-width="4"
+                    fill="none"
+                  />
+                </svg>
+                <div
+                  id="custom-message"
+                  class="font-bold text-3xl mt-8"
+                  style="color: #4caf50"
+                >
+                  Success!
+                </div>
+                <p class="text-muted mt-2 text-lg">
+                  Your message is on its way.
+                </p>
+                <div class="divider"></div>
+                <p class="text-sm text-muted mb-6">
+                  While you wait, check out our popular tools:
+                </p>
+                <div class="flex justify-center gap-4">
+                  <a href="/calcs" class="btn-primary-custom text-sm py-2"
+                    >Our Tools</a
+                  >
+                  <a href="/fav" class="btn-outline-custom text-sm py-2"
+                    >Your Favorites</a
+                  >
+                </div>
+                <button
+                  type="button"
+                  class="mt-8 returnToForm text-sm font-semibold hover:underline"
+                  style="color: var(--accent)"
+                >
+                  <i class="fa-solid fa-arrow-left mr-2"></i> Send another
+                  message
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer data-load="components/footer.html"></footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/contact.js"></script>
+  </body>
+</html>
